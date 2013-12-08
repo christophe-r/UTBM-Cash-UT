@@ -12,6 +12,7 @@
 #include "structures.h"
 
 
+
 extern GtkBuilder 	*builder_connexion;
 extern GtkBuilder 	*builder_cashut;
 extern const gchar 	*niveau_utilisateur;
@@ -19,8 +20,8 @@ extern const gchar 	*niveau_utilisateur;
 extern TauxTVA *taux_tva;
 extern int nombre_taux_tva;
 
- GtkWidget *list;   
- GtkListStore *store;
+extern GtkWidget *list;   
+extern GtkListStore *store;
 
 
 
@@ -468,9 +469,7 @@ void gu_dialog_champs_incorrects(void){
 /******************************/
 /* Partie Gestion des produit */
 /******************************/
-
-
-void init_list(GtkWidget *list)
+void init_treeview_lists(GtkWidget *list)
 {
 
   GtkCellRenderer *renderer;
@@ -509,10 +508,11 @@ void add_to_list(GtkWidget *list, const gchar *str)
 
 void Ajouter_liste (GtkWidget *widget, gpointer   data)
 {   
-     // GtkEntry *textentry = GTK_ENTRY (gtk_builder_getl_object (builder_cashut, "entry1"));
-  g_print("%s\n", gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "entry_codebarre")))); 
-   Ajouter_produit(gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "entry_codebarre"))));
-  add_to_list(list, gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "entry_codebarre"))));
+     //GtkEntry *textentry = GTK_ENTRY (gtk_builder_getl_object (builder_cashut, "entry1"));
+ g_print("%s\n", gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "entry_codebarre")))); 
+  Ajouter_produit(gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "entry_codebarre"))));
+//  add_to_list(list, gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "entry_codebarre"))));
+
 }
 
 

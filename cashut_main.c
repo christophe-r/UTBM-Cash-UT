@@ -31,6 +31,9 @@ Liste *liste_course;
 TauxTVA *taux_tva;
 int nombre_taux_tva;
 
+ GtkWidget *list;   //BUG du listestore de la liste de course
+ GtkListStore *store;
+
 int nombre_chargement_liststore_utilisateurs;
 
 
@@ -145,31 +148,32 @@ cashut_main_window(int argc, char *argv[])
 
 
 
-/*
-	initialisation_liste();
 
+	initialisation_liste();
+//	init_treeview_lists(list);
+/*
 	if( Ajouter_produit("3264420101830") == 1 ){
-		g_print("Produit ajouté");
+		g_print("Produit ajouté\n");
 	} else {
-		g_print("Probleme ajout");
+		g_print("Probleme ajout\n");
 	}
 
 	if( Ajouter_produit("5410076769421") == 1 ){
-		g_print("Produit ajouté");
+		g_print("Produit ajouté\n");
 	} else {
-		g_print("Probleme ajout");
+		g_print("Probleme ajout\n");
 	}
 
 	if( Ajouter_produit("4015400535737") == 1 ){
-		g_print("Produit ajouté");
+		g_print("Produit ajouté\n");
 	} else {
-		g_print("Probleme ajout");
+		g_print("Probleme ajout\n");
 	}
 	//Supprimer_produit(2,1);
 	//Supprimer_liste();
-	//afficherListe();*/
+	afficherListe();
 
-
+*/
 
 	gtk_widget_show (window_cashut);                
 	gtk_main();

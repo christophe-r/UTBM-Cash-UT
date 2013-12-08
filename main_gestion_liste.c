@@ -172,7 +172,7 @@ void afficherListe() { /* affiche la liste */
 
     while (actuel != NULL )
     {
-   g_print(actuel->p_produit->code_barre);
+   printf("%d",actuel->p_produit->produitid);
         actuel = actuel->suivant;
         printf(" -> "  );
     }
