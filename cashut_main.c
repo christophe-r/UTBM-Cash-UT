@@ -88,6 +88,45 @@ cashut_main_window(int argc, char *argv[])
 
 
 
+
+	// Callbacks Gestion des utilisateurs
+	g_signal_connect (
+            gtk_builder_get_object (builder_cashut, "gu_button_modifier"),
+            "clicked", G_CALLBACK(gu_button_modifier_clicked), NULL
+	);
+	g_signal_connect (
+            gtk_builder_get_object (builder_cashut, "gu_button_supprimer"),
+            "clicked", G_CALLBACK(gu_button_supprimer_clicked), NULL
+	);
+	g_signal_connect (
+            gtk_builder_get_object (builder_cashut, "gu_button_ajouter"),
+            "clicked", G_CALLBACK(gu_button_ajouter_clicked), NULL
+	);
+
+	g_signal_connect (
+            gtk_builder_get_object (builder_cashut, "treeview_utilisateurs"),
+            "row-activated", G_CALLBACK(gu_treeview_rowactivated), NULL
+	);
+
+
+
+
+
+
+
+	// Callbacks de la gestion des produits
+	g_signal_connect ( 
+			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "btn_ajouter")),
+			"clicked", G_CALLBACK (Ajouter_liste), NULL);
+	
+
+
+
+
+
+
+
+
 	nombre_taux_tva = mysql_nombre_taux_tva();
 	taux_tva = malloc( sizeof(TauxTVA) * nombre_taux_tva);
 	taux_tva = mysql_recuperer_taux_tva();

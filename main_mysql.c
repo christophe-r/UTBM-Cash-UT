@@ -298,7 +298,7 @@ TauxTVA *mysql_recuperer_taux_tva(){
 }
 
 
-/**** UTILISATEURS ****/
+/**** GESTION UTILISATEURS ****/
 
 int mysql_nombre_utilisateurs(){
 	
@@ -365,6 +365,7 @@ LISTEUTILISATEURS *mysql_recuperer_utilisateurs(){
 
 		while( (row = mysql_fetch_row(result)) ){ 
 			/* remplie les valeurs de la structure */
+			data_utilisateurs[i].id = g_strconcat((const gchar *)row[0], NULL);
 			data_utilisateurs[i].utilisateur = g_strconcat((const gchar *)row[2], NULL);
 			data_utilisateurs[i].motdepasse = g_strconcat((const gchar *)row[3], NULL);
 			data_utilisateurs[i].niveau = g_strconcat((const gchar *)row[1], NULL);
@@ -378,3 +379,54 @@ LISTEUTILISATEURS *mysql_recuperer_utilisateurs(){
 
 }
 
+
+int mysql_utilisateur_ajouter(const gchar *utilisateur, const gchar *motdepasse, const gchar *niveau){
+
+	gchar *query = NULL;
+	query = g_strconcat("INSERT INTO utilisateurs (niveau, nom, motdepasse) VALUES(\"", niveau ,"\",\"", utilisateur,"\",\"", motdepasse,"\")", NULL);
+
+	if (con == NULL) {
+		g_print("Database error.\n");
+		return 0;
+	} else if ( mysql_query(con, (char *)query) ){
+		finish_with_error(con);
+		return 0;
+	} else {
+		return 1;
+	}
+
+}
+
+int mysql_utilisateur_supprimer(const gchar *id_utilisateur){
+
+	gchar *query = NULL;
+	query = g_strconcat("DELETE FROM utilisateurs WHERE id=\"", id_utilisateur ,"\"", NULL);
+
+	if (con == NULL) {
+		g_print("Database error.\n");
+		return 0;
+	} else if ( mysql_query(con, (char *)query) ){
+		finish_with_error(con);
+		return 0;
+	} else {
+		return 1;
+	}
+
+}
+
+int mysql_utilisateur_modifier(const gchar *id_utilisateur, const gchar *nom_utilisateur, const gchar *mot_de_passe, const gchar *niveau){
+
+	gchar *query = NULL;
+	query = g_strconcat("UPDATE utilisateurs SET nom=\"", nom_utilisateur,"\", motdepasse=\"", mot_de_passe,"\", niveau=\"", niveau,"\" WHERE id=\"", id_utilisateur,"\"", NULL);
+
+	if (con == NULL) {
+		g_print("Database error.\n");
+		return 0;
+	} else if ( mysql_query(con, (char *)query) ){
+		finish_with_error(con);
+		return 0;
+	} else {
+		return 1;
+	}
+
+}
