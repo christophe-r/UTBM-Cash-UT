@@ -1,14 +1,16 @@
-
 #include <my_global.h>
 #include <mysql.h>
 #include <gtk/gtk.h>
-/*#include "main_callbacks.h"*/
 
 #include "structures.h"
 
 #include "cashut_main.h"
 #include "cashut_main_callbacks.h"
+
+#include "cashut_gu_callbacks.h"
+
 #include "main_mysql.h"
+
 #include "main_gestion_liste.h"
 
 #include "window_cashut.inc"

@@ -1,7 +1,5 @@
 #include <my_global.h>
 #include <mysql.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <glib.h>
 
 #include "main_callbacks.h"
