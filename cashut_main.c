@@ -8,6 +8,7 @@
 #include "cashut_main_callbacks.h"
 
 #include "cashut_gu_callbacks.h"
+#include "cashut_gp_callbacks.h"
 
 #include "main_mysql.h"
 
@@ -113,12 +114,6 @@ cashut_main_window(int argc, char *argv[])
             "row-activated", G_CALLBACK(gu_treeview_rowactivated), NULL
 	);
 
-
-
-
-
-
-
 	// Callbacks de la gestion des produits
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "btn_ajouter")),
@@ -127,16 +122,11 @@ cashut_main_window(int argc, char *argv[])
 
 
 
-
-
-
-
-
-	nombre_taux_tva = mysql_nombre_taux_tva();
+	nombre_taux_tva = mysql_nombre_taux_tva(); /* A améliorer !!*/
 	taux_tva = malloc( sizeof(TauxTVA) * nombre_taux_tva);
 	taux_tva = mysql_recuperer_taux_tva();
 
-
+	initialisation_liste(); /* A améliorer !!*/
 	
 
 	/*Produit *le_produit;
@@ -151,7 +141,10 @@ cashut_main_window(int argc, char *argv[])
 
 
 
-	initialisation_liste();
+
+
+
+
 //	init_treeview_lists(list);
 /*
 	if( Ajouter_produit("3264420101830") == 1 ){
