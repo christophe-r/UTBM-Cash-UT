@@ -8,16 +8,24 @@
 #include "structures.h"
 
 
+// Interface
 void finish_with_error();
 void connect_to_mysql();
+
+// Identification
 int mysql_verifier_identification(const gchar *utilisateur, const gchar *motdepasse);
 const gchar *mysql_niveau_utilisateur(const gchar *utilisateur, const gchar *motdepasse);
+
+// Produits
 int mysql_verifier_existence_produit(const gchar *code_barres);
+Produit *mysql_recuperer_produit(const gchar *code_barres);
+int mysql_nombre_rechercher_produits(const gchar *critere, const gchar *recherche);
+Produit *mysql_rechercher_produits(const gchar *critere, const gchar *recherche);
 
-struct Produit *mysql_recuperer_produit(const gchar *code_barres);
 
+// TVA
 int mysql_nombre_taux_tva();
-struct TauxTVA *mysql_recuperer_taux_tva();
+TauxTVA *mysql_recuperer_taux_tva();
 
 // Gestion utilisateurs
 int mysql_nombre_utilisateurs();

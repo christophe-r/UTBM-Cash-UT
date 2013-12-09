@@ -18,6 +18,7 @@ extern const gchar 	*database_user;
 extern const gchar 	*database_pass;
 
 extern LISTEUTILISATEURS *data_utilisateurs;
+extern Produit *data_recherche_produits;
 
 
 void finish_with_error()
@@ -197,6 +198,7 @@ struct Produit *mysql_recuperer_produit(const gchar *code_barres){
 				mon_produit->marque = row[2];
 				mon_produit->libelle = row[3];
 				mon_produit->type_marque = row[4];
+				mon_produit->conditionnement = row[5];
 				mon_produit->code_TVA = atoi(row[6]);
 				mon_produit->prix = atof(row[7]);
 
@@ -216,6 +218,89 @@ struct Produit *mysql_recuperer_produit(const gchar *code_barres){
 	}
 
 	return mon_produit; // pour retourner le pointeur
+
+}
+
+
+int mysql_nombre_rechercher_produits(const gchar *critere, const gchar *recherche){
+	
+	gchar *query = NULL;
+	query = g_strconcat("SELECT * FROM produits WHERE ", critere, " LIKE \"%", recherche, "%\"", NULL);
+
+	if (con == NULL) {
+		g_print("Database error.\n");
+		exit(1);
+	} else {
+
+		if (mysql_query(con, (char *)query) ) 
+		{
+			finish_with_error(con);
+		}
+
+		MYSQL_RES *result = mysql_store_result(con);
+
+		if (result == NULL) {
+			finish_with_error(con);
+		}
+
+		int num_rows;
+		num_rows = mysql_num_rows(result);
+
+		return num_rows;
+		mysql_free_result(result);
+	}
+
+}
+
+
+Produit *mysql_rechercher_produits(const gchar *critere, const gchar *recherche){
+
+	gchar *query = NULL;
+	query = g_strconcat("SELECT * FROM produits WHERE ", critere, " LIKE \"%", recherche, "%\"", NULL);
+
+	if (con == NULL) {
+		g_print("Database error.\n");
+		exit(1);
+	} else {
+
+		if (mysql_query(con, (char *)query) ) 
+		{
+			finish_with_error(con);
+		}
+
+		MYSQL_RES *result = mysql_store_result(con);
+
+		if (result == NULL) {
+			finish_with_error(con);
+		}
+
+		int num_rows;
+		num_rows = mysql_num_rows(result);
+
+		/* crée un pointeur de la taille de la structure multiplié par le nombre de produits trouvés */
+		data_recherche_produits = (Produit *) malloc(sizeof(Produit) * num_rows);
+
+		MYSQL_ROW row;
+		gint i;
+		i = 0;
+
+		while( (row = mysql_fetch_row(result)) ){ 
+			/* remplie les valeurs de la structure */
+			data_recherche_produits[i].produitid = atoi(row[0]);
+			data_recherche_produits[i].code_barres = g_strconcat((const gchar *)row[1], NULL);
+			data_recherche_produits[i].marque = g_strconcat((const gchar *)row[2], NULL);
+			data_recherche_produits[i].libelle = g_strconcat((const gchar *)row[3], NULL);
+			data_recherche_produits[i].type_marque = g_strconcat((const gchar *)row[4], NULL);
+			// Conditionnement
+			data_recherche_produits[i].code_TVA = atoi(row[6]);
+			data_recherche_produits[i].prix = atof(g_strconcat((const gchar *)row[7], NULL));
+
+			i++;
+		}
+
+		mysql_free_result(result);
+		return data_recherche_produits;
+	}
 
 }
 

@@ -12,7 +12,6 @@
 #include "structures.h"
 
 
-
 extern GtkBuilder 	*builder_connexion;
 extern GtkBuilder 	*builder_cashut;
 extern const gchar 	*niveau_utilisateur;
@@ -20,8 +19,14 @@ extern const gchar 	*niveau_utilisateur;
 extern TauxTVA *taux_tva;
 extern int nombre_taux_tva;
 
+extern int nombre_chargement_liststore_utilisateurs;
+LISTEUTILISATEURS *data_utilisateurs;
+Produit *data_recherche_produits;
+
+
 extern GtkWidget *list;   
 extern GtkListStore *store;
+
 
 
 

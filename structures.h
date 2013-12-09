@@ -6,10 +6,11 @@ typedef struct Produit Produit; /* structure du produit */
 struct Produit
 {
 	int produitid;
-	const gchar *code_barre;
+	const gchar *code_barres;
 	char *marque;
 	char *libelle;
 	char *type_marque;
+	char *conditionnement;
 	int code_TVA;
 	float prix;
 };
@@ -28,12 +29,11 @@ struct Liste
 };
 
 
-typedef struct TauxTVA TauxTVA; /* structure de la TVA */
-struct TauxTVA
+typedef struct TypeTauxTVA /* structure de la TVA */
 {
 	int		code;
 	float	taux;
-};
+}TauxTVA;
 
 
 typedef struct ListeUtilisateurs
