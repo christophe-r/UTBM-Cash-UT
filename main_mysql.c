@@ -291,7 +291,7 @@ Produit *mysql_rechercher_produits(const gchar *critere, const gchar *recherche)
 			data_recherche_produits[i].marque = g_strconcat((const gchar *)row[2], NULL);
 			data_recherche_produits[i].libelle = g_strconcat((const gchar *)row[3], NULL);
 			data_recherche_produits[i].type_marque = g_strconcat((const gchar *)row[4], NULL);
-			// Conditionnement
+			data_recherche_produits[i].conditionnement = g_strconcat((const gchar *)row[5], NULL);
 			data_recherche_produits[i].code_TVA = atoi(row[6]);
 			data_recherche_produits[i].prix = atof(g_strconcat((const gchar *)row[7], NULL));
 
