@@ -25,6 +25,7 @@ void gu_dialog_champs_incorrects(void);
 
 // Encaissement
 float tva_code2taux(int code);
+void Ajouter_liste (GtkWidget *widget, gpointer   data);
 
 
 // gestion des produits
