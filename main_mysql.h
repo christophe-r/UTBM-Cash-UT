@@ -34,4 +34,9 @@ int mysql_utilisateur_ajouter(const gchar *utilisateur, const gchar *motdepasse,
 int mysql_utilisateur_supprimer(const gchar *id_utilisateur);
 int mysql_utilisateur_modifier(const gchar *id_utilisateur, const gchar *nom_utilisateur, const gchar *mot_de_passe, const gchar *niveau);
 
+
+// Encaissement
+int mysql_encaissement_facturer(const gchar *date, const gchar *num_caisse, const gchar *num_caissiere, const gchar *facture, float total_prix);
+
+
 #endif /* MYSQL_H */

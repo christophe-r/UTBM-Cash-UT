@@ -513,3 +513,28 @@ int mysql_utilisateur_modifier(const gchar *id_utilisateur, const gchar *nom_uti
 	}
 
 }
+
+
+/*** ENCAISSEMENT ***/
+int mysql_encaissement_facturer(const gchar *date, const gchar *num_caisse, const gchar *num_caissiere, const gchar *facture, float total_prix){
+
+	char *cTotal_prix;
+	sprintf(cTotal_prix, "%.2f", total_prix);
+
+	gchar *query = NULL;
+	query = g_strconcat("INSERT INTO factures (date, num_caisse, num_caissiere, facture, total_prix) VALUES(\"", date ,"\",\"", num_caisse,"\",\"", num_caissiere, "\",\"", facture, "\",\"", cTotal_prix, "\")", NULL);
+
+	if (con == NULL) {
+		g_print("Database error.\n");
+		return 0;
+	} else if ( mysql_query(con, (char *)query) ){
+		finish_with_error(con);
+		return 0;
+	} else {
+		return 1;
+	}
+
+}
+
+
+

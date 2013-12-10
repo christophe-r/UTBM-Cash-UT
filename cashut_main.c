@@ -132,14 +132,6 @@ cashut_main_window(int argc, char *argv[])
 
 
 
-
-
-
-
-
-
-
-
 	/*Produit *le_produit;
 	le_produit = mysql_recuperer_produit("3147690051107");
 
