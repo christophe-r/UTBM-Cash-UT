@@ -1,5 +1,5 @@
-#ifndef CASHUT_GP_CALLBACKS_H
-#define CASHUT_GP_CALLBACKS_H
+#ifndef CASHUT_PE_CALLBACKS_H
+#define CASHUT_PE_CALLBACKS_H
 
 #include <gtk/gtk.h>
 
@@ -19,4 +19,4 @@ void add_to_list(GtkWidget *list, const gchar *str);
 
 
 
-#endif /* CASHUT_GP_CALLBACKS_H */
+#endif /* CASHUT_PE_CALLBACKS_H */
