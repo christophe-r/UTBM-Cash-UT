@@ -5,7 +5,7 @@
 
 #include <glib.h>
 
-#include "cashut_gp_callbacks.h"
+#include "cashut_pe_callbacks.h"
 #include "main_mysql.h"
 #include "main_gestion_liste.h"
 #include "structures.h"

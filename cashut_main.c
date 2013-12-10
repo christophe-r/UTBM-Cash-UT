@@ -8,7 +8,7 @@
 #include "cashut_main_callbacks.h"
 
 #include "cashut_gu_callbacks.h"
-#include "cashut_gp_callbacks.h"
+#include "cashut_pe_callbacks.h"
 
 #include "main_mysql.h"
 
@@ -31,11 +31,11 @@ extern const gchar 	*caisse_num;
 
 Liste *liste_course;
 
-TauxTVA *taux_tva;
+TauxTVA *taux_tva; 
 int nombre_taux_tva;
 
- GtkWidget *list;   //BUG du listestore de la liste de course
- GtkListStore *store;
+ GtkWidget *list;   //BUG du listestore de la liste de course /* A améliorer !!*/
+ GtkListStore *store; /* A améliorer !!*/
 
 int nombre_chargement_liststore_utilisateurs;
 
@@ -129,6 +129,17 @@ cashut_main_window(int argc, char *argv[])
 	initialisation_liste(); /* A améliorer !!*/
 	
 
+
+
+
+
+
+
+
+
+
+
+
 	/*Produit *le_produit;
 	le_produit = mysql_recuperer_produit("3147690051107");
 
@@ -137,13 +148,6 @@ cashut_main_window(int argc, char *argv[])
 	g_print(le_produit->marque);
 	g_print(le_produit->libelle);
 	g_print(le_produit->type_marque);*/
-
-
-
-
-
-
-
 
 //	init_treeview_lists(list);
 /*
