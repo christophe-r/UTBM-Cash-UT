@@ -17,15 +17,15 @@ extern GtkBuilder 	*builder_cashut;
 extern TauxTVA *taux_tva;
 extern int nombre_taux_tva;
 
-extern GtkWidget *list;   
-extern GtkListStore *store;
+extern GtkWidget *treeview_liste_chaine;   
+// extern GtkListStore *store;
 
 
 /******************************/
 /* Partie Gestion des produit */
 /******************************/
 
-void init_treeview_lists(GtkWidget *list)
+void init_treeview_lists_chaine()
 {
 
   GtkCellRenderer *renderer;
@@ -34,26 +34,26 @@ void init_treeview_lists(GtkWidget *list)
 
   renderer = gtk_cell_renderer_text_new(); // type de donnée
   column = gtk_tree_view_column_new_with_attributes("Code barres",renderer, "text", TEXT_LIBELLE, NULL); // definie la donnée
-  gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_liste_chaine), column);
 
   renderer = gtk_cell_renderer_text_new(); // type de donnée
   column = gtk_tree_view_column_new_with_attributes("Prix",renderer, "text", INT_PRIX, NULL); // definie la donnée
-  gtk_tree_view_append_column(GTK_TREE_VIEW(list), column);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_liste_chaine), column);
 
   store = gtk_list_store_new(N_COLUMNS, G_TYPE_STRING);
 
-  gtk_tree_view_set_model(GTK_TREE_VIEW(list), GTK_TREE_MODEL(store));
+  gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_liste_chaine), GTK_TREE_MODEL(store));
 
   g_object_unref(store);
 }
 
 
-void add_to_list(GtkWidget *list, const gchar *str)
+void add_to_treeview_liste_chaine(const gchar *str)
 {
   
   GtkTreeIter iter;
-
-  store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(list)));
+ GtkListStore *store;
+  store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(treeview_liste_chaine)));
 
   gtk_list_store_append(store, &iter);
   gtk_list_store_set(store, &iter, TEXT_LIBELLE, str, -1);
@@ -66,8 +66,8 @@ void Ajouter_liste (GtkWidget *widget, gpointer   data)
 {   
      //GtkEntry *textentry = GTK_ENTRY (gtk_builder_getl_object (builder_cashut, "entry1"));
 	g_print("%s\n", gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "entry_codebarre")))); 
-	Ajouter_produit(gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "entry_codebarre"))));
-//  add_to_list(list, gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "entry_codebarre"))));
+	Ajouter_produit_liste_chaine(gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "entry_codebarre"))));
+    add_to_treeview_liste_chaine(gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "entry_codebarre"))));
 
 }
 

@@ -10,9 +10,9 @@
 float tva_code2taux(int code);
 
 // gestion des produits
-void init_treeview_lists(GtkWidget *list);
+void init_treeview_lists_chaine();
 G_MODULE_EXPORT void Ajouter_liste(GtkWidget *widget, gpointer   data);
-void add_to_list(GtkWidget *list, const gchar *str); 
+void add_to_treeview_liste_chaine(const gchar *str); 
 
 
 

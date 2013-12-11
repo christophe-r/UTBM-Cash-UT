@@ -62,7 +62,7 @@ int bVerification_somme_de_controle(const gchar *p_code_ean13){
 
 
 
-short int initialisation_liste(void){
+short int initialisation_liste_chaine(void){
 	Liste *liste = malloc(sizeof(*liste));
 
     if (liste == NULL){
@@ -74,7 +74,7 @@ short int initialisation_liste(void){
     return 1;
 }
 
-short int Ajouter_produit(const gchar *code_barres){
+short int Ajouter_produit_liste_chaine(const gchar *code_barres){
 	/* Ajout d'un produit à la liste */
 	 
 	if( bVerification_somme_de_controle(code_barres) == 0 ) // verification de la validitée du code barres
@@ -113,7 +113,7 @@ short int Ajouter_produit(const gchar *code_barres){
     return 1;
 }
 
-short int Supprimer_produit(short int place, short int nombres){ /* Suppression de produits à la liste */
+short int Supprimer_produit_liste_chaine(short int place, short int nombres){ /* Suppression de produits à la liste */
 
     if( liste_course->debut != NULL ){
 
@@ -152,7 +152,7 @@ return 1;
 }
 
 
-short int Supprimer_liste(){
+short int Supprimer_liste_chaine(){
 	/* suppression de la liste */
 	Element *actuel = liste_course->debut;
 	while (actuel != NULL) /* On parcours la liste et on supprime chaque terme */ 

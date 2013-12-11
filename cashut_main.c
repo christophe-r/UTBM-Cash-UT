@@ -34,8 +34,8 @@ Liste *liste_course;
 TauxTVA *taux_tva; 
 int nombre_taux_tva;
 
- GtkWidget *list;   //BUG du listestore de la liste de course /* A améliorer !!*/
- GtkListStore *store; /* A améliorer !!*/
+ GtkWidget *treeview_liste_chaine;   //BUG du listestore de la liste de course /* A améliorer !!*/
+ // GtkListStore *store; /* A améliorer !!*/
 
 int nombre_chargement_liststore_utilisateurs;
 
@@ -126,7 +126,14 @@ cashut_main_window(int argc, char *argv[])
 	taux_tva = malloc( sizeof(TauxTVA) * nombre_taux_tva);
 	taux_tva = mysql_recuperer_taux_tva();
 
-	initialisation_liste(); /* A améliorer !!*/
+
+
+	treeview_liste_chaine = GTK_WIDGET (gtk_builder_get_object (builder_cashut, "treeview1"));
+	if (gtk_tree_view_get_model (treeview_liste_chaine) == NULL) // normalement éxécuter une seul fois au démarrage
+	{
+	initialisation_liste_chaine(); 
+	init_treeview_lists_chaine();
+	}
 	
 
 
