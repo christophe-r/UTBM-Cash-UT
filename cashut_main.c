@@ -124,7 +124,6 @@ cashut_main_window(int argc, char *argv[])
 	
 
 
-
 	nombre_taux_tva = mysql_nombre_taux_tva(); 
 	taux_tva = malloc( sizeof(TauxTVA) * nombre_taux_tva); /*free a rajouter !!! */
 	taux_tva = mysql_recuperer_taux_tva();
@@ -132,14 +131,12 @@ cashut_main_window(int argc, char *argv[])
 
 
 	treeview_liste_chaine = GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_treeview_liste_chaine"));
-	if (gtk_tree_view_get_model (treeview_liste_chaine) == NULL) // normalement éxécuter une seul fois au démarrage
+	if (gtk_tree_view_get_model (treeview_liste_chaine) == NULL) // normalement exécuté une seule fois au démarrage
 	{
-	initialisation_liste_chaine(); 
-	init_treeview_lists_chaine();
+		initialisation_liste_chaine(); 
+		init_treeview_lists_chaine();
 	}
 	
-
-
 
 
 	/*Produit *le_produit;

@@ -40,7 +40,7 @@ main.o: main.c window_connexion.inc main_callbacks.h main_mysql.h structures.h
 main_callbacks.o: main_callbacks.c main_callbacks.h main_mysql.h cashut_main.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
 
-main_mysql.o: main_mysql.c main_mysql.h main_callbacks.h
+main_mysql.o: main_mysql.c main_mysql.h main_callbacks.h structures.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
 
 cashut_main.o: cashut_main.c cashut_main.h cashut_main_callbacks.h main_mysql.h main_gestion_liste.h structures.h

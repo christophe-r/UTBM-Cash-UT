@@ -19,6 +19,9 @@ const gchar *mysql_niveau_utilisateur(const gchar *utilisateur, const gchar *mot
 // Produits
 int mysql_verifier_existence_produit(const gchar *code_barres);
 Produit *mysql_recuperer_produit(const gchar *code_barres);
+int mysql_produit_ajouter(const gchar *code_barres, const gchar *marque, const gchar *libelle, const gchar *type_marque, const gchar *conditionnement, const gchar *code_tva, const gchar *prix);
+int mysql_produit_modifier(const gchar *code_barres, const gchar *marque, const gchar *libelle, const gchar *type_marque, const gchar *conditionnement, const gchar *code_tva, const gchar *prix);
+int mysql_produit_supprimer(const gchar *code_barres);
 int mysql_nombre_rechercher_produits(const gchar *critere, const gchar *recherche);
 Produit *mysql_rechercher_produits(const gchar *critere, const gchar *recherche);
 

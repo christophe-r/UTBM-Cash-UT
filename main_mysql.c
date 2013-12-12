@@ -1,5 +1,6 @@
 #include <my_global.h>
 #include <mysql.h>
+
 #include <glib.h>
 
 #include "main_mysql.h"
@@ -19,6 +20,7 @@ extern LISTEUTILISATEURS *data_utilisateurs;
 extern Produit *data_recherche_produits;
 
 
+/*** INTERFACES ***/
 void finish_with_error()
 {
 	fprintf(stderr, "%s\n", mysql_error(con));
@@ -38,10 +40,13 @@ void connect_to_mysql()
 	{
 		dialog_mysql_error();
 		mysql_close(con);
+	} else {
+		mysql_query(con, "SET NAMES 'utf8'"); /* Debug pour accents */
 	}
 
 }
 
+/*** GESTION CONNEXION ***/
 
 int mysql_verifier_identification(const gchar *utilisateur, const gchar *motdepasse){
 
@@ -124,6 +129,7 @@ const gchar *mysql_niveau_utilisateur(const gchar *utilisateur, const gchar *mot
 
 }
 
+/*** PRODUITS ***/
 
 int mysql_verifier_existence_produit(const gchar *code_barres){
 
@@ -218,6 +224,71 @@ struct Produit *mysql_recuperer_produit(const gchar *code_barres){
 	return mon_produit; // pour retourner le pointeur
 
 }
+
+
+
+int mysql_produit_ajouter(const gchar *code_barres, const gchar *marque, const gchar *libelle, const gchar *type_marque, const gchar *conditionnement, const gchar *code_tva, const gchar *prix){
+
+
+	/*char *c_code_tva;
+	sprintf(c_code_tva, "%d", code_tva);
+
+	char *cPrix_produit;
+	sprintf(cPrix_produit, "%.2f", prix_produit);*/
+
+	gchar *query = NULL;
+	query = g_strconcat("INSERT INTO produits (ean13, marque, libelle, type_marque, conditionnement, code_tva, prix) VALUES(\"", code_barres ,"\",\"", marque,"\",\"", libelle,"\",\"", type_marque,"\",\"", conditionnement,"\",\"", code_tva,"\",\"", prix,"\")", NULL);
+
+	if (con == NULL) {
+		g_print("Database error.\n");
+		return 0;
+	} else if ( mysql_query(con, (char *)query) ){
+		finish_with_error(con);
+		return 0;
+	} else {
+		return 1;
+	}
+
+}
+
+
+int mysql_produit_modifier(const gchar *code_barres, const gchar *marque, const gchar *libelle, const gchar *type_marque, const gchar *conditionnement, const gchar *code_tva, const gchar *prix){
+
+
+	gchar *query = NULL;
+	query = g_strconcat("UPDATE produits SET ean13=\"", code_barres ,"\", marque=\"", marque,"\", libelle=\"", libelle,"\", type_marque=\"", type_marque,"\", conditionnement=\"", conditionnement,"\", code_tva=\"", code_tva,"\", prix=\"", prix,"\" WHERE ean13=\"", code_barres ,"\"", NULL);
+
+
+	if (con == NULL) {
+		g_print("Database error.\n");
+		return 0;
+	} else if ( mysql_query(con, (char *)query) ){
+		finish_with_error(con);
+		return 0;
+	} else {
+		return 1;
+	}
+
+}
+
+int mysql_produit_supprimer(const gchar *code_barres){
+
+	gchar *query = NULL;
+	query = g_strconcat("DELETE FROM produits WHERE ean13=\"", code_barres ,"\"", NULL);
+
+	if (con == NULL) {
+		g_print("Database error.\n");
+		return 0;
+	} else if ( mysql_query(con, (char *)query) ){
+		finish_with_error(con);
+		return 0;
+	} else {
+		return 1;
+	}
+
+}
+
+
 
 
 int mysql_nombre_rechercher_produits(const gchar *critere, const gchar *recherche){
