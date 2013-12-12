@@ -114,7 +114,7 @@ cashut_main_window(int argc, char *argv[])
             "row-activated", G_CALLBACK(gu_treeview_rowactivated), NULL
 	);
 
-	// Callbacks de la gestion des produits
+	// Callbacks de la partie encaissement
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "btn_ajouter")),
 			"clicked", G_CALLBACK (Ajouter_liste), NULL);
@@ -122,8 +122,8 @@ cashut_main_window(int argc, char *argv[])
 
 
 
-	nombre_taux_tva = mysql_nombre_taux_tva(); /* A améliorer !!*/
-	taux_tva = malloc( sizeof(TauxTVA) * nombre_taux_tva);
+	nombre_taux_tva = mysql_nombre_taux_tva(); 
+	taux_tva = malloc( sizeof(TauxTVA) * nombre_taux_tva); /*free a rajouter !!! */
 	taux_tva = mysql_recuperer_taux_tva();
 
 

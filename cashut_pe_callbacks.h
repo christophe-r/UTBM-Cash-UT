@@ -3,10 +3,10 @@
 
 #include <gtk/gtk.h>
 
-// Gestion des produits
-
-
 // Encaissement
+
+
+// gestion de la tva
 float tva_code2taux(int code);
 
 // gestion des produits
