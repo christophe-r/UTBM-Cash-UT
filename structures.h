@@ -44,10 +44,11 @@ typedef struct ListeUtilisateurs
   const gchar 	*niveau;
 }LISTEUTILISATEURS;
 
-enum
+enum /*tree view partie encaissement */ 
 {
-  TEXT_LIBELLE =0,
-  INT_PRIX=0,
+  QUANTITES,
+  LIBELLE,
+  PRIX,
   N_COLUMNS
 };
 

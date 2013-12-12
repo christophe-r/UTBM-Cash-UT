@@ -116,8 +116,11 @@ cashut_main_window(int argc, char *argv[])
 
 	// Callbacks de la partie encaissement
 	g_signal_connect ( 
-			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "btn_ajouter")),
+			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_ajouter")),
 			"clicked", G_CALLBACK (Ajouter_liste), NULL);
+	g_signal_connect ( 
+			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_afficher")),
+			"clicked", G_CALLBACK (testfonction), NULL);
 	
 
 
@@ -128,7 +131,7 @@ cashut_main_window(int argc, char *argv[])
 
 
 
-	treeview_liste_chaine = GTK_WIDGET (gtk_builder_get_object (builder_cashut, "treeview1"));
+	treeview_liste_chaine = GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_treeview_liste_chaine"));
 	if (gtk_tree_view_get_model (treeview_liste_chaine) == NULL) // normalement éxécuter une seul fois au démarrage
 	{
 	initialisation_liste_chaine(); 

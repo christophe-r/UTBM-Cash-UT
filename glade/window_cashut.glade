@@ -51,11 +51,11 @@
           </packing>
         </child>
         <child>
-            <object class="GtkFixed" id="fixed2">
+          <object class="GtkFixed" id="fixed2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkEntry" id="entry_codebarre">
+              <object class="GtkEntry" id="pe_entry_codebarre">
                 <property name="width_request">226</property>
                 <property name="height_request">40</property>
                 <property name="visible">True</property>
@@ -63,17 +63,17 @@
                 <property name="invisible_char">•</property>
               </object>
               <packing>
-                <property name="x">17</property>
-                <property name="y">78</property>
+                <property name="x">10</property>
+                <property name="y">65</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="Gestion de produit">
+              <object class="GtkLabel" id="pe_lbl_Gestiondeproduit">
                 <property name="width_request">100</property>
-                <property name="height_request">80</property>
+                <property name="height_request">30</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label">Gestion des Produits :</property>
+                <property name="label">Encaissement :</property>
                 <attributes>
                   <attribute name="font-desc" value="Sans 14"/>
                   <attribute name="weight" value="bold"/>
@@ -81,46 +81,52 @@
                 </attributes>
               </object>
               <packing>
-                <property name="x">13</property>
-                <property name="y">6</property>
+                <property name="x">10</property>
+                <property name="y">20</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="btn_afficher">
+              <object class="GtkButton" id="pe_btn_afficher">
                 <property name="label" translatable="yes">Afficher</property>
+                <property name="use_action_appearance">False</property>
                 <property name="width_request">70</property>
                 <property name="height_request">40</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
               </object>
               <packing>
-                <property name="x">21</property>
+                <property name="x">10</property>
                 <property name="y">121</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="btn_ajouter">
+              <object class="GtkButton" id="pe_btn_ajouter">
                 <property name="label" translatable="yes">Ajouter</property>
-                <property name="width_request">70</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">95</property>
                 <property name="height_request">40</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
               </object>
               <packing>
-                <property name="x">260</property>
-                <property name="y">78</property>
+                <property name="x">239</property>
+                <property name="y">65</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="btn_suprimer">
+              <object class="GtkButton" id="pe_btn_suprimer">
                 <property name="label" translatable="yes">Suprimer</property>
+                <property name="use_action_appearance">False</property>
                 <property name="width_request">70</property>
                 <property name="height_request">40</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
               </object>
               <packing>
                 <property name="x">121</property>
@@ -128,30 +134,167 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="btn_annuler">
+              <object class="GtkButton" id="pe_btn_annuler">
                 <property name="label" translatable="yes">Annuler</property>
+                <property name="use_action_appearance">False</property>
                 <property name="width_request">70</property>
                 <property name="height_request">40</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
               </object>
               <packing>
                 <property name="x">260</property>
-                <property name="y">28</property>
+                <property name="y">16</property>
               </packing>
             </child>
             <child>
-              <object class="GtkTreeView" id="treeview1">
-                <property name="width_request">394</property>
-                <property name="height_request">549</property>
+              <object class="GtkButton" id="pe_btn_terminer_fac">
+                <property name="label" translatable="yes">Terminer avec facture</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">95</property>
+                <property name="height_request">80</property>
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="search_column">0</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
               </object>
               <packing>
-                <property name="x">334</property>
-                <property name="y">33</property>
+                <property name="x">174</property>
+                <property name="y">500</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="pe_btn_terminer_nofac">
+                <property name="label" translatable="yes">Terminer sans facture</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">95</property>
+                <property name="height_request">80</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">500</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="pe_lbl_encaisement">
+                <property name="width_request">100</property>
+                <property name="height_request">30</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0.4699999988079071</property>
+                <property name="label">Paiment :</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans 14"/>
+                  <attribute name="weight" value="bold"/>
+                  <attribute name="underline" value="True"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">175</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="pe_btn_cheque">
+                <property name="label" translatable="yes">cheque</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">95</property>
+                <property name="height_request">40</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">210</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="pe_btn_carte">
+                <property name="label" translatable="yes">carte</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">95</property>
+                <property name="height_request">40</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="x">237</property>
+                <property name="y">210</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="pe_btn_espece">
+                <property name="label" translatable="yes">espece</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">95</property>
+                <property name="height_request">40</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="x">127</property>
+                <property name="y">210</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="pe_separator1">
+                <property name="width_request">320</property>
+                <property name="height_request">15</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">161</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="pe_separator2">
+                <property name="width_request">320</property>
+                <property name="height_request">10</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">487</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolledwindowencaisement">
+                <property name="width_request">395</property>
+                <property name="height_request">550</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="shadow_type">in</property>
+                <child>
+                  <object class="GtkTreeView" id="pe_treeview_liste_chaine">
+                    <property name="width_request">394</property>
+                    <property name="height_request">549</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="search_column">0</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="treeview-selection"/>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="x">336</property>
+                <property name="y">6</property>
               </packing>
             </child>
           </object>
@@ -283,7 +426,7 @@ produits</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <child internal-child="selection">
-                      <object class="GtkTreeSelection" id="treeview-selection1"/>
+                      <object class="GtkTreeSelection" id="treeview-selection3"/>
                     </child>
                   </object>
                 </child>

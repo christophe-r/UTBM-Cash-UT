@@ -13,7 +13,8 @@ float tva_code2taux(int code);
 void init_treeview_lists_chaine();
 G_MODULE_EXPORT void Ajouter_liste(GtkWidget *widget, gpointer   data);
 void add_to_treeview_liste_chaine(const gchar *str); 
-
+static void fixed_toggled (GtkCellRendererToggle *cell, gchar *path_str,gpointer data);
+G_MODULE_EXPORT void testfonction (GtkWidget *widget, gpointer   data);
 
 
 
