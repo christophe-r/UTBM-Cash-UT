@@ -19,7 +19,8 @@ extern GtkBuilder 	*builder_cashut;
 extern const gchar 	*niveau_utilisateur;
 
 
- Produit *data_recherche_produits; 
+extern TauxTVA *taux_tva;
+Produit *data_recherche_produits; 
 
 
 
@@ -27,7 +28,10 @@ extern const gchar 	*niveau_utilisateur;
 void 
 on_window_cashut_destroy (GtkWidget *widget, gpointer user_data)
 {
-    //gtk_main_quit ();
+	if( taux_tva != NULL ){
+		free(taux_tva);
+	}
+
 	gtk_widget_hide(GTK_WIDGET (gtk_builder_get_object (builder_cashut, "window_cashut")));
 	gtk_widget_show(GTK_WIDGET (gtk_builder_get_object (builder_connexion, "window_connexion")));
 	gtk_entry_set_text (GTK_ENTRY(gtk_builder_get_object (builder_connexion, "username")), "");
@@ -58,27 +62,27 @@ on_notebook_change_page (GtkWidget *widget, gpointer user_data)
 
 	switch( current_page ){
 		case 0: // ACCUEIL
-			g_print("Tab0\n");
+			//g_print("Tab0\n");
 		break;
 
 		case 1: // ENCAISSEMENT
-			g_print("Tab1\n");
+			//g_print("Tab1\n");
 		break;
 
 		case 2: // CALCULATRICE
-			g_print("Tab2\n");
+			//g_print("Tab2\n");
 		break;
 
 		case 3: // CATALOGUE
-			g_print("Tab3\n");
+			//g_print("Tab3\n");
 		break;
 
 		case 4: // STATISTIQUES
-			g_print("Tab4\n");
+			//g_print("Tab4\n");
 		break;
 
 		case 5: // GESTION PRODUITS
-			g_print("Tab5\n");
+			//g_print("Tab5\n");
 		break;
 
 		case 6: // GESTION UTILISATEURS
@@ -86,7 +90,7 @@ on_notebook_change_page (GtkWidget *widget, gpointer user_data)
 		break;
 
 		case 7: // A PROPOS
-			g_print("Tab7\n");
+			//g_print("Tab7\n");
 		break;
 
 		default:

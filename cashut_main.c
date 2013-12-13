@@ -31,7 +31,7 @@ extern const gchar 	*caisse_num;
 
 Liste *liste_course;
 
-TauxTVA *taux_tva; 
+TauxTVA *taux_tva;
 int nombre_taux_tva;
 
  GtkWidget *treeview_liste_chaine;   //BUG du listestore de la liste de course /* A améliorer !!*/
@@ -43,25 +43,18 @@ int nombre_chargement_liststore_utilisateurs;
 int
 cashut_main_window(int argc, char *argv[])
 {
-	
-	nombre_chargement_liststore_utilisateurs = 0;
-	
-    /*GtkBuilder      *builder;*/
+		
     GtkWidget  *window_cashut;
-
 
     gtk_init (&argc, &argv);
 	builder_cashut = gtk_builder_new ();
-	//builder_cashut1 = gtk_builder_new ();
 
-    //gtk_builder_add_from_file (builder_cashut, "glade/window_cashut.glade", NULL);
 	gtk_builder_add_from_string(builder_cashut, window_cashut_glade, -1, NULL);
-	//gtk_builder_add_from_file (builder_cashut1, "glade/tab1.glade", NULL);
     window_cashut = GTK_WIDGET (gtk_builder_get_object (builder_cashut, "window_cashut"));
 
     gtk_builder_connect_signals (builder_cashut, NULL);
 
-
+	// Icône
 	GdkPixbuf *icon;
 	icon = gdk_pixbuf_new_from_xpm_data((const char **)icon_png);
 	gtk_window_set_icon(GTK_WINDOW(window_cashut), icon);
@@ -69,23 +62,20 @@ cashut_main_window(int argc, char *argv[])
 	GdkPixbuf *logo_big;
 	logo_big = gdk_pixbuf_new_from_xpm_data((const char **)logo_645);
 	
-
-
 	gtk_image_set_from_pixbuf(GTK_IMAGE(gtk_builder_get_object(builder_cashut, "image_logo_big_accueil")), logo_big);
 	gtk_image_set_from_pixbuf(GTK_IMAGE(gtk_builder_get_object(builder_cashut, "image_logo_big_apropos")), logo_big);
 
-
+	
+	// Signaux Fenêtre Cash'UT
  	g_signal_connect (
             gtk_builder_get_object (builder_cashut, "window_cashut"),
             "delete-event", G_CALLBACK (on_window_cashut_destroy), NULL
 	);
 
-
 	g_signal_connect (
             gtk_builder_get_object (builder_cashut, "window_cashut"),
             "show", G_CALLBACK(on_window_cashut_show), NULL
 	);
-
 
 	g_signal_connect_after (
             GTK_NOTEBOOK(gtk_builder_get_object (builder_cashut, "notebook")),
@@ -93,17 +83,17 @@ cashut_main_window(int argc, char *argv[])
 	);
 
 
-
-
-	// Callbacks Gestion des utilisateurs
+	// Signaux Gestion des Utilisateurs
 	g_signal_connect (
             gtk_builder_get_object (builder_cashut, "gu_button_modifier"),
             "clicked", G_CALLBACK(gu_button_modifier_clicked), NULL
 	);
+
 	g_signal_connect (
             gtk_builder_get_object (builder_cashut, "gu_button_supprimer"),
             "clicked", G_CALLBACK(gu_button_supprimer_clicked), NULL
 	);
+
 	g_signal_connect (
             gtk_builder_get_object (builder_cashut, "gu_button_ajouter"),
             "clicked", G_CALLBACK(gu_button_ajouter_clicked), NULL
@@ -114,22 +104,30 @@ cashut_main_window(int argc, char *argv[])
             "row-activated", G_CALLBACK(gu_treeview_rowactivated), NULL
 	);
 
-	// Callbacks de la partie encaissement
+
+	// Signaux Partie Encaissement
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_ajouter")),
-			"clicked", G_CALLBACK (Ajouter_liste), NULL);
+			"clicked", G_CALLBACK (Ajouter_liste), NULL
+	);
+
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_afficher")),
-			"clicked", G_CALLBACK (testfonction), NULL);
+			"clicked", G_CALLBACK (testfonction), NULL
+	);
 	
 
+	// Initialisation pour la Gestion des Utilisateurs
+	nombre_chargement_liststore_utilisateurs = 0;
 
+
+	// Initialisation du tableau des correspondances Codes-Taux TVA
 	nombre_taux_tva = mysql_nombre_taux_tva(); 
-	taux_tva = malloc( sizeof(TauxTVA) * nombre_taux_tva); /*free a rajouter !!! */
+	taux_tva = malloc( sizeof(TauxTVA) * nombre_taux_tva);
 	taux_tva = mysql_recuperer_taux_tva();
 
 
-
+	// Initialisation pour la Partie Encaissement
 	treeview_liste_chaine = GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_treeview_liste_chaine"));
 	if (gtk_tree_view_get_model (treeview_liste_chaine) == NULL) // normalement exécuté une seule fois au démarrage
 	{
