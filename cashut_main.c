@@ -31,11 +31,10 @@ extern const gchar 	*caisse_num;
 
 Liste *liste_course;
 
-TauxTVA *taux_tva;
+TauxTVA *tb_taux_tva;
 int nombre_taux_tva;
 
- GtkWidget *treeview_liste_chaine;   //BUG du listestore de la liste de course /* A améliorer !!*/
- // GtkListStore *store; /* A améliorer !!*/
+GtkWidget *treeview_liste_chaine;  
 
 int nombre_chargement_liststore_utilisateurs;
 
@@ -43,7 +42,7 @@ int nombre_chargement_liststore_utilisateurs;
 int
 cashut_main_window(int argc, char *argv[])
 {
-		
+	
     GtkWidget  *window_cashut;
 
     gtk_init (&argc, &argv);
@@ -153,19 +152,18 @@ cashut_main_window(int argc, char *argv[])
 
 	// Initialisation du tableau des correspondances Codes-Taux TVA
 	nombre_taux_tva = mysql_nombre_taux_tva(); 
-	taux_tva = malloc( sizeof(TauxTVA) * nombre_taux_tva);
-	taux_tva = mysql_recuperer_taux_tva();
+	tb_taux_tva = malloc( sizeof(TauxTVA) * nombre_taux_tva);
+	tb_taux_tva = mysql_recuperer_taux_tva();
 
-
+	
 	// Initialisation pour la Partie Encaissement
 	treeview_liste_chaine = GTK_TREE_VIEW (gtk_builder_get_object (builder_cashut, "pe_treeview_liste_chaine"));
 	if (gtk_tree_view_get_model (treeview_liste_chaine) == NULL) // normalement exécuté une seule fois au démarrage
 	{
-		initialisation_liste_chaine(); 
+		initialisation_liste_chaine();
 		init_treeview_lists_chaine();
 	}
 	
-
 
 	/*Produit *le_produit;
 	le_produit = mysql_recuperer_produit("3147690051107");

@@ -12,6 +12,10 @@ float tva_code2taux(int code);
 // gestion des produits
 void init_treeview_lists_chaine();
 void maj_treeview_liste_chaine(); 
+void maj_tb_taux_tva();
+void pe_footer_total();
+
+
 
 // action de l'UI
 G_MODULE_EXPORT void pe_ajouter_produit(GtkWidget *widget, gpointer   data);

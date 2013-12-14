@@ -63,7 +63,7 @@
                 <property name="max_length">13</property>
                 <property name="invisible_char">•</property>
                 <property name="width_chars">13</property>
-                <property name="placeholder_text">code barre</property>
+                <property name="placeholder_text">Code-barres</property>
               </object>
               <packing>
                 <property name="x">10</property>
@@ -122,7 +122,7 @@
             </child>
             <child>
               <object class="GtkButton" id="pe_btn_suprimer">
-                <property name="label" translatable="yes">Suprimer</property>
+                <property name="label" translatable="yes">Supprimer</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">70</property>
                 <property name="height_request">40</property>
@@ -192,7 +192,6 @@ sans facture</property>
                 <property name="height_request">30</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0.4699999988079071</property>
                 <property name="label">Paiment :</property>
                 <attributes>
                   <attribute name="font-desc" value="Sans 14"/>
@@ -207,7 +206,7 @@ sans facture</property>
             </child>
             <child>
               <object class="GtkButton" id="pe_btn_cheque">
-                <property name="label" translatable="yes">cheque</property>
+                <property name="label" translatable="yes">Chèque</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">70</property>
                 <property name="height_request">40</property>
@@ -223,7 +222,7 @@ sans facture</property>
             </child>
             <child>
               <object class="GtkButton" id="pe_btn_carte">
-                <property name="label" translatable="yes">carte</property>
+                <property name="label" translatable="yes">Carte</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">70</property>
                 <property name="height_request">40</property>
@@ -239,7 +238,7 @@ sans facture</property>
             </child>
             <child>
               <object class="GtkButton" id="pe_btn_espece">
-                <property name="label" translatable="yes">espece</property>
+                <property name="label" translatable="yes">Espèce</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">70</property>
                 <property name="height_request">40</property>
@@ -331,6 +330,74 @@ sans facture</property>
               <packing>
                 <property name="x">127</property>
                 <property name="y">132</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label21">
+                <property name="width_request">85</property>
+                <property name="height_request">25</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Total TVA :</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans 12"/>
+                  <attribute name="underline" value="True"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">255</property>
+                <property name="y">551</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label22">
+                <property name="width_request">85</property>
+                <property name="height_request">25</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Total TTC :</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans 12"/>
+                  <attribute name="underline" value="True"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">255</property>
+                <property name="y">515</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="pe_lbl_total_ttc">
+                <property name="width_request">50</property>
+                <property name="height_request">26</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">0 €</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans 13"/>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">347</property>
+                <property name="y">515</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="pe_lbl_total_tva">
+                <property name="width_request">50</property>
+                <property name="height_request">26</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">0 €</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans 13"/>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">347</property>
+                <property name="y">551</property>
               </packing>
             </child>
           </object>

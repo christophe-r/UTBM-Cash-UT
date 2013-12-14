@@ -16,8 +16,8 @@ extern GtkBuilder 	*builder_cashut;
 extern GtkWidget *treeview_liste_chaine;
 extern Liste *liste_course;
 
-extern TauxTVA *taux_tva;
-extern nombre_taux_tva;
+extern TauxTVA *tb_taux_tva;
+extern int nombre_taux_tva;
 
 /******************************/
 /* Partie encaisment */
@@ -36,21 +36,20 @@ void init_treeview_lists_chaine() /* fonction d'initialisation de la treeview*/
   renderer = gtk_cell_renderer_text_new(); // type de donnée
   column = gtk_tree_view_column_new_with_attributes("Quant",renderer, "text", QUANTITES, NULL); // definie la donnée
   gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_liste_chaine), column);
-  fprintf(stdout, "%d\n", gtk_tree_view_column_get_width (GTK_TREE_VIEW_COLUMN(column)) );
 
-  // colonnes des quantitées
+  // colonnes des marque
   renderer = gtk_cell_renderer_text_new(); 
   column = gtk_tree_view_column_new_with_attributes("Marque",renderer, "text", MARQUE, NULL); 
   gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_liste_chaine), column);
 
-  // colonnes des quantitées
+  // colonnes des libellés
   renderer = gtk_cell_renderer_text_new(); 
   column = gtk_tree_view_column_new_with_attributes("Libellés",renderer, "text", LIBELLE, NULL); 
   gtk_tree_view_column_set_sizing (GTK_TREE_VIEW_COLUMN (column),GTK_TREE_VIEW_COLUMN_FIXED); // fixe la taille de la largeur de la colonne
   gtk_tree_view_column_set_fixed_width(GTK_TREE_VIEW_COLUMN(column),150); 
   gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_liste_chaine), column);
 
-  // colonnes des quantitées
+  // colonnes des prix
   renderer = gtk_cell_renderer_text_new(); 
   column = gtk_tree_view_column_new_with_attributes("Prix",renderer, "text", PRIX, NULL);
   gtk_tree_view_column_set_sizing (GTK_TREE_VIEW_COLUMN (column),GTK_TREE_VIEW_COLUMN_FIXED);
@@ -58,7 +57,7 @@ void init_treeview_lists_chaine() /* fonction d'initialisation de la treeview*/
   gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_liste_chaine), column);
 
   // Crée le modéle de donnée
-  store = gtk_list_store_new(N_COLUMNS,G_TYPE_UINT,G_TYPE_STRING , G_TYPE_STRING, G_TYPE_DOUBLE);
+  store = gtk_list_store_new(N_COLUMNS,G_TYPE_UINT,G_TYPE_STRING , G_TYPE_STRING, G_TYPE_STRING);
 
   // attache le modèle de donnée a notre treeview
   gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_liste_chaine), GTK_TREE_MODEL(store));
@@ -74,41 +73,96 @@ void init_treeview_lists_chaine() /* fonction d'initialisation de la treeview*/
 void maj_treeview_liste_chaine() /* fonction qui met à jour les lignes de la treeview */
 {
   GtkTreeIter iter;
- 	GtkListStore *store;
+  GtkListStore *store;
+  char prix[10];
 
   store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(treeview_liste_chaine)));
   gtk_list_store_clear(store); /* supprésion des ligne du treeview */ 
   Element *actuel = liste_course->debut;
   while (actuel != NULL ) /* parcour de la liste chainnée en ajoutant les lignes dans le treeview */
   {
-      gtk_list_store_append(store, &iter);
- 	    gtk_list_store_set(store, &iter,
+    snprintf(prix, 10, "%.2f", actuel->p_produit->prix); /*applique le format pour le prix */
+    gtk_list_store_append(store, &iter);
+ 	gtk_list_store_set(store, &iter,
  						QUANTITES,actuel->quantitee,
-            MARQUE,actuel->p_produit->marque,
+                        MARQUE,actuel->p_produit->marque,
  						LIBELLE,actuel->p_produit->libelle,
- 						PRIX,actuel->p_produit->prix,
+ 						PRIX,g_strconcat(prix, " €", NULL),
  						-1);
       actuel = actuel->suivant;
+
   }	
 }
 
-float tva_code2taux(int code){ /* fonction qui transforme le code en taux de tva*/ 
+void pe_footer_total()
+{
+    float total_tva=0.0;
+    char char_total_tva[10];
+    float total_prix=0.0;
+    char char_total_prix[10];
+    int i;
+
+    for( i=0 ; i<nombre_taux_tva ; i++ ) // pour chaque ligne de tb_taux_tva on on ajout le taux tva
+    {
+           total_tva += tb_taux_tva[i].tva;
+    }
+    Element *actuel = liste_course->debut;
+    while (actuel != NULL ) // parcours de la liste chainné en ajoutant les prixs 
+    {
+        total_prix += actuel->p_produit->prix *actuel->quantitee;
+        actuel = actuel->suivant;
+    } 
+    snprintf(char_total_tva, 10, "%.2f", total_tva);// applique les bon formats
+    g_strconcat(char_total_tva, " €", NULL);
+    snprintf(char_total_prix, 10, "%.2f", total_prix);
+    g_strconcat(char_total_prix, " €", NULL);
+    gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_total_ttc")),char_total_prix);// met à jour les labels
+    gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_total_tva")),char_total_tva);
+}
+
+
+/*
+float tva_code2taux(int code){ // fonction qui transforme le code en taux de tva
   
   int i;
-  for( i=0 ; i<=(nombre_taux_tva-1) ; i++ ){ /* parcour le tableau de structure de taux_tva */
-    if( code == taux_tva[i].code ){ // si sont code correspond à notre code on retourne sont taux
-      return (float)taux_tva[i].taux;
+  for( i=0 ; i<=(nombre_taux_tva-1) ; i++ ){ // parcour le tableau de structure de taux_tva 
+    if( code == tb_taux_tva[i].code ){ // si sont code correspond à notre code on retourne sont taux
+      return (float)tb_taux_tva[i].taux;
     }
   }
 
   return 0.0;
+}
+*/
+
+
+void maj_tb_taux_tva()
+{
+  int i;
+
+  Element *actuel = liste_course->debut;
+  while (actuel != NULL ) /* parcour de la liste chainnée pour remplir les autres colonnes du tableau */
+  {
+    for( i=0 ; i<nombre_taux_tva ; i++ ) // pour chaque produit ont va parcourir tout les codes 
+    {
+        if (actuel->p_produit->code_TVA == tb_taux_tva[i].code ) // si le code correspond au code produit on l'ajout au taux tva   
+        {
+            tb_taux_tva[i].ht += actuel->p_produit->prix - (actuel->p_produit->prix * (tb_taux_tva[i].taux /100));
+            tb_taux_tva[i].tva += actuel->p_produit->prix * (tb_taux_tva[i].taux /100);
+            tb_taux_tva[i].ttc += actuel->p_produit->prix;
+        }
+    }
+  actuel = actuel->suivant;
+  }
 }
 
 void pe_ajouter_produit (GtkWidget *widget, gpointer   data) /* fonction pour ajouté un produit*/ 
 {   
 	if (Ajouter_produit_liste_chaine(gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_codebarre"))))) /* On essaye d'ajouté le produit à la liste chainnée */
 	 {
-	 	 maj_treeview_liste_chaine(); /* Mais à jour la treeview si le produit est valable*/
+	 	 maj_treeview_liste_chaine(); /* Met à jour la treeview si le produit est valable*/
+        maj_tb_taux_tva(); /* Met à jour le tb de taux de tva*/
+        pe_footer_total(); /* Met à jour les totals */
 	 }else{
 	 	g_print("erreur\n"); /* sinon on affiche erreur*/
 	 }
@@ -135,6 +189,15 @@ void pe_suprimer_produit(GtkWidget *widget, gpointer   data)
 void testfonction (GtkWidget *widget, gpointer   data)
 {   
 /* Fonction de test*/
+    fprintf(stdout, "tb taux tva :\n");
+
+for (int i = 0; i < nombre_taux_tva; i++)
+{
+    fprintf(stdout, "ht : %f   ",tb_taux_tva[i].ht );
+    fprintf(stdout, "ttc : %f   ",tb_taux_tva[i].ttc );
+    fprintf(stdout, "tva : %f   \n",tb_taux_tva[i].tva );
+}
+    fprintf(stdout, "\n");
 
 //    GtkTreeSelection *selection;
 //    GtkTreeIter *iter;

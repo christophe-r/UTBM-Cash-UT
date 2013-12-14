@@ -19,7 +19,7 @@ extern GtkBuilder 	*builder_cashut;
 extern const gchar 	*niveau_utilisateur;
 
 
-extern TauxTVA *taux_tva;
+extern TauxTVA *tb_taux_tva;
 Produit *data_recherche_produits; 
 
 
@@ -28,8 +28,8 @@ Produit *data_recherche_produits;
 void 
 on_window_cashut_destroy (GtkWidget *widget, gpointer user_data)
 {
-	if( taux_tva != NULL ){
-		free(taux_tva);
+	if( tb_taux_tva != NULL ){
+		free(tb_taux_tva);
 	}
 
 	gtk_widget_hide(GTK_WIDGET (gtk_builder_get_object (builder_cashut, "window_cashut")));

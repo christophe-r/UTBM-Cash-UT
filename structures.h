@@ -2,8 +2,7 @@
 #define STRUCTURES_H
 
 
-typedef struct Produit Produit; /* structure du produit */
-struct Produit
+typedef struct Produit /* structure du produit */
 {
 	int produitid;
 	char *code_barres;
@@ -13,7 +12,7 @@ struct Produit
 	char *conditionnement;
 	int code_TVA;
 	float prix;
-};
+}Produit;
 
 typedef struct Element Element; /* structure de base le liste chainée */
 struct Element
@@ -33,6 +32,9 @@ typedef struct TypeTauxTVA /* structure de la TVA */
 {
 	int		code;
 	float	taux;
+  float ht;
+  float tva;
+  float ttc;
 }TauxTVA;
 
 
@@ -52,5 +54,6 @@ enum /*tree view partie encaissement */
   PRIX,
   N_COLUMNS
 };
+
 
 #endif /* STRUCTURES_H */
