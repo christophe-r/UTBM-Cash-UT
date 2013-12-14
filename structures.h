@@ -6,7 +6,7 @@ typedef struct Produit Produit; /* structure du produit */
 struct Produit
 {
 	int produitid;
-	const gchar *code_barres;
+	char *code_barres;
 	char *marque;
 	char *libelle;
 	char *type_marque;
@@ -47,6 +47,7 @@ typedef struct ListeUtilisateurs
 enum /*tree view partie encaissement */ 
 {
   QUANTITES,
+  MARQUE,
   LIBELLE,
   PRIX,
   N_COLUMNS

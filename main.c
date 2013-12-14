@@ -82,7 +82,7 @@ main (int argc, char *argv[])
 
 	const gchar *caisse_message;
 	caisse_message = g_strconcat("Caisse no: ", caisse_num, "\n", NULL);
-	g_print(caisse_message);
+	fprintf(stdout, "%s\n",caisse_message);
 
     gtk_builder_connect_signals (builder_connexion, NULL);
 

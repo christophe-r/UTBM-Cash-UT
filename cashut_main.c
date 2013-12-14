@@ -108,15 +108,45 @@ cashut_main_window(int argc, char *argv[])
 	// Signaux Partie Encaissement
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_ajouter")),
-			"clicked", G_CALLBACK (Ajouter_liste), NULL
+			"clicked", G_CALLBACK (pe_ajouter_produit), NULL
 	);
 
 	g_signal_connect ( 
-			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_afficher")),
+			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_annuler")),
+			"clicked", G_CALLBACK (pe_annuler), NULL
+	);
+	g_signal_connect ( 
+			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_suprimer")),
+			"clicked", G_CALLBACK (pe_suprimer_produit), NULL
+	);
+	g_signal_connect ( 
+			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_quant_plus")),
 			"clicked", G_CALLBACK (testfonction), NULL
 	);
-	
-
+	g_signal_connect ( 
+			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_quant_moins")),
+			"clicked", G_CALLBACK (testfonction), NULL
+	);
+	g_signal_connect ( 
+			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_cheque")),
+			"clicked", G_CALLBACK (testfonction), NULL
+	);
+	g_signal_connect ( 
+			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_espece")),
+			"clicked", G_CALLBACK (testfonction), NULL
+	);
+	g_signal_connect ( 
+			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_carte")),
+			"clicked", G_CALLBACK (testfonction), NULL
+	);
+	g_signal_connect ( 
+			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_terminer_nofac")),
+			"clicked", G_CALLBACK (testfonction), NULL
+	);
+	g_signal_connect ( 
+			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_terminer_fac")),
+			"clicked", G_CALLBACK (testfonction), NULL
+	);
 	// Initialisation pour la Gestion des Utilisateurs
 	nombre_chargement_liststore_utilisateurs = 0;
 
@@ -128,7 +158,7 @@ cashut_main_window(int argc, char *argv[])
 
 
 	// Initialisation pour la Partie Encaissement
-	treeview_liste_chaine = GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_treeview_liste_chaine"));
+	treeview_liste_chaine = GTK_TREE_VIEW (gtk_builder_get_object (builder_cashut, "pe_treeview_liste_chaine"));
 	if (gtk_tree_view_get_model (treeview_liste_chaine) == NULL) // normalement exécuté une seule fois au démarrage
 	{
 		initialisation_liste_chaine(); 

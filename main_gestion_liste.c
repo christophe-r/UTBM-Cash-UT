@@ -18,7 +18,6 @@ int bVerification_somme_de_controle(const gchar *p_code_ean13){
 	if( strlen(p_code_ean13) != 13 ){ // S'il n'y a pas 13 caractères
 		return 0;
 	}
-
 	int i = 0;
 	int somme_de_controle = 0;
 	int somme = 0;
@@ -56,6 +55,7 @@ int bVerification_somme_de_controle(const gchar *p_code_ean13){
 	if (somme_de_controle == atoi(checksum) ){
 		return 1;
 	} else {
+		fprintf(stdout, "erreur code barre invalide (%d!=%d)\n",somme_de_controle,atoi(checksum) );
 		return 0;
 	}
 }
@@ -81,7 +81,6 @@ short int Ajouter_produit_liste_chaine(const gchar *code_barres){
 	{
 		return 0;
 	}
-
 	Produit *newproduit = mysql_recuperer_produit(code_barres); /* importation depuis la base de données */
 
 	if( newproduit->produitid == 0 ) /* verifier que le produit existe dans la base de donnée */ 
@@ -170,7 +169,7 @@ void afficherListe() { /* affiche la liste */
 
     while (actuel != NULL )
     {
-   printf("%d",actuel->p_produit->produitid);
+   printf("%s",actuel->p_produit->libelle);
         actuel = actuel->suivant;
         printf(" -> "  );
     }

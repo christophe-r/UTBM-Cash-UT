@@ -198,11 +198,11 @@ struct Produit *mysql_recuperer_produit(const gchar *code_barres){
 
 				/* remplie les valeurs de la structure */
 				mon_produit->produitid = atoi(row[0]);
-				mon_produit->code_barres = row[1];
-				mon_produit->marque = row[2];
-				mon_produit->libelle = row[3];
-				mon_produit->type_marque = row[4];
-				mon_produit->conditionnement = row[5];
+				mon_produit->code_barres =  g_strconcat(row[1], NULL);;
+				mon_produit->marque =  g_strconcat(row[2], NULL);;
+				mon_produit->libelle = g_strconcat(row[3], NULL);
+				mon_produit->type_marque =  g_strconcat(row[4], NULL);
+				mon_produit->conditionnement =  g_strconcat(row[5], NULL);
 				mon_produit->code_TVA = atoi(row[6]);
 				mon_produit->prix = atof(row[7]);
 
