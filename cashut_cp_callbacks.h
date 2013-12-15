@@ -15,3 +15,4 @@ void dialog_trop_de_resultats();
 
 
 #endif /* CASHUT_CP_CALLBACKS_H */
+

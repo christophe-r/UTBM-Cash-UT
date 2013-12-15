@@ -1,6 +1,9 @@
+cashut
+
 # Object files
 *.o
 *.ko
+*.inc
 
 # Libraries
 *.lib
