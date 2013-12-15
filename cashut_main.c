@@ -9,6 +9,7 @@
 
 #include "cashut_gu_callbacks.h"
 #include "cashut_pe_callbacks.h"
+#include "cashut_cp_callbacks.h"
 
 #include "main_mysql.h"
 
@@ -146,6 +147,23 @@ cashut_main_window(int argc, char *argv[])
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_terminer_fac")),
 			"clicked", G_CALLBACK (testfonction), NULL
 	);
+
+    // Signaux Catalogue Produit
+    g_signal_connect (
+            gtk_builder_get_object (builder_cashut, "cp_b_rechercher"),
+            "clicked", G_CALLBACK(cp_b_rechercher_clicked), NULL
+    );
+
+    g_signal_connect (
+            gtk_builder_get_object (builder_cashut, "cp_treeview"),
+            "row-activated", G_CALLBACK(cp_treeview_rowactivated), NULL
+    );
+
+    g_signal_connect (
+            gtk_builder_get_object (builder_cashut, "cp_b_ajouter"),
+            "clicked", G_CALLBACK(cp_b_ajouter_clicked), NULL
+    );
+
 	// Initialisation pour la Gestion des Utilisateurs
 	nombre_chargement_liststore_utilisateurs = 0;
 
@@ -155,7 +173,7 @@ cashut_main_window(int argc, char *argv[])
 	tb_taux_tva = malloc( sizeof(TauxTVA) * nombre_taux_tva);
 	tb_taux_tva = mysql_recuperer_taux_tva();
 
-	
+
 	// Initialisation pour la Partie Encaissement
 	treeview_liste_chaine = GTK_TREE_VIEW (gtk_builder_get_object (builder_cashut, "pe_treeview_liste_chaine"));
 	if (gtk_tree_view_get_model (treeview_liste_chaine) == NULL) // normalement exécuté une seule fois au démarrage

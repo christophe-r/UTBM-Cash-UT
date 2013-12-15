@@ -175,6 +175,8 @@ void pe_annuler(GtkWidget *widget, gpointer   data)/* fonction pour annuler la c
   store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(treeview_liste_chaine)));
   gtk_list_store_clear(store); /* supprésion des ligne du treeview */
   Supprimer_liste_chaine(); // vide la liste chainnée
+  gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_total_ttc")),"0 €");// met à jour les labels
+  gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_total_tva")),"0 €");
 
 }
 

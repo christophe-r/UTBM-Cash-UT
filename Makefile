@@ -12,6 +12,7 @@ OBJS= 	main.o \
 	cashut_main_callbacks.o \
 	cashut_gu_callbacks.o \
 	cashut_pe_callbacks.o \
+	cashut_cp_callbacks.o \
 	main_gestion_liste.o
 
 RESOURCES=window_connexion.inc window_cashut.inc
@@ -53,6 +54,9 @@ cashut_gu_callbacks.o: cashut_gu_callbacks.c cashut_gu_callbacks.h main_mysql.h 
 	$(CC) $(CFLAGS) -c $< $(LIBS)
 
 cashut_pe_callbacks.o: cashut_pe_callbacks.c cashut_pe_callbacks.h main_mysql.h structures.h main_gestion_liste.h
+	$(CC) $(CFLAGS) -c $< $(LIBS)
+
+cashut_cp_callbacks.o: cashut_cp_callbacks.c cashut_cp_callbacks.h main_mysql.h structures.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
 
 main_gestion_liste.o: main_gestion_liste.c main_gestion_liste.h structures.h main_mysql.h
