@@ -155,14 +155,13 @@ const gchar *mysql_num_utilisateur(const gchar *utilisateur, const gchar *motdep
 		num_rows = mysql_num_rows(result);
 
 		const gchar *num;
+		num = "0";
 
 		if( num_rows == 1 ){
 			MYSQL_ROW row;
 			while( (row = mysql_fetch_row(result)) ){ 
 				num = row[0];
 			}
-		} else {
-			exit(1);
 		}
 
 		return num;
