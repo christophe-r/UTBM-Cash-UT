@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkListStore" id="liststore1"/>
   <object class="GtkWindow" id="window_cashut">
     <property name="width_request">860</property>
     <property name="height_request">600</property>
@@ -54,11 +55,14 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkEntry" id="pe_entry_codebarre">
+              <object class="GtkEntry" id="pe_entry_codebarres">
                 <property name="width_request">129</property>
                 <property name="height_request">40</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="has_focus">True</property>
+                <property name="is_focus">True</property>
+                <property name="can_default">True</property>
                 <property name="max_length">13</property>
                 <property name="invisible_char">•</property>
                 <property name="width_chars">13</property>
@@ -120,7 +124,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="pe_btn_suprimer">
+              <object class="GtkButton" id="pe_btn_supprimer">
                 <property name="label" translatable="yes">Supprimer</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">70</property>
@@ -157,15 +161,16 @@
 avec facture</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">70</property>
-                <property name="height_request">80</property>
+                <property name="height_request">70</property>
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
               </object>
               <packing>
                 <property name="x">134</property>
-                <property name="y">500</property>
+                <property name="y">421</property>
               </packing>
             </child>
             <child>
@@ -174,15 +179,16 @@ avec facture</property>
 sans facture</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">70</property>
-                <property name="height_request">80</property>
+                <property name="height_request">70</property>
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
               </object>
               <packing>
                 <property name="x">10</property>
-                <property name="y">500</property>
+                <property name="y">421</property>
               </packing>
             </child>
             <child>
@@ -191,7 +197,7 @@ sans facture</property>
                 <property name="height_request">30</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label">Paiment :</property>
+                <property name="label">Paiement :</property>
                 <attributes>
                   <attribute name="font-desc" value="Sans 14"/>
                   <attribute name="weight" value="bold"/>
@@ -216,7 +222,7 @@ sans facture</property>
               </object>
               <packing>
                 <property name="x">10</property>
-                <property name="y">210</property>
+                <property name="y">270</property>
               </packing>
             </child>
             <child>
@@ -232,7 +238,7 @@ sans facture</property>
               </object>
               <packing>
                 <property name="x">172</property>
-                <property name="y">210</property>
+                <property name="y">270</property>
               </packing>
             </child>
             <child>
@@ -248,7 +254,7 @@ sans facture</property>
               </object>
               <packing>
                 <property name="x">91</property>
-                <property name="y">210</property>
+                <property name="y">270</property>
               </packing>
             </child>
             <child>
@@ -265,20 +271,20 @@ sans facture</property>
             </child>
             <child>
               <object class="GtkSeparator" id="pe_separator2">
-                <property name="width_request">232</property>
+                <property name="width_request">225</property>
                 <property name="height_request">10</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
               </object>
               <packing>
-                <property name="x">10</property>
-                <property name="y">487</property>
+                <property name="x">15</property>
+                <property name="y">337</property>
               </packing>
             </child>
             <child>
               <object class="GtkScrolledWindow" id="scrolledwindowencaisement">
                 <property name="width_request">483</property>
-                <property name="height_request">488</property>
+                <property name="height_request">583</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="shadow_type">in</property>
@@ -314,7 +320,7 @@ sans facture</property>
                 <property name="yalign">0.47999998927116394</property>
               </object>
               <packing>
-                <property name="x">189</property>
+                <property name="x">198</property>
                 <property name="y">128</property>
               </packing>
             </child>
@@ -324,7 +330,7 @@ sans facture</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Qantitée</property>
+                <property name="label" translatable="yes">Quantitée</property>
               </object>
               <packing>
                 <property name="x">127</property>
@@ -332,24 +338,24 @@ sans facture</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="label21">
-                <property name="width_request">85</property>
+              <object class="GtkLabel" id="pe_label21">
+                <property name="width_request">112</property>
                 <property name="height_request">25</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Total TVA :</property>
+                <property name="label" translatable="yes">Montant TVA :</property>
                 <attributes>
                   <attribute name="font-desc" value="Sans 12"/>
                   <attribute name="underline" value="True"/>
                 </attributes>
               </object>
               <packing>
-                <property name="x">255</property>
-                <property name="y">551</property>
+                <property name="x">10</property>
+                <property name="y">513</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="label22">
+              <object class="GtkLabel" id="pe_label22">
                 <property name="width_request">85</property>
                 <property name="height_request">25</property>
                 <property name="visible">True</property>
@@ -361,8 +367,8 @@ sans facture</property>
                 </attributes>
               </object>
               <packing>
-                <property name="x">255</property>
-                <property name="y">515</property>
+                <property name="x">39</property>
+                <property name="y">550</property>
               </packing>
             </child>
             <child>
@@ -378,8 +384,8 @@ sans facture</property>
                 </attributes>
               </object>
               <packing>
-                <property name="x">347</property>
-                <property name="y">515</property>
+                <property name="x">128</property>
+                <property name="y">514</property>
               </packing>
             </child>
             <child>
@@ -395,8 +401,205 @@ sans facture</property>
                 </attributes>
               </object>
               <packing>
-                <property name="x">347</property>
-                <property name="y">551</property>
+                <property name="x">128</property>
+                <property name="y">550</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="pe_entry_montant">
+                <property name="width_request">121</property>
+                <property name="height_request">40</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="max_length">5</property>
+                <property name="invisible_char">•</property>
+              </object>
+              <packing>
+                <property name="x">79</property>
+                <property name="y">213</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="pe_label23">
+                <property name="width_request">70</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Montant :</property>
+              </object>
+              <packing>
+                <property name="x">8</property>
+                <property name="y">224</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="pe_label24">
+                <property name="width_request">44</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Déjà payer :</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">318</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="pe_label25">
+                <property name="width_request">53</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Reste à payer :</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">383</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="pe_lbl_reste">
+                <property name="width_request">44</property>
+                <property name="height_request">25</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">0 €</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans 13"/>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">111</property>
+                <property name="y">382</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="pe_lbl_deja_payer_cheque">
+                <property name="width_request">50</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">0 €</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans 13"/>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">11</property>
+                <property name="y">345</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="pe_lbl_deja_payer_espece">
+                <property name="width_request">50</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">0 €</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans 13"/>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">88</property>
+                <property name="y">345</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="pe_lbl_deja_payer_carte">
+                <property name="width_request">50</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">0 €</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans 13"/>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">166</property>
+                <property name="y">345</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="pe_separator3">
+                <property name="width_request">232</property>
+                <property name="height_request">10</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">409</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="pe_separator4">
+                <property name="width_request">225</property>
+                <property name="height_request">10</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="x">15</property>
+                <property name="y">363</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="pe_separator5">
+                <property name="width_request">10</property>
+                <property name="height_request">26</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+              </object>
+              <packing>
+                <property name="x">85</property>
+                <property name="y">342</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="pe_separator6">
+                <property name="width_request">10</property>
+                <property name="height_request">26</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+              </object>
+              <packing>
+                <property name="x">10</property>
+                <property name="y">342</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="pe_separator7">
+                <property name="width_request">10</property>
+                <property name="height_request">26</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+              </object>
+              <packing>
+                <property name="x">164</property>
+                <property name="y">342</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator" id="pe_separator8">
+                <property name="width_request">10</property>
+                <property name="height_request">26</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+              </object>
+              <packing>
+                <property name="x">235</property>
+                <property name="y">342</property>
               </packing>
             </child>
           </object>

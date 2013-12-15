@@ -116,8 +116,8 @@ cashut_main_window(int argc, char *argv[])
 			"clicked", G_CALLBACK (pe_annuler), NULL
 	);
 	g_signal_connect ( 
-			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_suprimer")),
-			"clicked", G_CALLBACK (pe_suprimer_produit), NULL
+			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_supprimer")),
+			"clicked", G_CALLBACK (pe_supprimer_produit), NULL
 	);
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_quant_plus")),
@@ -147,6 +147,10 @@ cashut_main_window(int argc, char *argv[])
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_terminer_fac")),
 			"clicked", G_CALLBACK (testfonction), NULL
 	);
+    g_signal_connect (
+            gtk_builder_get_object (builder_cashut, "pe_entry_codebarres"),
+            "changed", G_CALLBACK(pe_verif_caractere), NULL
+    );
 
     // Signaux Catalogue Produit
     g_signal_connect (
@@ -162,10 +166,6 @@ cashut_main_window(int argc, char *argv[])
     g_signal_connect (
             gtk_builder_get_object (builder_cashut, "cp_b_ajouter"),
             "clicked", G_CALLBACK(cp_b_ajouter_clicked), NULL
-    );
-    g_signal_connect (
-            gtk_builder_get_object (builder_cashut, "pe_entry_codebarre"),
-            "changed", G_CALLBACK(pe_verif_caractere), NULL
     );
 
 	// Initialisation pour la Gestion des Utilisateurs

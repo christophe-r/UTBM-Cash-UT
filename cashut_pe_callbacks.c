@@ -34,26 +34,28 @@ void init_treeview_lists_chaine() /* fonction d'initialisation de la treeview*/
   /* ajout des colonnes */
   // colonnes des quantitées
   renderer = gtk_cell_renderer_text_new(); // type de donnée
-  column = gtk_tree_view_column_new_with_attributes("Quant",renderer, "text", QUANTITES, NULL); // definie la donnée
+  column = gtk_tree_view_column_new_with_attributes("Qté",renderer, "text", QUANTITES, NULL); // definie la donnée
   gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_liste_chaine), column);
+  gtk_tree_view_column_set_sizing (GTK_TREE_VIEW_COLUMN (column),GTK_TREE_VIEW_COLUMN_FIXED); // fixe la taille de la largeur de la colonne
+  gtk_tree_view_column_set_fixed_width(GTK_TREE_VIEW_COLUMN(column),35);
 
   // colonnes des marque
   renderer = gtk_cell_renderer_text_new(); 
   column = gtk_tree_view_column_new_with_attributes("Marque",renderer, "text", MARQUE, NULL); 
   gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_liste_chaine), column);
+  gtk_tree_view_column_set_sizing (GTK_TREE_VIEW_COLUMN (column),GTK_TREE_VIEW_COLUMN_FIXED); // fixe la taille de la largeur de la colonne
+  gtk_tree_view_column_set_fixed_width(GTK_TREE_VIEW_COLUMN(column),130);
 
   // colonnes des libellés
   renderer = gtk_cell_renderer_text_new(); 
   column = gtk_tree_view_column_new_with_attributes("Libellés",renderer, "text", LIBELLE, NULL); 
   gtk_tree_view_column_set_sizing (GTK_TREE_VIEW_COLUMN (column),GTK_TREE_VIEW_COLUMN_FIXED); // fixe la taille de la largeur de la colonne
-  gtk_tree_view_column_set_fixed_width(GTK_TREE_VIEW_COLUMN(column),150); 
+  gtk_tree_view_column_set_fixed_width(GTK_TREE_VIEW_COLUMN(column),250); 
   gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_liste_chaine), column);
 
   // colonnes des prix
   renderer = gtk_cell_renderer_text_new(); 
   column = gtk_tree_view_column_new_with_attributes("Prix",renderer, "text", PRIX, NULL);
-  gtk_tree_view_column_set_sizing (GTK_TREE_VIEW_COLUMN (column),GTK_TREE_VIEW_COLUMN_FIXED);
-  gtk_tree_view_column_set_fixed_width(GTK_TREE_VIEW_COLUMN(column),20);
   gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_liste_chaine), column);
 
   // Crée le modéle de donnée
@@ -156,16 +158,16 @@ void maj_tb_taux_tva()
   }
 }
 
-void pe_verif_caractere()
+void pe_verif_caractere(GtkWidget *widget, gpointer   data)
 {
     const gchar *entry;
-    entry = g_strconcat(gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_codebarre"))), NULL);
-    gtk_entry_set_text(GTK_ENTRY(gtk_builder_get_object(builder_cashut, "pe_entry_codebarre")), g_strcanon(entry, "0123456789", NULL)); // autotrise uniqueùent les caratères de 0 à 9;
+    entry = g_strconcat(gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_codebarres"))), NULL);
+    gtk_entry_set_text(GTK_ENTRY(gtk_builder_get_object(builder_cashut, "pe_entry_codebarres")), g_strcanon(entry, "0123456789", NULL)); // autotrise uniqueùent les caratères de 0 à 9;
 }
 
 void pe_ajouter_produit (GtkWidget *widget, gpointer   data) /* fonction pour ajouté un produit*/ 
 {   
-	if (Ajouter_produit_liste_chaine(gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_codebarre"))))) /* On essaye d'ajouté le produit à la liste chainnée */
+	if (Ajouter_produit_liste_chaine(gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_codebarres"))))) /* On essaye d'ajouté le produit à la liste chainnée */
 	 {
 	 	 maj_treeview_liste_chaine(); /* Met à jour la treeview si le produit est valable*/
         maj_tb_taux_tva(); /* Met à jour le tb de taux de tva*/
@@ -194,7 +196,7 @@ void pe_annuler(GtkWidget *widget, gpointer   data)/* fonction pour annuler la c
   }
 }
 
-void pe_suprimer_produit(GtkWidget *widget, gpointer   data)
+void pe_supprimer_produit(GtkWidget *widget, gpointer   data)
 {
     // GtkTreeSelection *selection;
     // gchar *code_barres;

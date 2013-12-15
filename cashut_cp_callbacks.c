@@ -207,11 +207,11 @@ void cp_b_ajouter_clicked(GtkWidget *widget, gpointer user_data){
 
         gtk_tree_model_get (model, &iter, 0, &code_barres,-1);
 
-        gtk_entry_set_text(GTK_ENTRY(gtk_builder_get_object (builder_cashut, "pe_entry_codebarre")), code_barres);
+        gtk_entry_set_text(GTK_ENTRY(gtk_builder_get_object (builder_cashut, "pe_entry_codebarres")), code_barres);
 
         gtk_notebook_set_current_page(GTK_NOTEBOOK(gtk_builder_get_object(builder_cashut, "notebook")), 1);
 
-        pe_ajouter_produit(GTK_WIDGET(gtk_builder_get_object(builder_cashut, "pe_entry_codebarre")), NULL);
+        pe_ajouter_produit(GTK_WIDGET(gtk_builder_get_object(builder_cashut, "pe_entry_codebarres")), NULL);
 
         gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "cp_b_ajouter")), FALSE);
 
