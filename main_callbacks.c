@@ -10,6 +10,8 @@
 extern GtkBuilder 	*builder_connexion;
 extern MYSQL 		*con;
 extern const gchar 	*niveau_utilisateur;
+extern const gchar 	*nom_utilisateur;
+extern const gchar 	*num_utilisateur;
 
 void 
 on_window_destroy (GtkWidget *widget, gpointer user_data)
@@ -33,7 +35,9 @@ on_button_connect_clicked (GtkWidget *widget, gpointer user_data)
 	if( mysql_verifier_identification(username, password) == 1 ){
 		g_print("Authentification success\n");
 		
+		nom_utilisateur = username;
 		niveau_utilisateur = mysql_niveau_utilisateur(username, password);
+		num_utilisateur = mysql_num_utilisateur(username, password);
 
 		if( g_strcmp0(niveau_utilisateur, "2") == 0 ){ // Si le niveau == 2
 			g_print("Level 2\n");

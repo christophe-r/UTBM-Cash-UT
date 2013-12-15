@@ -25,9 +25,11 @@
 
 GtkBuilder 			*builder_cashut;
 extern const gchar 	*niveau_utilisateur;
+extern const gchar 	*nom_utilisateur;
+extern const gchar 	*num_utilisateur;
 
 /******** EXTERN CONFIG ********/
-extern const gchar 	*caisse_num;
+extern const gchar 	*num_caisse;
 /*******************************/
 
 Liste *liste_course;
@@ -221,6 +223,7 @@ cashut_main_window(int argc, char *argv[])
 	afficherListe();
 
 */
+
 
 	gtk_widget_show (window_cashut);                
 	gtk_main();

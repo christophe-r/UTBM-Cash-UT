@@ -17,6 +17,8 @@
 GtkBuilder 		*builder_connexion;
 MYSQL 			*con;
 const gchar 	*niveau_utilisateur;
+const gchar 	*nom_utilisateur;
+const gchar 	*num_utilisateur;
 
 
 /******** EXTERN CONFIG ********/
@@ -25,7 +27,7 @@ const gchar 	*database_db;
 const gchar 	*database_user;
 const gchar 	*database_pass;
 
-const gchar 	*caisse_num;
+const gchar 	*num_caisse;
 /*******************************/
 
 
@@ -35,6 +37,8 @@ main (int argc, char *argv[])
 {
 
 	niveau_utilisateur = "1";
+	nom_utilisateur = NULL;
+	num_utilisateur = "0";
     GtkWidget  *window_connexion;
 
     gtk_init (&argc, &argv);
@@ -77,12 +81,12 @@ main (int argc, char *argv[])
 	database_user = g_key_file_get_string(key_file, "Database", "user", NULL);
 	database_pass = g_key_file_get_string(key_file, "Database", "pass", NULL);
 
-	caisse_num    = g_key_file_get_string(key_file, "Caisse", "caisse_num", NULL);
+	num_caisse    = g_key_file_get_string(key_file, "Caisse", "num_caisse", NULL);
 	/**************************************************************/
 
 	const gchar *caisse_message;
-	caisse_message = g_strconcat("Caisse no: ", caisse_num, "\n", NULL);
-	fprintf(stdout, "%s\n",caisse_message);
+	caisse_message = g_strconcat("Caisse no: ", num_caisse, "\n", NULL);
+	fprintf(stdout, "%s\n", caisse_message);
 
     gtk_builder_connect_signals (builder_connexion, NULL);
 

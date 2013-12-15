@@ -129,6 +129,48 @@ const gchar *mysql_niveau_utilisateur(const gchar *utilisateur, const gchar *mot
 
 }
 
+const gchar *mysql_num_utilisateur(const gchar *utilisateur, const gchar *motdepasse){
+
+	gchar *query = NULL;
+
+	query = g_strconcat("SELECT * FROM utilisateurs WHERE nom=\"", utilisateur, "\" AND motdepasse=\"", motdepasse, "\"", NULL);
+
+
+	if (con == NULL) {
+		g_print("Database error.\n");
+		exit(1);
+	} else {
+
+		if (mysql_query(con, (char *)query) ) 
+		{
+			finish_with_error(con);
+		}
+		MYSQL_RES *result = mysql_store_result(con);
+
+		if (result == NULL) {
+			finish_with_error(con);
+		}
+
+		int num_rows;
+		num_rows = mysql_num_rows(result);
+
+		const gchar *num;
+
+		if( num_rows == 1 ){
+			MYSQL_ROW row;
+			while( (row = mysql_fetch_row(result)) ){ 
+				num = row[0];
+			}
+		} else {
+			exit(1);
+		}
+
+		return num;
+		mysql_free_result(result);
+	}
+
+}
+
 /*** PRODUITS ***/
 
 int mysql_verifier_existence_produit(const gchar *code_barres){
@@ -590,13 +632,13 @@ int mysql_utilisateur_modifier(const gchar *id_utilisateur, const gchar *nom_uti
 
 
 /*** ENCAISSEMENT ***/
-int mysql_encaissement_facturer(const gchar *date, const gchar *num_caisse, const gchar *num_caissiere, const gchar *facture, float total_prix){
+int mysql_encaissement_facturer(const gchar *date, const gchar *num_caisse, const gchar *num_utilisateur, const gchar *facture, float total_prix){
 
 	char *cTotal_prix;
 	sprintf(cTotal_prix, "%.2f", total_prix);
 
 	gchar *query = NULL;
-	query = g_strconcat("INSERT INTO factures (date, num_caisse, num_caissiere, facture, total_prix) VALUES(\"", date ,"\",\"", num_caisse,"\",\"", num_caissiere, "\",\"", facture, "\",\"", cTotal_prix, "\")", NULL);
+	query = g_strconcat("INSERT INTO factures (date, num_caisse, num_caissiere, facture, total_prix) VALUES(\"", date ,"\",\"", num_caisse,"\",\"", num_utilisateur, "\",\"", facture, "\",\"", cTotal_prix, "\")", NULL);
 
 	if (con == NULL) {
 		g_print("Database error.\n");

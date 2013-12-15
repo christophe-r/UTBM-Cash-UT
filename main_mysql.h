@@ -15,6 +15,7 @@ void connect_to_mysql();
 // Identification
 int mysql_verifier_identification(const gchar *utilisateur, const gchar *motdepasse);
 const gchar *mysql_niveau_utilisateur(const gchar *utilisateur, const gchar *motdepasse);
+const gchar *mysql_num_utilisateur(const gchar *utilisateur, const gchar *motdepasse);
 
 // Produits
 int mysql_verifier_existence_produit(const gchar *code_barres);
@@ -39,7 +40,7 @@ int mysql_utilisateur_modifier(const gchar *id_utilisateur, const gchar *nom_uti
 
 
 // Encaissement
-int mysql_encaissement_facturer(const gchar *date, const gchar *num_caisse, const gchar *num_caissiere, const gchar *facture, float total_prix);
+int mysql_encaissement_facturer(const gchar *date, const gchar *num_caisse, const gchar *num_utilisateur, const gchar *facture, float total_prix);
 
 
 #endif /* MYSQL_H */
