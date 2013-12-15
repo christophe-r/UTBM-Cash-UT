@@ -163,6 +163,10 @@ cashut_main_window(int argc, char *argv[])
             gtk_builder_get_object (builder_cashut, "cp_b_ajouter"),
             "clicked", G_CALLBACK(cp_b_ajouter_clicked), NULL
     );
+    g_signal_connect (
+            gtk_builder_get_object (builder_cashut, "pe_entry_codebarre"),
+            "changed", G_CALLBACK(pe_verif_caractere), NULL
+    );
 
 
 	// Initialisation pour la Gestion des Utilisateurs

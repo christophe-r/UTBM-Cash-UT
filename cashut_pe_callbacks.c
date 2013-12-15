@@ -62,9 +62,9 @@ void init_treeview_lists_chaine() /* fonction d'initialisation de la treeview*/
   // attache le modèle de donnée a notre treeview
   gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_liste_chaine), GTK_TREE_MODEL(store));
 
-  // permet de pouvoir selectionner plusieur item dans le treeview
-  selection=gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview_liste_chaine));
-  gtk_tree_selection_set_mode(selection,GTK_SELECTION_MULTIPLE);
+  // // permet de pouvoir selectionner plusieur item dans le treeview (fonctionnaliter à venir)
+  // selection=gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview_liste_chaine));
+  // gtk_tree_selection_set_mode(selection,GTK_SELECTION_MULTIPLE);
 
   g_object_unref(store);
 }
@@ -156,6 +156,13 @@ void maj_tb_taux_tva()
   }
 }
 
+void pe_verif_caractere()
+{
+    const gchar *entry;
+    entry = g_strconcat(gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_codebarre"))), NULL);
+    gtk_entry_set_text(GTK_ENTRY(gtk_builder_get_object(builder_cashut, "pe_entry_codebarre")), g_strcanon(entry, "0123456789", NULL)); // autotrise uniqueùent les caratères de 0 à 9;
+}
+
 void pe_ajouter_produit (GtkWidget *widget, gpointer   data) /* fonction pour ajouté un produit*/ 
 {   
 	if (Ajouter_produit_liste_chaine(gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_codebarre"))))) /* On essaye d'ajouté le produit à la liste chainnée */
@@ -177,12 +184,24 @@ void pe_annuler(GtkWidget *widget, gpointer   data)/* fonction pour annuler la c
   Supprimer_liste_chaine(); // vide la liste chainnée
   gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_total_ttc")),"0 €");// met à jour les labels
   gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_total_tva")),"0 €");
+  int i;
+  for( i=0 ; i<nombre_taux_tva ; i++ ) // pour chaque ligne de tb_taux_tva on remet à les taux
+  {
+    tb_taux_tva[i].tva=0;
+    tb_taux_tva[i].ht=0;
+    tb_taux_tva[i].ttc=0;
 
+  }
 }
 
 void pe_suprimer_produit(GtkWidget *widget, gpointer   data)
 {
+    // GtkTreeSelection *selection;
+    // gchar *code_barres;
 
+    // selection=gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview_liste_chaine));
+    // gtk_tree_selection_get_selected(selection, &model, &iter);
+    // gtk_tree_model_get (model, &iter, 0, &code_barres,-1);
 
 }
 
