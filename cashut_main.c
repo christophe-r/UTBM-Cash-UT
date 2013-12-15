@@ -168,6 +168,7 @@ cashut_main_window(int argc, char *argv[])
             "clicked", G_CALLBACK(cp_b_ajouter_clicked), NULL
     );
 
+
 	// Initialisation pour la Gestion des Utilisateurs
 	nombre_chargement_liststore_utilisateurs = 0;
 

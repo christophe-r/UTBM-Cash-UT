@@ -10,6 +10,8 @@ G_MODULE_EXPORT void cp_b_rechercher_clicked(GtkWidget *widget, gpointer user_da
 G_MODULE_EXPORT void cp_treeview_rowactivated(GtkWidget *widget, gpointer user_data);
 G_MODULE_EXPORT void cp_b_ajouter_clicked(GtkWidget *widget, gpointer user_data);
 
+
+
 void dialog_trop_de_resultats();
 
 

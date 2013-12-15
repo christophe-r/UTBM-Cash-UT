@@ -12,19 +12,13 @@
 #include "structures.h"
 
 
-
-
 extern GtkBuilder         *builder_cashut;
-
-
-
 
 
 /**** Catalogue Produits **********************************/
 
 
 Produit *cp_liste_recherche;
-
 
 
 void catalogue_produits_create_liststore(const gchar *critere, const gchar *recherche){
@@ -34,10 +28,11 @@ void catalogue_produits_create_liststore(const gchar *critere, const gchar *rech
         nombre_resultats = mysql_nombre_rechercher_produits(critere, recherche);
 
 
-        if( nombre_resultats > 40 ){
+        if( nombre_resultats > 40 ){ // Si trop de résultats
                 dialog_trop_de_resultats();
         } else {
 
+				// Gestion du pluriel
                 char c_nombre_resultats[2];
                 sprintf(c_nombre_resultats, "%d", nombre_resultats);
 
@@ -48,7 +43,7 @@ void catalogue_produits_create_liststore(const gchar *critere, const gchar *rech
                         pluriel_resultats = "";
                 }
 
-
+				// Il y a XX résultat(s)
                 gtk_label_set_text(GTK_LABEL(gtk_builder_get_object(builder_cashut, "cp_l_nombre_resultats")), g_strconcat("Il y a ", c_nombre_resultats, " résultat", pluriel_resultats, NULL));
 
                 cp_liste_recherche = (Produit *) malloc( sizeof(Produit) * nombre_resultats);
@@ -59,7 +54,7 @@ void catalogue_produits_create_liststore(const gchar *critere, const gchar *rech
                 GtkTreeView *cp_treeview;
                 cp_treeview = GTK_TREE_VIEW(gtk_builder_get_object(builder_cashut, "cp_treeview"));
 
-                // Supprime les colonnes déjà été chargées
+                // Supprime systématiquement les colonnes déjà été chargées
                 gtk_tree_view_remove_column (cp_treeview, gtk_tree_view_get_column(cp_treeview, 0));
                 gtk_tree_view_remove_column (cp_treeview, gtk_tree_view_get_column(cp_treeview, 0));
                 gtk_tree_view_remove_column (cp_treeview, gtk_tree_view_get_column(cp_treeview, 0));
@@ -73,10 +68,10 @@ void catalogue_produits_create_liststore(const gchar *critere, const gchar *rech
 
                 /* create list store */
                 liste_cp_model = gtk_list_store_new (5, G_TYPE_STRING,
-                                                                                                G_TYPE_STRING,
-                                                                                                G_TYPE_STRING,
-                                                                                                G_TYPE_STRING,
-                                                                                                G_TYPE_STRING);
+                                                        G_TYPE_STRING,
+                                                        G_TYPE_STRING,
+                                                        G_TYPE_STRING,
+                                                        G_TYPE_STRING);
                 /* add data to the list store */
                 // G_N_ELEMENTS(data_utilisateurs)
                 for (i = 0; i <= (nombre_resultats-1); i++)
@@ -88,13 +83,11 @@ void catalogue_produits_create_liststore(const gchar *critere, const gchar *rech
                         gtk_list_store_append (liste_cp_model, &iter);
                         gtk_list_store_set (liste_cp_model, &iter,
                                                           0, cp_liste_recherche[i].code_barres,
-                                      1, cp_liste_recherche[i].marque,
-                                      2, cp_liste_recherche[i].libelle,
-                                      3, cp_liste_recherche[i].conditionnement,
+										                  1, cp_liste_recherche[i].marque,
+										                  2, cp_liste_recherche[i].libelle,
+										                  3, cp_liste_recherche[i].conditionnement,
                                                           4, g_strconcat(prix_resultat, " €", NULL),
                                       -1);
-
-                        //free(prix_resultat);
                 }
 
 
@@ -164,6 +157,7 @@ void cp_b_rechercher_clicked(GtkWidget *widget, gpointer user_data){
         const gchar *champ_recherche;
         const gchar *critere;
 
+		// Récupération du radiobox sélectionné
         if( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(gtk_builder_get_object (builder_cashut, "cp_rb_codebarres"))) == TRUE ){
                 critere = "ean13";
         } else if( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(gtk_builder_get_object (builder_cashut, "cp_rb_marque"))) == TRUE ){
@@ -175,15 +169,15 @@ void cp_b_rechercher_clicked(GtkWidget *widget, gpointer user_data){
 
         champ_recherche = gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (builder_cashut, "cp_t_recherche")));
 
-
+		// Met à jour le liststore avec la recherche
         catalogue_produits_create_liststore(critere, champ_recherche);
 
 }
 
 
 void cp_treeview_rowactivated(GtkWidget *widget, gpointer user_data){
-
-        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "cp_b_ajouter")), TRUE);
+	// Active le bouton Ajouter
+	gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "cp_b_ajouter")), TRUE);
 }
 
 
@@ -207,15 +201,16 @@ void cp_b_ajouter_clicked(GtkWidget *widget, gpointer user_data){
 
         gtk_tree_model_get (model, &iter, 0, &code_barres,-1);
 
-        gtk_entry_set_text(GTK_ENTRY(gtk_builder_get_object (builder_cashut, "pe_entry_codebarres")), code_barres);
+		// Rempli le entry dans la partie encaissement
+		gtk_entry_set_text(GTK_ENTRY(gtk_builder_get_object (builder_cashut, "pe_entry_codebarres")), code_barres);
+		// Change de Tab sur la partie Encaissement
+		gtk_notebook_set_current_page(GTK_NOTEBOOK(gtk_builder_get_object(builder_cashut, "notebook")), 1);
+		// Simule un clique sur le bouton Ajouter produit dans la partie Encaissement
+		pe_ajouter_produit(GTK_WIDGET(gtk_builder_get_object(builder_cashut, "pe_entry_codebarres")), NULL);
+		// Désactive le bouton ajouter produit dans la partie Catalogue Produits
+		gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "cp_b_ajouter")), FALSE);
 
-        gtk_notebook_set_current_page(GTK_NOTEBOOK(gtk_builder_get_object(builder_cashut, "notebook")), 1);
-
-        pe_ajouter_produit(GTK_WIDGET(gtk_builder_get_object(builder_cashut, "pe_entry_codebarres")), NULL);
-
-        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "cp_b_ajouter")), FALSE);
-
-        g_free(code_barres);
+		g_free(code_barres);
 
 }
 
@@ -231,4 +226,5 @@ void dialog_trop_de_resultats(){
         gtk_widget_destroy (dialog);
 
 }
+
 
