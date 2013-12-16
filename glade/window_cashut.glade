@@ -144,15 +144,15 @@
                 <property name="label" translatable="yes">Annuler</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">65</property>
-                <property name="height_request">40</property>
+                <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
               </object>
               <packing>
-                <property name="x">178</property>
-                <property name="y">16</property>
+                <property name="x">180</property>
+                <property name="y">19</property>
               </packing>
             </child>
             <child>
@@ -187,7 +187,7 @@ sans facture</property>
                 <property name="use_action_appearance">False</property>
               </object>
               <packing>
-                <property name="x">10</property>
+                <property name="x">23</property>
                 <property name="y">421</property>
               </packing>
             </child>
@@ -330,7 +330,7 @@ sans facture</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Quantitée</property>
+                <property name="label" translatable="yes">Quantité</property>
               </object>
               <packing>
                 <property name="x">127</property>
@@ -385,7 +385,7 @@ sans facture</property>
               </object>
               <packing>
                 <property name="x">128</property>
-                <property name="y">514</property>
+                <property name="y">550</property>
               </packing>
             </child>
             <child>
@@ -402,7 +402,7 @@ sans facture</property>
               </object>
               <packing>
                 <property name="x">128</property>
-                <property name="y">550</property>
+                <property name="y">513</property>
               </packing>
             </child>
             <child>
@@ -411,7 +411,7 @@ sans facture</property>
                 <property name="height_request">40</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="max_length">5</property>
+                <property name="max_length">10</property>
                 <property name="invisible_char">•</property>
               </object>
               <packing>
@@ -438,7 +438,7 @@ sans facture</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Déjà payer :</property>
+                <property name="label" translatable="yes">Déjà payé :</property>
               </object>
               <packing>
                 <property name="x">10</property>
@@ -451,7 +451,7 @@ sans facture</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Reste à payer :</property>
+                <property name="label" translatable="yes">Reste à payé :</property>
               </object>
               <packing>
                 <property name="x">10</property>
@@ -477,7 +477,7 @@ sans facture</property>
             </child>
             <child>
               <object class="GtkLabel" id="pe_lbl_deja_payer_cheque">
-                <property name="width_request">50</property>
+                <property name="width_request">72</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -488,13 +488,13 @@ sans facture</property>
                 </attributes>
               </object>
               <packing>
-                <property name="x">11</property>
-                <property name="y">345</property>
+                <property name="x">16</property>
+                <property name="y">344</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="pe_lbl_deja_payer_espece">
-                <property name="width_request">50</property>
+                <property name="width_request">76</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -505,13 +505,13 @@ sans facture</property>
                 </attributes>
               </object>
               <packing>
-                <property name="x">88</property>
+                <property name="x">91</property>
                 <property name="y">345</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="pe_lbl_deja_payer_carte">
-                <property name="width_request">50</property>
+                <property name="width_request">69</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -522,7 +522,7 @@ sans facture</property>
                 </attributes>
               </object>
               <packing>
-                <property name="x">166</property>
+                <property name="x">170</property>
                 <property name="y">345</property>
               </packing>
             </child>
@@ -602,6 +602,22 @@ sans facture</property>
                 <property name="y">342</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkButton" id="btn_paiement_annuler">
+                <property name="label" translatable="yes">Annuler</property>
+                <property name="use_action_appearance">False</property>
+                <property name="width_request">65</property>
+                <property name="height_request">20</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="x">180</property>
+                <property name="y">175</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="position">1</property>
@@ -673,7 +689,6 @@ sans facture</property>
                 <property name="height_request">30</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="has_focus">True</property>
                 <property name="invisible_char">•</property>
                 <property name="activates_default">True</property>
               </object>

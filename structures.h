@@ -55,5 +55,14 @@ enum /*tree view partie encaissement */
   N_COLUMNS
 };
 
+typedef struct paiement/* structure de la TVA */
+{
+  float espece;
+  float carte;
+  float cheque;
+  float reste;
+}paiement;
+
+
 
 #endif /* STRUCTURES_H */

@@ -239,8 +239,8 @@ struct Produit *mysql_recuperer_produit(const gchar *code_barres){
 
 				/* remplie les valeurs de la structure */
 				mon_produit->produitid = atoi(row[0]);
-				mon_produit->code_barres =  g_strconcat(row[1], NULL);;
-				mon_produit->marque =  g_strconcat(row[2], NULL);;
+				mon_produit->code_barres =  g_strconcat(row[1], NULL);
+				mon_produit->marque =  g_strconcat(row[2], NULL);
 				mon_produit->libelle = g_strconcat(row[3], NULL);
 				mon_produit->type_marque =  g_strconcat(row[4], NULL);
 				mon_produit->conditionnement =  g_strconcat(row[5], NULL);

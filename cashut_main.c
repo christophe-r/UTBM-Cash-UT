@@ -33,6 +33,7 @@ extern const gchar 	*num_caisse;
 /*******************************/
 
 Liste *liste_course;
+paiement paiement_encour;
 
 TauxTVA *tb_taux_tva;
 int nombre_taux_tva;
@@ -131,15 +132,19 @@ cashut_main_window(int argc, char *argv[])
 	);
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_cheque")),
-			"clicked", G_CALLBACK (testfonction), NULL
+			"clicked", G_CALLBACK (pe_btn_cheque), NULL
+	);
+	g_signal_connect ( 
+			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "btn_paiement_annuler")),
+			"clicked", G_CALLBACK (pe_annuler_paiement), NULL
 	);
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_espece")),
-			"clicked", G_CALLBACK (testfonction), NULL
+			"clicked", G_CALLBACK (pe_btn_espece), NULL
 	);
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_carte")),
-			"clicked", G_CALLBACK (testfonction), NULL
+			"clicked", G_CALLBACK (pe_btn_carte), NULL
 	);
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_terminer_nofac")),
