@@ -10,6 +10,7 @@
 #include "cashut_gu_callbacks.h"
 #include "cashut_pe_callbacks.h"
 #include "cashut_cp_callbacks.h"
+#include "cashut_ca_callbacks.h"
 
 #include "main_mysql.h"
 
@@ -174,6 +175,30 @@ cashut_main_window(int argc, char *argv[])
             gtk_builder_get_object (builder_cashut, "cp_b_ajouter"),
             "clicked", G_CALLBACK(cp_b_ajouter_clicked), NULL
     );
+
+
+	// Signaux Calculatrice
+	GtkWidget *ca_label_screen;
+	ca_label_screen = GTK_LABEL(gtk_builder_get_object (builder_cashut, "ca_screen"));
+
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_7"), "clicked", G_CALLBACK(ca_append_7), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_8"), "clicked", G_CALLBACK(ca_append_8), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_9"), "clicked", G_CALLBACK(ca_append_9), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_slash"), "clicked", G_CALLBACK(ca_divide), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_4"), "clicked", G_CALLBACK(ca_append_4), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_5"), "clicked", G_CALLBACK(ca_append_5), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_6"), "clicked", G_CALLBACK(ca_append_6), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_asterisk"), "clicked", G_CALLBACK(ca_multiply), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_1"), "clicked", G_CALLBACK(ca_append_1), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_2"), "clicked", G_CALLBACK(ca_append_2), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_3"), "clicked", G_CALLBACK(ca_append_3), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_minus"), "clicked", G_CALLBACK(ca_subtract), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_0"), "clicked", G_CALLBACK(ca_append_0), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_decimal"), "clicked", G_CALLBACK(ca_append_decimal), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_percent"), "clicked", G_CALLBACK(ca_percent), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_plus"), "clicked", G_CALLBACK(ca_add), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_clear"), "clicked", G_CALLBACK(ca_clear), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_equals"), "clicked", G_CALLBACK(ca_equals), ca_label_screen);
 
 
 	// Initialisation pour la Gestion des Utilisateurs

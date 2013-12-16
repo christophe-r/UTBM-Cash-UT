@@ -144,15 +144,15 @@
                 <property name="label" translatable="yes">Annuler</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">65</property>
-                <property name="height_request">20</property>
+                <property name="height_request">40</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
               </object>
               <packing>
-                <property name="x">180</property>
-                <property name="y">19</property>
+                <property name="x">178</property>
+                <property name="y">16</property>
               </packing>
             </child>
             <child>
@@ -187,7 +187,7 @@ sans facture</property>
                 <property name="use_action_appearance">False</property>
               </object>
               <packing>
-                <property name="x">23</property>
+                <property name="x">10</property>
                 <property name="y">421</property>
               </packing>
             </child>
@@ -330,7 +330,7 @@ sans facture</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Quantité</property>
+                <property name="label" translatable="yes">Quantitée</property>
               </object>
               <packing>
                 <property name="x">127</property>
@@ -385,7 +385,7 @@ sans facture</property>
               </object>
               <packing>
                 <property name="x">128</property>
-                <property name="y">550</property>
+                <property name="y">514</property>
               </packing>
             </child>
             <child>
@@ -402,7 +402,7 @@ sans facture</property>
               </object>
               <packing>
                 <property name="x">128</property>
-                <property name="y">513</property>
+                <property name="y">550</property>
               </packing>
             </child>
             <child>
@@ -411,7 +411,7 @@ sans facture</property>
                 <property name="height_request">40</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="max_length">10</property>
+                <property name="max_length">5</property>
                 <property name="invisible_char">•</property>
               </object>
               <packing>
@@ -438,7 +438,7 @@ sans facture</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Déjà payé :</property>
+                <property name="label" translatable="yes">Déjà payer :</property>
               </object>
               <packing>
                 <property name="x">10</property>
@@ -451,7 +451,7 @@ sans facture</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Reste à payé :</property>
+                <property name="label" translatable="yes">Reste à payer :</property>
               </object>
               <packing>
                 <property name="x">10</property>
@@ -477,7 +477,7 @@ sans facture</property>
             </child>
             <child>
               <object class="GtkLabel" id="pe_lbl_deja_payer_cheque">
-                <property name="width_request">72</property>
+                <property name="width_request">50</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -488,13 +488,13 @@ sans facture</property>
                 </attributes>
               </object>
               <packing>
-                <property name="x">16</property>
-                <property name="y">344</property>
+                <property name="x">11</property>
+                <property name="y">345</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="pe_lbl_deja_payer_espece">
-                <property name="width_request">76</property>
+                <property name="width_request">50</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -505,13 +505,13 @@ sans facture</property>
                 </attributes>
               </object>
               <packing>
-                <property name="x">91</property>
+                <property name="x">88</property>
                 <property name="y">345</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="pe_lbl_deja_payer_carte">
-                <property name="width_request">69</property>
+                <property name="width_request">50</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -522,7 +522,7 @@ sans facture</property>
                 </attributes>
               </object>
               <packing>
-                <property name="x">170</property>
+                <property name="x">166</property>
                 <property name="y">345</property>
               </packing>
             </child>
@@ -602,22 +602,6 @@ sans facture</property>
                 <property name="y">342</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkButton" id="btn_paiement_annuler">
-                <property name="label" translatable="yes">Annuler</property>
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">65</property>
-                <property name="height_request">20</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-              </object>
-              <packing>
-                <property name="x">180</property>
-                <property name="y">175</property>
-              </packing>
-            </child>
           </object>
           <packing>
             <property name="position">1</property>
@@ -643,6 +627,7 @@ sans facture</property>
             <property name="can_focus">False</property>
             <child>
               <object class="GtkButton" id="ca_7">
+                <property name="label" translatable="yes">7</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">100</property>
                 <property name="height_request">80</property>
@@ -650,16 +635,6 @@ sans facture</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_7">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">7</property>
-                    <attributes>
-                      <attribute name="size" value="35000"/>
-                    </attributes>
-                  </object>
-                </child>
               </object>
               <packing>
                 <property name="x">140</property>
@@ -668,6 +643,7 @@ sans facture</property>
             </child>
             <child>
               <object class="GtkButton" id="ca_8">
+                <property name="label" translatable="yes">8</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">100</property>
                 <property name="height_request">80</property>
@@ -675,16 +651,6 @@ sans facture</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_8">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">8</property>
-                    <attributes>
-                      <attribute name="size" value="35000"/>
-                    </attributes>
-                  </object>
-                </child>
               </object>
               <packing>
                 <property name="x">260</property>
@@ -693,6 +659,7 @@ sans facture</property>
             </child>
             <child>
               <object class="GtkButton" id="ca_9">
+                <property name="label" translatable="yes">9</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">100</property>
                 <property name="height_request">80</property>
@@ -700,16 +667,6 @@ sans facture</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_9">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">9</property>
-                    <attributes>
-                      <attribute name="size" value="35000"/>
-                    </attributes>
-                  </object>
-                </child>
               </object>
               <packing>
                 <property name="x">380</property>
@@ -718,6 +675,7 @@ sans facture</property>
             </child>
             <child>
               <object class="GtkButton" id="ca_slash">
+                <property name="label" translatable="yes">/</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">100</property>
                 <property name="height_request">80</property>
@@ -725,388 +683,10 @@ sans facture</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_slash">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">÷</property>
-                    <attributes>
-                      <attribute name="size" value="45000"/>
-                    </attributes>
-                  </object>
-                </child>
               </object>
               <packing>
                 <property name="x">500</property>
                 <property name="y">100</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ca_4">
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">100</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_4">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">4</property>
-                    <attributes>
-                      <attribute name="size" value="35000"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="x">140</property>
-                <property name="y">190</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ca_5">
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">100</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_5">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">5</property>
-                    <attributes>
-                      <attribute name="size" value="35000"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="x">260</property>
-                <property name="y">190</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ca_6">
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">100</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_6">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">6</property>
-                    <attributes>
-                      <attribute name="size" value="35000"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="x">380</property>
-                <property name="y">190</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ca_asterisk">
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">100</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_asterisk">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">x</property>
-                    <attributes>
-                      <attribute name="size" value="35000"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="x">500</property>
-                <property name="y">190</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ca_1">
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">100</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_1">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">1</property>
-                    <attributes>
-                      <attribute name="size" value="35000"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="x">140</property>
-                <property name="y">280</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ca_2">
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">100</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_2">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">2</property>
-                    <attributes>
-                      <attribute name="size" value="35000"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="x">260</property>
-                <property name="y">280</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ca_3">
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">100</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_3">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">3</property>
-                    <attributes>
-                      <attribute name="size" value="35000"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="x">380</property>
-                <property name="y">280</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ca_minus">
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">100</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_minus">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">-</property>
-                    <attributes>
-                      <attribute name="size" value="46000"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="x">500</property>
-                <property name="y">280</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ca_0">
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">100</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_0">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">0</property>
-                    <attributes>
-                      <attribute name="size" value="35000"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="x">140</property>
-                <property name="y">370</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ca_decimal">
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">100</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_decimal">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">.</property>
-                    <attributes>
-                      <attribute name="size" value="35000"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="x">260</property>
-                <property name="y">370</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ca_percent">
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">100</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_percent">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">%</property>
-                    <attributes>
-                      <attribute name="size" value="35000"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="x">380</property>
-                <property name="y">370</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ca_plus">
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">100</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_plus">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">+</property>
-                    <attributes>
-                      <attribute name="size" value="46000"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="x">500</property>
-                <property name="y">370</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ca_clear">
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">220</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_clear">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Effacer</property>
-                    <attributes>
-                      <attribute name="size" value="35000"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="x">140</property>
-                <property name="y">460</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="ca_equals">
-                <property name="use_action_appearance">False</property>
-                <property name="width_request">220</property>
-                <property name="height_request">80</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <child>
-                  <object class="GtkLabel" id="ca_label_equals">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">=</property>
-                    <attributes>
-                      <attribute name="size" value="46000"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="x">380</property>
-                <property name="y">460</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="ca_screen">
-                <property name="width_request">460</property>
-                <property name="height_request">60</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xalign">1</property>
-                <property name="label" translatable="yes">0</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                  <attribute name="size" value="35000"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="x">140</property>
-                <property name="y">30</property>
               </packing>
             </child>
           </object>
@@ -1157,6 +737,7 @@ sans facture</property>
                 <property name="height_request">30</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="has_focus">True</property>
                 <property name="invisible_char">•</property>
                 <property name="activates_default">True</property>
               </object>
