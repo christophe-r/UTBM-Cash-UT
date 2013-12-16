@@ -48,7 +48,7 @@ main_mysql.o: main_mysql.c main_mysql.h main_callbacks.h structures.h
 cashut_main.o: cashut_main.c cashut_main.h cashut_main_callbacks.h main_mysql.h main_gestion_liste.h structures.h cashut_gu_callbacks.h cashut_pe_callbacks.h cashut_cp_callbacks.h cashut_ca_callbacks.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
 
-cashut_main_callbacks.o: cashut_main_callbacks.c cashut_main_callbacks.h main_mysql.h main_gestion_liste.h structures.h cashut_gu_callbacks.h
+cashut_main_callbacks.o: cashut_main_callbacks.c cashut_main_callbacks.h main_mysql.h main_gestion_liste.h structures.h cashut_gu_callbacks.h cashut_ca_callbacks.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
 
 cashut_gu_callbacks.o: cashut_gu_callbacks.c cashut_gu_callbacks.h main_mysql.h structures.h

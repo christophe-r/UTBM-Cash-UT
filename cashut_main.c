@@ -194,6 +194,7 @@ cashut_main_window(int argc, char *argv[])
 	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_plus"), "clicked", G_CALLBACK(ca_add), ca_label_screen);
 	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_clear"), "clicked", G_CALLBACK(ca_clear), ca_label_screen);
 	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_equals"), "clicked", G_CALLBACK(ca_equals), ca_label_screen);
+	g_signal_connect(gtk_builder_get_object (builder_cashut, "window_cashut"), "key-release-event", G_CALLBACK(cashut_key_event), NULL);
 
 
 	// Initialisation pour la Gestion des Utilisateurs

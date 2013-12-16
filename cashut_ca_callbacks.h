@@ -26,4 +26,5 @@ G_MODULE_EXPORT void ca_clear(GtkWidget *widget, gpointer label);
 G_MODULE_EXPORT void ca_equals(GtkWidget *widget, gpointer label);
 
 
+
 #endif /* CASHUT_CA_CALLBACKS_H */

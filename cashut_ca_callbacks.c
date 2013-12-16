@@ -6,10 +6,7 @@
 #include "cashut_ca_callbacks.h"
 
 
-
-
-extern GtkBuilder 	*builder_cashut;
-
+//extern GtkBuilder *builder_cashut;
 
 
 /**** Calculatrice **********************************/
@@ -21,13 +18,10 @@ float num1, num2, new_num;
 char operator = 0;
 
 void ca_append(char *string, gpointer label) {
-	if (!strcmp(buffer, "0")) {
-		strcat(buffer, string);
-		strcpy(buffer_screen, string);
-	} else {
-		strcat(buffer, string);
-		strcat(buffer_screen, string);
-	}
+	strcat(buffer, string);
+	strcat(buffer_screen, string);
+
+	sprintf(buffer_screen, "%.2f", atof(buffer));
 	
 	gtk_label_set_text(label, buffer_screen);
 } 
@@ -119,7 +113,7 @@ void ca_percent(GtkWidget *widget, gpointer label) {
 
 void ca_clear(GtkWidget *widget, gpointer label) {
 	strcpy(buffer, "0");
-	strcpy(buffer_screen, "0");
+	strcpy(buffer_screen, "0.00");
 	gtk_label_set_text(label, buffer_screen);
 }
 
@@ -173,5 +167,6 @@ void ca_equals(GtkWidget *widget, gpointer label) {
 		gtk_label_set_text(label, buffer_screen);
 	}
 }
+
 
 

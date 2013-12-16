@@ -8,6 +8,7 @@
 
 #include "cashut_gu_callbacks.h"
 #include "cashut_pe_callbacks.h"
+#include "cashut_ca_callbacks.h"
 
 #include "main_gestion_liste.h"
 
@@ -99,5 +100,60 @@ on_notebook_change_page (GtkWidget *widget, gpointer user_data)
 	}
 
 }
+
+
+void cashut_key_event(GtkWidget *widget, GdkEventKey *event){
+
+	// Gestion de la calculatrice au clavier
+	if( gtk_notebook_get_current_page(GTK_NOTEBOOK(gtk_builder_get_object(builder_cashut, "notebook"))) == 2 ){
+
+		GtkLabel *ca_label_screen;
+		ca_label_screen = GTK_LABEL(gtk_builder_get_object(builder_cashut, "ca_screen"));
+
+		const gchar *keyvalue;
+		keyvalue = gdk_keyval_name(event->keyval);
+
+		if( g_strcmp0(keyvalue, "Return") == 0 || g_strcmp0(keyvalue, "KP_Enter") == 0 || g_strcmp0(keyvalue, "equal") == 0 ){ 
+			ca_equals(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_equals")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_Decimal") == 0 || g_strcmp0(keyvalue, "period") == 0 || g_strcmp0(keyvalue, "comma") == 0 ){
+			ca_append_decimal(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_decimal")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "BackSpace") == 0 ){
+			ca_clear(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_clear")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_0") == 0 || g_strcmp0(keyvalue, "0") == 0  ){ 
+			ca_append_0(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_0")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_1") == 0 || g_strcmp0(keyvalue, "1") == 0  ){ 
+			ca_append_1(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_1")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_2") == 0 || g_strcmp0(keyvalue, "2") == 0  ){ 
+			ca_append_2(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_2")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_3") == 0 || g_strcmp0(keyvalue, "3") == 0  ){ 
+			ca_append_3(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_3")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_4") == 0 || g_strcmp0(keyvalue, "4") == 0  ){ 
+			ca_append_4(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_4")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_5") == 0 || g_strcmp0(keyvalue, "5") == 0  ){ 
+			ca_append_5(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_5")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_6") == 0 || g_strcmp0(keyvalue, "6") == 0  ){ 
+			ca_append_6(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_6")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_7") == 0 || g_strcmp0(keyvalue, "7") == 0  ){ 
+			ca_append_7(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_7")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_8") == 0 || g_strcmp0(keyvalue, "8") == 0  ){ 
+			ca_append_8(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_8")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_9") == 0 || g_strcmp0(keyvalue, "9") == 0  ){ 
+			ca_append_9(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_9")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_Add") == 0 || g_strcmp0(keyvalue, "plus") == 0 ){ 
+			ca_add(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_plus")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_Subtract") == 0 || g_strcmp0(keyvalue, "minus") == 0 ){ 
+			ca_subtract(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_minus")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_Multiply") == 0 || g_strcmp0(keyvalue, "asterisk") == 0 ){
+			ca_multiply(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_asterisk")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "KP_Divide") == 0 || g_strcmp0(keyvalue, "slash") == 0 ){
+			ca_divide(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_slash")), ca_label_screen);
+		} else if( g_strcmp0(keyvalue, "percent") == 0 ){
+			ca_percent(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_percent")), ca_label_screen);
+		}
+	}
+
+		//g_print("%s %d\n", gdk_keyval_name (event->keyval), (int)event->keyval);
+}
+
 
 

@@ -8,7 +8,7 @@ G_MODULE_EXPORT void on_window_cashut_destroy (GtkWidget *widget, gpointer user_
 G_MODULE_EXPORT void on_window_cashut_show (GtkWidget *widget, gpointer user_data);
 G_MODULE_EXPORT void on_notebook_change_page (GtkWidget *widget, gpointer user_data);
 
-
+G_MODULE_EXPORT void cashut_key_event(GtkWidget *widget, GdkEventKey *event);
 
 
 #endif /* CASHUT_MAIN_CALLBACKS_H */
