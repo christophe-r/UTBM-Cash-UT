@@ -41,6 +41,7 @@ main (int argc, char *argv[])
 	num_utilisateur = "0";
     GtkWidget  *window_connexion;
 
+	gtk_disable_setlocale(); // Force GTK à utiliser la locale par défaut (anglais) et non pas celle de l'utilisateur
     gtk_init (&argc, &argv);
 	builder_connexion = gtk_builder_new ();
     
@@ -88,7 +89,7 @@ main (int argc, char *argv[])
 	caisse_message = g_strconcat("Caisse no: ", num_caisse, "\n", NULL);
 	fprintf(stdout, "%s\n", caisse_message);
 
-    gtk_builder_connect_signals (builder_connexion, NULL);
+   // gtk_builder_connect_signals (builder_connexion, NULL);
 
  	g_signal_connect (
             gtk_builder_get_object (builder_connexion, "button_destroy"),

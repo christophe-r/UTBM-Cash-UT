@@ -44,19 +44,19 @@ GtkWidget *treeview_liste_chaine;
 int nombre_chargement_liststore_utilisateurs;
 
 
-int
-cashut_main_window(int argc, char *argv[])
+void
+cashut_main_window()
 {
-	
+
     GtkWidget  *window_cashut;
 
-    gtk_init (&argc, &argv);
+    //gtk_init (&argc, &argv);
 	builder_cashut = gtk_builder_new ();
 
 	gtk_builder_add_from_string(builder_cashut, window_cashut_glade, -1, NULL);
     window_cashut = GTK_WIDGET (gtk_builder_get_object (builder_cashut, "window_cashut"));
 
-    gtk_builder_connect_signals (builder_cashut, NULL);
+    //gtk_builder_connect_signals (builder_cashut, NULL);
 
 	// Icône
 	GdkPixbuf *icon;
@@ -262,7 +262,7 @@ cashut_main_window(int argc, char *argv[])
 	g_object_unref (icon);
 	g_object_unref (logo_big);
 
-	return 0;
+	//return 0;
 
 }
 

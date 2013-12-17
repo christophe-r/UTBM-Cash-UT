@@ -4,7 +4,7 @@
 #include <gtk/gtk.h>
 
 
-G_MODULE_EXPORT int cashut_main_window();
+G_MODULE_EXPORT void cashut_main_window();
 
 
 #endif /* CASHUT_MAIN_H */
