@@ -53,7 +53,7 @@ on_window_cashut_show (GtkWidget *widget, gpointer user_data)
 	}
 
 	// Résolution bug: sans cette ligne, lorsqu'on appuie sur la fleche du bas, on a des Gtk-CRITACAL qui apparaissent. Sans doutes car aucun objet n'a le focus, et cette ligne le place sur le Notebook.
-	gtk_widget_grab_focus(GTK_NOTEBOOK(gtk_builder_get_object (builder_cashut, "notebook")));
+	gtk_widget_grab_focus(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "notebook")));
 
 }
 
