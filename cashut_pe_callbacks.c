@@ -119,9 +119,9 @@ void maj_tb_taux_tva()
     {
         if (actuel->p_produit->code_TVA == tb_taux_tva[i].code ) // si le code correspond au code produit on l'ajoute au tb taux tva   
         {
-            tb_taux_tva[i].ht += (actuel->p_produit->prix - (actuel->p_produit->prix * (tb_taux_tva[i].taux /100)))*actuel->quantitee;
-            tb_taux_tva[i].tva += (actuel->p_produit->prix * (tb_taux_tva[i].taux /100))*actuel->quantitee;;
-            tb_taux_tva[i].ttc += actuel->p_produit->prix *actuel->quantitee;;
+            tb_taux_tva[i].ttc += actuel->p_produit->prix *actuel->quantitee;
+            tb_taux_tva[i].ht += ( ( 100 / ( 100 + tb_taux_tva[i].taux ) )*tb_taux_tva[i].ttc )*actuel->quantitee;
+            tb_taux_tva[i].tva += tb_taux_tva[i].ttc - tb_taux_tva[i].ht;
         }
     }
   actuel = actuel->suivant;
