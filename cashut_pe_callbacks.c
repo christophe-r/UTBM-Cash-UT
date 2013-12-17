@@ -194,7 +194,7 @@ void pe_verif_caractere(GtkWidget *widget, gpointer   data) //fonction pour evit
 {
     gchar *entry;
     entry = g_strconcat(gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_codebarres"))), NULL);
-    gtk_entry_set_text(GTK_ENTRY(gtk_builder_get_object(builder_cashut, "pe_entry_codebarres")), g_strcanon(entry, "0123456789", (gchar)"")); // autotrise uniqueùent les caratères de 0 à 9;
+    gtk_entry_set_text(GTK_ENTRY(gtk_builder_get_object(builder_cashut, "pe_entry_codebarres")), g_strcanon(entry, "0123456789", "")); // autotrise uniqueùent les caratères de 0 à 9;
 }
 
 void pe_ajouter_produit (GtkWidget *widget, gpointer   data) /* fonction pour ajouté un produit*/ 
@@ -231,7 +231,7 @@ void pe_annuler(GtkWidget *widget, gpointer   data)/* fonction pour annuler la c
     tb_taux_tva[i].ttc=0;
 
   }
-   pe_annuler_paiement(gtk_builder_get_object(builder_cashut, "btn_paiement_annuler"), NULL); // annulation des paiements
+   pe_annuler_paiement(GTK_WIDGET(gtk_builder_get_object(builder_cashut, "btn_paiement_annuler"))  , NULL); // annulation des paiements
 }
 
 void pe_supprimer_produit(GtkWidget *widget, gpointer   data)

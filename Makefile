@@ -31,6 +31,7 @@ cashut: $(RESOURCES) $(OBJS)
 	@echo const gchar \* $(subst .,_,$(<F))=>> $@
 	@sed -e 's/"/\\"/g' -e 's/.*/"&"/' $< >> $@
 	@echo \;>> $@
+	@echo 
 
 #%.inc: resources/%.png
 #	@echo Converting $< to $@
@@ -38,33 +39,43 @@ cashut: $(RESOURCES) $(OBJS)
 
 main.o: main.c window_connexion.inc main_callbacks.h main_mysql.h structures.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
+	@echo 
 
 main_callbacks.o: main_callbacks.c main_callbacks.h main_mysql.h cashut_main.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
+	@echo 
 
 main_mysql.o: main_mysql.c main_mysql.h main_callbacks.h structures.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
+	@echo 
 
 cashut_main.o: cashut_main.c cashut_main.h cashut_main_callbacks.h main_mysql.h main_gestion_liste.h structures.h cashut_gu_callbacks.h cashut_pe_callbacks.h cashut_cp_callbacks.h cashut_ca_callbacks.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
+	@echo 
 
 cashut_main_callbacks.o: cashut_main_callbacks.c cashut_main_callbacks.h main_mysql.h main_gestion_liste.h structures.h cashut_gu_callbacks.h cashut_ca_callbacks.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
+	@echo 
 
 cashut_gu_callbacks.o: cashut_gu_callbacks.c cashut_gu_callbacks.h main_mysql.h structures.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
+	@echo 
 
 cashut_pe_callbacks.o: cashut_pe_callbacks.c cashut_pe_callbacks.h main_mysql.h structures.h main_gestion_liste.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
+	@echo 
 
 cashut_cp_callbacks.o: cashut_cp_callbacks.c cashut_cp_callbacks.h main_mysql.h structures.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
+	@echo 
 
 cashut_ca_callbacks.o: cashut_ca_callbacks.c cashut_ca_callbacks.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
+	@echo 
 
 main_gestion_liste.o: main_gestion_liste.c main_gestion_liste.h structures.h main_mysql.h
 	$(CC) $(CFLAGS) -c $< $(LIBS)
+	@echo 
 
 clean:
 	${RM} *.o *.inc ${EXEC_NAME} ${EXEC_NAME_DEBUG}

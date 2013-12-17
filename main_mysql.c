@@ -482,7 +482,6 @@ TauxTVA *mysql_recuperer_taux_tva(){
 		while( (row = mysql_fetch_row(result)) ){ 
 			/* remplie les valeurs de la structure */
 			codes_tauxtva[i].code = atoi(row[0]);
-			g_strcanon(row[1], "0123456789.", ",");
 			codes_tauxtva[i].taux = atof(row[1]);
 			codes_tauxtva[i].ht = 0.0;
 			codes_tauxtva[i].tva = 0.0;

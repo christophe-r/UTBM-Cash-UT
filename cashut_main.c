@@ -39,7 +39,7 @@ paiement paiement_encour;
 TauxTVA *tb_taux_tva;
 int nombre_taux_tva;
 
-GtkWidget *treeview_liste_chaine;  
+GtkTreeView *treeview_liste_chaine;  
 
 int nombre_chargement_liststore_utilisateurs;
 
@@ -179,7 +179,7 @@ cashut_main_window()
 
 	// Signaux Calculatrice
 	GtkWidget *ca_label_screen;
-	ca_label_screen = GTK_LABEL(gtk_builder_get_object (builder_cashut, "ca_screen"));
+	ca_label_screen = GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_screen"));
 
 	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_7"), "clicked", G_CALLBACK(ca_append_7), ca_label_screen);
 	g_signal_connect(gtk_builder_get_object (builder_cashut, "ca_8"), "clicked", G_CALLBACK(ca_append_8), ca_label_screen);
@@ -213,7 +213,7 @@ cashut_main_window()
 
 
 	// Initialisation pour la Partie Encaissement
-	treeview_liste_chaine = GTK_TREE_VIEW (gtk_builder_get_object (builder_cashut, "pe_treeview_liste_chaine"));
+	treeview_liste_chaine = gtk_builder_get_object (builder_cashut, "pe_treeview_liste_chaine");
 	if (gtk_tree_view_get_model (treeview_liste_chaine) == NULL) // normalement exécuté une seule fois au démarrage
 	{
 		initialisation_liste_chaine();
