@@ -24,6 +24,10 @@ extern int nombre_taux_tva;
 /* Partie encaisment */
 /******************************/
 
+/******************/
+/* Initialisation */
+/******************/
+
 void init_treeview_lists_chaine() /* fonction d'initialisation de la treeview*/
 {
 
@@ -71,7 +75,9 @@ void init_treeview_lists_chaine() /* fonction d'initialisation de la treeview*/
 
   g_object_unref(store);
 }
-
+/**********************************/
+/* Maj des labels et des bouttons */
+/**********************************/
 
 void maj_treeview_liste_chaine() /* fonction qui met à jour les lignes de la treeview */
 {
@@ -97,22 +103,47 @@ void maj_treeview_liste_chaine() /* fonction qui met à jour les lignes de la tr
   }	
 }
 
-void pe_footer_total()
+void maj_tb_taux_tva()
 {
-    float total_tva=0.0;
+  int i;
+  for (int i = 0; i < nombre_taux_tva; i++) // On remet a zéro le tb des taux de TVA
+  {
+    tb_taux_tva[i].ht = 0;
+    tb_taux_tva[i].tva = 0;
+    tb_taux_tva[i].ttc =0;
+  }
+  Element *actuel = liste_course->debut;
+  while (actuel != NULL ) /* parcour de la liste chainnée pour re-remplir les colonnes ttc, ht, tva du tableau de taux tva*/
+  {
+    for( i=0 ; i<nombre_taux_tva ; i++ ) // pour chaque produits ont se positinne sur la ligne du tb_taux tva avec le code qui correspondant
+    {
+        if (actuel->p_produit->code_TVA == tb_taux_tva[i].code ) // si le code correspond au code produit on l'ajoute au tb taux tva   
+        {
+            tb_taux_tva[i].ht += (actuel->p_produit->prix - (actuel->p_produit->prix * (tb_taux_tva[i].taux /100)))*actuel->quantitee;
+            tb_taux_tva[i].tva += (actuel->p_produit->prix * (tb_taux_tva[i].taux /100))*actuel->quantitee;;
+            tb_taux_tva[i].ttc += actuel->p_produit->prix *actuel->quantitee;;
+        }
+    }
+  actuel = actuel->suivant;
+  }
+}
+
+void maj_footer_total()
+{
+    float total_tva=0.0; /* Déclaration  des variables*/
     char char_total_tva[10];
     float total_prix=0.0;
     char char_total_prix[10];
     char char_total_prix_sans_euro[10];
     int i;
 
-    for( i=0 ; i<nombre_taux_tva ; i++ ) // pour chaque ligne de tb_taux_tva on on ajout le taux tva
+    for( i=0 ; i<nombre_taux_tva ; i++ ) // On cherche à avoir le total tva et le total ttc
     {
            total_tva += tb_taux_tva[i].tva;
            total_prix += tb_taux_tva[i].ttc;
     }
-    snprintf(char_total_prix_sans_euro, 10, "%.2f", total_prix);// applique les bon formats
-    snprintf(char_total_tva, 10, "%.2f", total_tva);// applique les bon formats
+    snprintf(char_total_prix_sans_euro, 10, "%.2f", total_prix);// transforme les chars en floats et applique les bons formats
+    snprintf(char_total_tva, 10, "%.2f", total_tva);
     g_strconcat(char_total_tva, " €", NULL);
     snprintf(char_total_prix, 10, "%.2f", total_prix);
     g_strconcat(char_total_prix, " €", NULL);
@@ -120,43 +151,46 @@ void pe_footer_total()
     gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_total_tva")),char_total_tva);
 }
 
-
-/*
-float tva_code2taux(int code){ // fonction qui transforme le code en taux de tva
-  
-  int i;
-  for( i=0 ; i<=(nombre_taux_tva-1) ; i++ ){ // parcour le tableau de structure de taux_tva 
-    if( code == tb_taux_tva[i].code ){ // si sont code correspond à notre code on retourne sont taux
-      return (float)tb_taux_tva[i].taux;
-    }
-  }
-
-  return 0.0;
-}
-*/
-
-
-void maj_tb_taux_tva()
+void maj_facture() // fonction qui met jour les bouttons et les  textentry en fonction du reste à payer
 {
-  int i;
+    char montantreste[10]="";
+    int i;
+    float total_prix=0.0;
 
-  Element *actuel = liste_course->debut;
-  while (actuel != NULL ) /* parcour de la liste chainnée pour remplir les autres colonnes du tableau */
-  {
-    for( i=0 ; i<nombre_taux_tva ; i++ ) // pour chaque produit ont va parcourir tout les codes 
+    for( i=0 ; i<nombre_taux_tva ; i++ ) // On calcul de taux de prix total
     {
-        if (actuel->p_produit->code_TVA == tb_taux_tva[i].code ) // si le code correspond au code produit on l'ajout au taux tva   
-        {
-            tb_taux_tva[i].ht += actuel->p_produit->prix - (actuel->p_produit->prix * (tb_taux_tva[i].taux /100));
-            tb_taux_tva[i].tva += actuel->p_produit->prix * (tb_taux_tva[i].taux /100);
-            tb_taux_tva[i].ttc += actuel->p_produit->prix;
-        }
+           total_prix += tb_taux_tva[i].ttc;
     }
-  actuel = actuel->suivant;
-  }
+
+    paiement_encour.reste = total_prix -(paiement_encour.carte + paiement_encour.espece + paiement_encour.cheque);// calcul du reste
+    snprintf(montantreste, 10, "%.2f", paiement_encour.reste);// transforme le reste (float) en char
+    g_strconcat(montantreste, " €", NULL);
+    gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_reste")),montantreste);// met a jour le label
+
+    if (liste_course->debut != NULL && paiement_encour.reste == 0.0) // active ou désactive les bouttons du paiement
+    {
+        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_terminer_nofac")), TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_terminer_fac")), TRUE); 
+        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_espece")), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_cheque")), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_carte")), FALSE);      
+        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_entry_montant")), FALSE);      
+    }else  
+    {
+        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_terminer_nofac")), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_terminer_fac")), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_espece")), TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_cheque")), TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_carte")), TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_entry_montant")), TRUE);
+    }
 }
 
-void pe_verif_caractere(GtkWidget *widget, gpointer   data)
+/********************************************/
+/* Fonction d'action sur les bouttons de gtk*/
+/********************************************/
+
+void pe_verif_caractere(GtkWidget *widget, gpointer   data) //fonction pour eviter que l'utilisateur ne rajoute d'autre caractére que des nombres pour le code barre
 {
     gchar *entry;
     entry = g_strconcat(gtk_entry_get_text (GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_codebarres"))), NULL);
@@ -169,9 +203,9 @@ void pe_ajouter_produit (GtkWidget *widget, gpointer   data) /* fonction pour aj
 	 {
 	 	maj_treeview_liste_chaine(); /* Met à jour la treeview si le produit est valable*/
         maj_tb_taux_tva(); /* Met à jour le tb de taux de tva*/
-        pe_footer_total(); /* Met à jour les totals */
-         maj_facture(); /*met ajour la partie paiement */
-         char montantreste[10]="";
+        maj_footer_total(); /* Met à jour les totals */
+        maj_facture(); /*met ajour la partie paiement */
+        char montantreste[10]="";
         snprintf(montantreste, 10, "%.2f", paiement_encour.reste); // mise à jour de la text entry montant 
         g_strconcat(montantreste, " €", NULL);
         gtk_entry_set_text (GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_montant")),montantreste);
@@ -210,110 +244,82 @@ void pe_supprimer_produit(GtkWidget *widget, gpointer   data)
     // gtk_tree_model_get (model, &iter, 0, &code_barres,-1);
 
 }
-void pe_annuler_paiement(GtkWidget *widget, gpointer   data)
+void pe_annuler_paiement(GtkWidget *widget, gpointer   data) // fonction pour annuler le paiement
 {
  
-    paiement_encour.carte = 0.0;
+    paiement_encour.carte = 0.0; // remet à zéro la structure des paiement
     paiement_encour.espece = 0.0;
     paiement_encour.cheque = 0.0; 
-    gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_deja_payer_cheque")),"0 €");
+    gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_deja_payer_cheque")),"0 €"); // met a jour les labels des paiement : carte, espece, cheque
     gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_deja_payer_carte")),"0 €");
     gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_deja_payer_espece")),"0 €");
-    maj_facture();
+    maj_facture(); // met à jour la partie paiement
 
 }
 
 void pe_btn_cheque(GtkWidget *widget, gpointer   data)// fonction si l'ont encaisse par chéque
 {
-    gchar *gmontant;
+    const gchar *gmontant; // créé les variables néssaire
     char chmontant[10];
     float montant;
-    gmontant = gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_montant")));
-    g_strcanon(gmontant, "0123456789.", ",");
-    montant =atof(gmontant);
-    if (montant > paiement_encour.reste)
+    gmontant = gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_montant"))); // récupere le montant à paiement
+    //g_strcanon(gmontant, "0123456789.", ",");
+    montant =atof(gmontant); // On le transforme en float
+    if (montant > paiement_encour.reste) // test si le montant n'est pas superieure au monant restant à payer
     {
         montant = paiement_encour.reste;
+        snprintf(chmontant, 10, "%.2f", paiement_encour.reste);
+        gtk_entry_set_text (GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_montant")),chmontant); // on met aussi le a jour le text entry 
     }
-    paiement_encour.cheque += montant;
+    paiement_encour.cheque += montant; // ajout le montant à la structure
     snprintf(chmontant, 10, "%.2f", paiement_encour.cheque);
-    // g_strconcat(chmontant, " €", NULL);
-    gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_deja_payer_cheque")),chmontant);
-    maj_facture();
+    g_strconcat(chmontant, " €", NULL);
+    gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_deja_payer_cheque")),chmontant); // affiche le montant
+    maj_facture(); // met à jour la facture
 }
 
 void pe_btn_espece(GtkWidget *widget, gpointer   data)// fonction si l'ont encaisse par espéce
 {
-    gchar *gmontant;
+    const gchar *gmontant;
     char chmontant[10];
     float montant;
     gmontant = gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_montant")));
-    g_strcanon(gmontant, "0123456789.", ",");
+    //g_strcanon(gmontant, "0123456789.", ",");
     montant =atof(gmontant);
     if (montant > paiement_encour.reste)
     {
         montant = paiement_encour.reste;
+        snprintf(chmontant, 10, "%.2f", paiement_encour.reste);
+        gtk_entry_set_text (GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_montant")),chmontant);
     }
     paiement_encour.espece +=montant;
     snprintf(chmontant, 10, "%.2f", paiement_encour.espece);
-    // g_strconcat(chmontant, " €", NULL);
+    g_strconcat(chmontant, " €", NULL);
     gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_deja_payer_espece")),chmontant);
     maj_facture();
 }
 
 void pe_btn_carte(GtkWidget *widget, gpointer   data)// fonction si l'ont encaisse par carte
 {
-    gchar *gmontant;
+    const gchar *gmontant;
     char chmontant[10];
     float montant;
     gmontant = gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_montant")));
-    g_strcanon(gmontant, "0123456789.", ",");
+    //g_strcanon(gmontant, "0123456789.", ",");
     montant =atof(gmontant);
     if (montant > paiement_encour.reste)
     {
         montant = paiement_encour.reste;
+        snprintf(chmontant, 10, "%.2f", paiement_encour.reste);
+        gtk_entry_set_text (GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_montant")),chmontant);
     }
     paiement_encour.carte +=montant;
     snprintf(chmontant, 10, "%.2f", paiement_encour.carte);
-    // g_strconcat(chmontant, " €", NULL);
+    g_strconcat(chmontant, " €", NULL);
     gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_deja_payer_carte")),chmontant);
     maj_facture();
 }
-void maj_facture() // fonction qui met jour les bouttons le textentry et le label reste en fonction du reste à payer
-{
-    char montantreste[10]="";
-    int i;
-    float total_prix=0.0;
 
-    for( i=0 ; i<nombre_taux_tva ; i++ ) // pour chaque ligne de tb_taux_tva on on ajout le taux tva
-    {
-           total_prix += tb_taux_tva[i].ttc;
-    }
-
-    paiement_encour.reste = total_prix -(paiement_encour.carte + paiement_encour.espece + paiement_encour.cheque);
-    snprintf(montantreste, 10, "%.2f", paiement_encour.reste);
-    g_strconcat(montantreste, " €", NULL);
-    gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_reste")),montantreste);
-    if (liste_course->debut != NULL && paiement_encour.reste == 0.0)
-    {
-        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_terminer_nofac")), TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_terminer_fac")), TRUE); 
-        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_espece")), FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_cheque")), FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_carte")), FALSE);      
-        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_entry_montant")), FALSE);      
-    }else  
-    {
-        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_terminer_nofac")), FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_terminer_fac")), FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_espece")), TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_cheque")), TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_carte")), TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_entry_montant")), TRUE);
-    }
-
-
-}
 
 void testfonction (GtkWidget *widget, gpointer   data)
 {   
@@ -322,11 +328,30 @@ void testfonction (GtkWidget *widget, gpointer   data)
 
 for (int i = 0; i < nombre_taux_tva; i++)
 {
+    fprintf(stdout, "code : %d   ",tb_taux_tva[i].code );
+    fprintf(stdout, "taux : %f   ",tb_taux_tva[i].taux);
     fprintf(stdout, "ht : %f   ",tb_taux_tva[i].ht );
     fprintf(stdout, "ttc : %f   ",tb_taux_tva[i].ttc );
     fprintf(stdout, "tva : %f   \n",tb_taux_tva[i].tva );
 }
     fprintf(stdout, "\n");
+
+
+/*
+float tva_code2taux(int code){ // fonction qui transforme le code en taux de tva
+  
+  int i;
+  for( i=0 ; i<=(nombre_taux_tva-1) ; i++ ){ // parcour le tableau de structure de taux_tva 
+    if( code == tb_taux_tva[i].code ){ // si sont code correspond à notre code on retourne sont taux
+      return (float)tb_taux_tva[i].taux;
+    }
+  }
+
+  return 0.0;
+}
+*/
+
+
 
 //    GtkTreeSelection *selection;
 //    GtkTreeIter *iter;

@@ -13,7 +13,7 @@ float tva_code2taux(int code);
 void init_treeview_lists_chaine();
 void maj_treeview_liste_chaine(); 
 void maj_tb_taux_tva();
-void pe_footer_total();
+void maj_footer_total();
 void maj_facture();
 
 
