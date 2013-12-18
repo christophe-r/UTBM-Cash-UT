@@ -28,7 +28,7 @@ void catalogue_produits_create_liststore(const gchar *critere, const gchar *rech
         nombre_resultats = mysql_nombre_rechercher_produits(critere, recherche);
 
 
-        if( nombre_resultats > 40 ){ // Si trop de résultats
+        if( nombre_resultats > 80 ){ // Si trop de résultats
                 dialog_trop_de_resultats();
         } else {
 
