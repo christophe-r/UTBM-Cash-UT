@@ -20,6 +20,7 @@ extern paiement paiement_encour;
 extern TauxTVA *tb_taux_tva;
 extern int nombre_taux_tva;
 
+extern GKeyFile *key_file;
 /******************************/
 /* Partie encaisment */
 /******************************/
@@ -75,9 +76,9 @@ void init_treeview_lists_chaine() /* fonction d'initialisation de la treeview*/
 
   g_object_unref(store);
 }
-/**********************************/
-/* Maj des labels et des bouttons */
-/**********************************/
+/***********************************************/
+/* Maj des données, des labels et des bouttons */
+/***********************************************/
 
 void maj_treeview_liste_chaine() /* fonction qui met à jour les lignes de la treeview */
 {
@@ -184,6 +185,13 @@ void maj_facture() // fonction qui met jour les bouttons et les  textentry en fo
         gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_btn_carte")), TRUE);
         gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_entry_montant")), TRUE);
     }
+}
+void gen_facture(int with_fact)
+{
+// char *header;
+// header = "*******************************************\n"; // facture de largueur 43 caratères
+// header = "*******************************************\n";
+// database_db   = g_key_file_get_string(key_file, "Facture", "nom", NULL);
 }
 
 /********************************************/
@@ -318,6 +326,16 @@ void pe_btn_carte(GtkWidget *widget, gpointer   data)// fonction si l'ont encais
     g_strconcat(chmontant, " €", NULL);
     gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_deja_payer_carte")),chmontant);
     maj_facture();
+}
+
+void pe_facture_no_fact(GtkWidget *widget, gpointer   data)// fonction si l'ont encaisse par carte
+{
+   gen_facture(0);
+}
+
+void pe_facture_fact(GtkWidget *widget, gpointer   data)// fonction si l'ont encaisse par carte
+{
+   gen_facture(1);
 }
 
 

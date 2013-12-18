@@ -5,16 +5,13 @@
 
 // Encaissement
 
-
-// gestion de la tva
-float tva_code2taux(int code);
-
-// gestion des produits
 void init_treeview_lists_chaine();
+
 void maj_treeview_liste_chaine(); 
 void maj_tb_taux_tva();
 void maj_footer_total();
 void maj_facture();
+void gen_facture(int with_fact);
 
 
 // action de l'UI
@@ -27,6 +24,8 @@ G_MODULE_EXPORT void pe_btn_espece(GtkWidget *widget, gpointer   data);
 G_MODULE_EXPORT void pe_btn_carte(GtkWidget *widget, gpointer   data);
 G_MODULE_EXPORT void pe_annuler_paiement(GtkWidget *widget, gpointer   data);
 G_MODULE_EXPORT void testfonction (GtkWidget *widget, gpointer   data);
+G_MODULE_EXPORT void pe_facture_no_fact(GtkWidget *widget, gpointer   data);
+G_MODULE_EXPORT void pe_facture_fact(GtkWidget *widget, gpointer   data);
 
 
 

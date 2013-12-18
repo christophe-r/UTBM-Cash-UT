@@ -149,11 +149,11 @@ cashut_main_window()
 	);
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_terminer_nofac")),
-			"clicked", G_CALLBACK (testfonction), NULL
+			"clicked", G_CALLBACK (pe_facture_no_fact), NULL
 	);
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_terminer_fac")),
-			"clicked", G_CALLBACK (testfonction), NULL
+			"clicked", G_CALLBACK (pe_facture_fact), NULL
 	);
     g_signal_connect (
             gtk_builder_get_object (builder_cashut, "pe_entry_codebarres"),
