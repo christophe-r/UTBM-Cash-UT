@@ -636,6 +636,8 @@ int mysql_encaissement_facturer(const gchar *date, const gchar *num_caisse, cons
 	char *cTotal_prix;
 	sprintf(cTotal_prix, "%.2f", total_prix);
 
+
+	// CONCAT(CURDATE() , " ", CURTIME())
 	gchar *query = NULL;
 	query = g_strconcat("INSERT INTO factures (date, num_caisse, num_caissiere, facture, total_prix) VALUES(\"", date ,"\",\"", num_caisse,"\",\"", num_utilisateur, "\",\"", facture, "\",\"", cTotal_prix, "\")", NULL);
 
@@ -651,5 +653,152 @@ int mysql_encaissement_facturer(const gchar *date, const gchar *num_caisse, cons
 
 }
 
+
+/*** STATISTIQUES ***/
+int mysql_nombre_ventes_aujourdhui(const gchar *num_utilisateur){ // ID ou "0" pour tous les utilisateurs
+
+	gchar *query = NULL;
+
+	if( g_strcmp0(num_utilisateur, "0") == 0 ){
+		query = g_strconcat("SELECT * FROM factures WHERE date >= CURDATE()", NULL);
+	} else {
+		query = g_strconcat("SELECT * FROM factures WHERE date >= CURDATE() AND num_caissiere=\"", num_utilisateur,"\"", NULL);
+	}
+
+	if (con == NULL) {
+		g_print("Database error.\n");
+		exit(1);
+	} else {
+
+		if (mysql_query(con, (char *)query) ) 
+		{
+			finish_with_error(con);
+		}
+
+		MYSQL_RES *result = mysql_store_result(con);
+
+		if (result == NULL) {
+			finish_with_error(con);
+		}
+
+		MYSQL_ROW row;
+		int number;
+
+		while( (row = mysql_fetch_row(result)) ){ 
+			number = atoi(row[0]);
+		}
+
+		return number;
+		mysql_free_result(result);
+	}
+
+}
+
+
+float mysql_total_encaisse_aujourdhui(const gchar *num_utilisateur){ // ID ou "0" pour tous les utilisateurs
+	gchar *query = NULL;
+
+	if( g_strcmp0(num_utilisateur, "0") == 0 ){
+		query = g_strconcat("SELECT ROUND(SUM(total_prix), 2) AS somme FROM factures WHERE date >= CURDATE()", NULL);
+	} else {
+		query = g_strconcat("SELECT ROUND(SUM(total_prix), 2) AS somme FROM factures WHERE date >= CURDATE() AND num_caissiere=\"", num_utilisateur,"\"", NULL);
+	}
+
+	if (con == NULL) {
+		g_print("Database error.\n");
+		exit(1);
+	} else {
+
+		if (mysql_query(con, (char *)query) ) 
+		{
+			finish_with_error(con);
+		}
+
+		MYSQL_RES *result = mysql_store_result(con);
+
+		if (result == NULL) {
+			finish_with_error(con);
+		}
+
+		MYSQL_ROW row;
+		float somme;
+
+		while( (row = mysql_fetch_row(result)) ){ 
+			somme = atof(row[0]);
+		}
+
+		return somme;
+		mysql_free_result(result);
+	}
+}
+
+
+int mysql_nombre_produits(){
+
+	gchar *query = NULL;
+	query = g_strconcat("SELECT COUNT(*) FROM produits", NULL);
+
+	if (con == NULL) {
+		g_print("Database error.\n");
+		exit(1);
+	} else {
+
+		if (mysql_query(con, (char *)query) ) 
+		{
+			finish_with_error(con);
+		}
+
+		MYSQL_RES *result = mysql_store_result(con);
+
+		if (result == NULL) {
+			finish_with_error(con);
+		}
+
+		MYSQL_ROW row;
+		int number;
+
+		while( (row = mysql_fetch_row(result)) ){ 
+			number = atoi(row[0]);
+		}
+
+		return number;
+		mysql_free_result(result);
+	}
+}
+
+
+const gchar *mysql_derniere_vente(){
+
+	gchar *query = NULL;
+	query = g_strconcat("SELECT DATE_FORMAT(date, \"%d/%m/%Y à %T\") AS formated_date FROM factures ORDER BY date DESC LIMIT 0,1", NULL);
+
+	if (con == NULL) {
+		g_print("Database error.\n");
+		exit(1);
+	} else {
+
+		if (mysql_query(con, (char *)query) ) 
+		{
+			finish_with_error(con);
+		}
+
+		MYSQL_RES *result = mysql_store_result(con);
+
+		if (result == NULL) {
+			finish_with_error(con);
+		}
+
+		MYSQL_ROW row;
+		const gchar *date;
+
+		while( (row = mysql_fetch_row(result)) ){ 
+			date = g_strconcat(row[0], NULL);
+		}
+
+		return date;
+		mysql_free_result(result);
+	}
+
+}
 
 
