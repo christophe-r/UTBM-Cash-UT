@@ -27,5 +27,5 @@ gtk+-3.0 mysql-server libmysqlclient18 libmysqlclient-dev
 
 Importer le fichier DATABASE-DUMP.sql dans une base de données.
 
-Le fichier de configuration est : ./Cash'UT/config.ini
+Le fichier de configurations est : ./Cash'UT/config.ini
 
