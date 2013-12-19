@@ -11,6 +11,7 @@
 #include "cashut_pe_callbacks.h"
 #include "cashut_cp_callbacks.h"
 #include "cashut_ca_callbacks.h"
+#include "cashut_gp_callbacks.h"
 
 #include "main_mysql.h"
 
@@ -175,6 +176,41 @@ cashut_main_window()
             gtk_builder_get_object (builder_cashut, "cp_b_ajouter"),
             "clicked", G_CALLBACK(cp_b_ajouter_clicked), NULL
     );
+
+
+	// Signaux Gestion Produits
+	g_signal_connect (
+		gtk_builder_get_object (builder_cashut, "gp_button_valider"),
+		"clicked", G_CALLBACK (gp_button_valider_click ), NULL
+	);
+	g_signal_connect (
+		gtk_builder_get_object (builder_cashut, "gp_button_annuler"),
+		"clicked", G_CALLBACK (gp_button_annuler_click ), NULL
+	);
+	g_signal_connect (
+		gtk_builder_get_object (builder_cashut, "gp_button_modif"),
+		"clicked", G_CALLBACK (gp_button_modif_click ), NULL
+	);
+	g_signal_connect (
+		gtk_builder_get_object (builder_cashut, "gp_button_ajout"),
+		"clicked", G_CALLBACK (gp_button_ajout_click ), NULL
+	);
+	g_signal_connect (
+		gtk_builder_get_object (builder_cashut, "gp_button_sup"),
+		"clicked", G_CALLBACK (gp_button_sup_click ), NULL
+	);
+	g_signal_connect (
+		gtk_builder_get_object (builder_cashut, "gp_code_ean13"),
+		"changed", G_CALLBACK (gp_verif_entiers), NULL
+	);
+	g_signal_connect (
+		gtk_builder_get_object (builder_cashut, "gp_entry_tva"),
+		"changed", G_CALLBACK (gp_verif_entiers), NULL
+	);
+	g_signal_connect (
+		gtk_builder_get_object (builder_cashut, "gp_entry_prix"),
+		"changed", G_CALLBACK (gp_verif_floats), NULL
+	);
 
 
 	// Signaux Calculatrice

@@ -52,10 +52,10 @@ int bVerification_somme_de_controle(const gchar *p_code_ean13){
 	memcpy(checksum, &p_code_ean13[12], 1 );
 	checksum[1] = '\0';
 
-	if (somme_de_controle == atoi(checksum) ){
+	if( somme_de_controle == atoi(checksum) ){
 		return 1;
 	} else {
-		fprintf(stdout, "erreur code barre invalide (%d!=%d)\n",somme_de_controle,atoi(checksum) );
+		fprintf(stdout, "erreur code-barres invalide (%d!=%d)\n", somme_de_controle, atoi(checksum));
 		return 0;
 	}
 }
