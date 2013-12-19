@@ -18,3 +18,14 @@ Les membres du groupe sont :
 
 
 Ce logiciel est placé sous la licence GPLv3 : http://www.gnu.org/licenses/gpl.html
+
+
+=======
+Dépendances :
+
+gtk+-3.0 mysql-server libmysqlclient18 libmysqlclient-dev
+
+Importer le fichier DATABASE-DUMP.sql dans une base de données.
+
+Le fichier de configurations est : ./Cash'UT/config.ini
+
