@@ -268,16 +268,24 @@ int gp_modifier_produit()
 
 void gp_verif_entiers(GtkWidget *widget, gpointer user_data)
 {
-	const gchar *entry;
+	gchar *entry;
 	entry = g_strconcat(gtk_entry_get_text (GTK_ENTRY (widget)), NULL);
-	gtk_entry_set_text(GTK_ENTRY(widget), g_strcanon(entry, "0123456789", NULL));
+
+	const gchar *nouvelle_chaine;
+	nouvelle_chaine = g_strcanon(entry, (const gchar *)"0123456789", (gchar) NULL);
+
+	gtk_entry_set_text(GTK_ENTRY(widget), nouvelle_chaine);
 }
 
 void gp_verif_floats(GtkWidget *widget, gpointer user_data)
 {
-	const gchar *entry;
+	gchar *entry;
 	entry = g_strconcat(gtk_entry_get_text (GTK_ENTRY (widget)), NULL);
-	gtk_entry_set_text(GTK_ENTRY(widget), g_strcanon(entry, "0123456789.", NULL));
+
+	const gchar *nouvelle_chaine;
+	nouvelle_chaine = g_strcanon(entry, (const gchar *)"0123456789.", (gchar) NULL);
+
+	gtk_entry_set_text(GTK_ENTRY(widget), nouvelle_chaine);
 }
 
 
