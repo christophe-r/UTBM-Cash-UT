@@ -61,14 +61,14 @@ void gp_button_valider_click (GtkWidget *widget, gpointer user_data)
 			}
 			else
 			{
-				gtk_label_set_text(GTK_LABEL(gtk_builder_get_object (builder_cashut, "gp_existance_produit")), "Le produit n'exite pas dans le catalogue");
+				gtk_label_set_text(GTK_LABEL(gtk_builder_get_object (builder_cashut, "gp_existance_produit")), "Le produit n'existe pas dans le catalogue");
 				gtk_widget_show(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "gp_button_ajout")));
 				gp_afficher_champs();
 			}
 		}
 		else
 		{
-			gtk_label_set_text(GTK_LABEL(gtk_builder_get_object (builder_cashut, "gp_existance_produit")), "Le code saisi n'est pas normalisé EAN13");	
+			gtk_label_set_text(GTK_LABEL(gtk_builder_get_object (builder_cashut, "gp_existance_produit")), "Le code-barres saisi n'est pas normalisé EAN13");	
 		}
 }
 
@@ -135,7 +135,7 @@ void gp_dialog_button_annuler()
                                  1 << 1,
                                  GTK_MESSAGE_WARNING,
                                  GTK_BUTTONS_OK_CANCEL,
-                                 "La confirmation de cette opération\nréinitialisera cette page.");
+                                 "La confirmation de cette opération\nréinitialisera la formulaire.");
 	gint result = gtk_dialog_run (GTK_DIALOG (dialog));
 	
 	switch (result)
@@ -172,7 +172,7 @@ void gp_button_sup_click()
                                  1 << 1,
                                  GTK_MESSAGE_WARNING,
                                  GTK_BUTTONS_OK_CANCEL,
-                                 "La confirmation de cette opération suprimera\ndéfinitivement de la base de donnée les\ninformations concernant ce produit\nEt rinitialisera cette page.");
+                                 "La confirmation de cette opération supprimera\ndéfinitivement de la base de données les\ninformations concernant ce produit,\net réinitialisera le formulaire.");
 	gint result = gtk_dialog_run (GTK_DIALOG (dialog));
 	
 	const gchar *code_barres;
@@ -295,7 +295,7 @@ void gp_dialog_erreur_db(){
 			                         1 << 1,
 			                         GTK_MESSAGE_WARNING,
 			                         GTK_BUTTONS_OK,
-			                         "Une erreur c'est produite lors\nde l'opération.");
+			                         "Une erreur s'est produite lors\nde l'opération.");
 		gtk_dialog_run (GTK_DIALOG (dialog));
 		gtk_widget_destroy (dialog);
 }
