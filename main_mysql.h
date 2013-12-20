@@ -40,7 +40,7 @@ int mysql_utilisateur_modifier(const gchar *id_utilisateur, const gchar *nom_uti
 
 
 // Encaissement
-int mysql_encaissement_facturer(const gchar *date, const gchar *num_caisse, const gchar *num_utilisateur, const gchar *facture, float total_prix);
+int mysql_encaissement_facturer(const gchar *num_caisse, const gchar *num_utilisateur, const gchar *facture, float total_prix);
 
 // Statistiques
 int mysql_nombre_ventes_aujourdhui(const gchar *num_utilisateur);
