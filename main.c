@@ -30,7 +30,7 @@ const gchar 	*database_pass;
 const gchar 	*num_caisse;
 /*******************************/
 
-
+GKeyFile *key_file;
 
 int
 main (int argc, char *argv[])
@@ -65,7 +65,6 @@ main (int argc, char *argv[])
 
 
 	/************************* CONFIG FILE *************************/
-	GKeyFile *key_file;
 	key_file = g_key_file_new ();
 	GKeyFileFlags flags;
 	flags = G_KEY_FILE_NONE;

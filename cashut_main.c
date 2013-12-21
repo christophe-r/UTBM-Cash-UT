@@ -30,6 +30,7 @@ extern const gchar 	*niveau_utilisateur;
 extern const gchar 	*nom_utilisateur;
 extern const gchar 	*num_utilisateur;
 
+
 /******** EXTERN CONFIG ********/
 extern const gchar 	*num_caisse;
 /*******************************/
