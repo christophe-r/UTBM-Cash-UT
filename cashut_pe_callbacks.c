@@ -194,7 +194,7 @@ void gen_facture(int with_fact)
 {
 	g_print("debut de la génération de la facture\n");
 
-	FILE* ficher_fac = NULL; // création des variables nécéssaire
+	FILE* fichier_fac = NULL; // création des variables nécéssaire
 	char nom_fichier_fac[50];
 	int nb_fac= 0 ;
 	char charnb[10];
@@ -210,67 +210,82 @@ void gen_facture(int with_fact)
     	strcat(nom_fichier_fac,"facture");				//				|
     	strcat(nom_fichier_fac,charnb);					//				|
     	strcat(nom_fichier_fac,".txt");					//				|
-    	fprintf(stdout, "%s\n",nom_fichier_fac );
-    	ficher_fac = fopen(nom_fichier_fac, "r+"); // essaye d'ouvrir le fichier en lecture/écriture -> renvoie NULL si il y à échec de l'ouverture.
-    	fprintf(stdout, "%s\n",nom_fichier_fac );
+    	fichier_fac = fopen(nom_fichier_fac, "r+"); // essaye d'ouvrir le fichier en lecture/écriture -> renvoie NULL si il y à échec de l'ouverture.
     	nb_fac ++;
 
-    }while(ficher_fac != NULL);
+    }while(fichier_fac != NULL);
 
-    ficher_fac = fopen(nom_fichier_fac, "w"); // crée le fichier de la facture
+    fichier_fac = fopen(nom_fichier_fac, "w"); // crée le fichier de la facture
 
-    fputs( "******************************************\n" , ficher_fac);
-    // fputs( align("nom") , ficher_fac);
-    fputs( "\n******************************************\n" , ficher_fac);
-    fclose(ficher_fac);
+    fputs( "******************************************\n" , fichier_fac);
+    fprintf( fichier_fac,"%s\n",  align(g_key_file_get_string(key_file, "Facture", "nom", NULL),42));
+    fputs( "******************************************\n" , fichier_fac);
+    fprintf( fichier_fac,"%s\n",  align(g_key_file_get_string(key_file, "Facture", "ligned1", NULL),42));
+    fprintf( fichier_fac,"%s\n",  align(g_key_file_get_string(key_file, "Facture", "ligned2", NULL),42));
+    fprintf( fichier_fac,"%s\n",  align(g_key_file_get_string(key_file, "Facture", "ligned3", NULL),42));
+    fprintf( fichier_fac,"%s\n",  align(g_key_file_get_string(key_file, "Facture", "ligned4", NULL),42));
+    fprintf( fichier_fac,"%s\n",  align(g_key_file_get_string(key_file, "Facture", "ligned5", NULL),42));
+    fprintf( fichier_fac,"%s\n",  align(g_key_file_get_string(key_file, "Facture", "ligned6", NULL),42));
+    fputs( "------------------------------------------\n" , fichier_fac);
+    fputs( " Qte  Marque      Libellé         Prix    \n" , fichier_fac);
+    fputs( "------------------------------------------\n" , fichier_fac);
+      Element *actuel = liste_course->debut;
+  	while (actuel != NULL ) 
+  	{	
+  		char tampon[20];
+  		snprintf(tampon, 4, "%d", actuel->quantitee);
+  		fprintf( fichier_fac,"%s", align(tampon,4));
+  		snprintf(tampon, 12, "%s", actuel->p_produit->marque);
+  		fprintf( fichier_fac,"%s", align(tampon,12));
+  		snprintf(tampon, 16, "%s", actuel->p_produit->libelle);
+  		fprintf( fichier_fac,"%s", align(tampon,16));
+  		snprintf(tampon, 10, "%.2f", actuel->p_produit->prix);
+  		fprintf( fichier_fac,"%s\n", align(tampon,8));
+  		actuel = actuel->suivant;
+  	}
 
 
-  // string_fac='******************************************\n';
-  //  const gchar *nom;
-	 // nom=g_key_file_get_string(key_file, "Facture", "nom", NULL);
-	 // g_print(nom);
-  
-  // element= align("element");
-  // strcat(string_fac,element);
-
-    
-    // ficher_fac = fopen("Cash'UT/factures/test.txt", "r+");// Fichier "test.txt" ouvert en écriture
-    // if (ficher_fac != NULL)
-    // {
-    //     // On l'écrit dans le fichier
-    //     fprintf(ficher_fac, "test d'écriture dans un fichier");
-    //     fclose(ficher_fac);
-    // }else{
-    // 	g_print("fichier non ouvert");
-    // }
 
 
 
-fprintf(stdout, "%s\n", "fin gen facture");
+
+
+
+
+    fclose(fichier_fac);
+	fprintf(stdout, "%s\n", "fin gen facture");
 }
 
-char *align(char *text)
+char *align(char *text, int taille)
 {	
 	// char *textrecup;
 	// textrecup = g_key_file_get_string(key_file, "Facture", text, NULL);
-	char ligne[50];//="                                          \n";
+	char ligne[50];
 	int i;
-	int placedeb = 21-strlen(text)/2;
-	char debut[placedeb];
+	char debut[30];
+	char fin[30];
+	int taillediv2 = taille / 2 ;
+
+	ligne[0]='\0';
+	fin[0]='\0';
+	debut[0]='\0';
+	int placedeb = taillediv2 -strlen(text)/2;
+	int placefin = taille -(placedeb + strlen(text));
+
 	for ( i = 0; i <  placedeb; i++)
 	{
 		strcat(debut," ");
 	}
-	int placefin = 42 -(placedeb + strlen(text));
-	fprintf(stdout, "place fin :%d\n", placefin);
-	char fin[placefin];
+
 	for ( i = 0; i <  placefin; i++)
 	{
 		strcat(fin," ");
 	}
+
 	strcat(ligne,debut);
 	strcat(ligne,text);
 	strcat(ligne,fin);
+
 	return ligne;
 }
 
