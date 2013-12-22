@@ -679,14 +679,10 @@ int mysql_nombre_ventes_aujourdhui(const gchar *num_utilisateur){ // ID ou "0" p
 			finish_with_error(con);
 		}
 
-		MYSQL_ROW row;
-		int number;
+		int num_rows;
+		num_rows = mysql_num_rows(result);
 
-		while( (row = mysql_fetch_row(result)) ){ 
-			number = atoi(row[0]);
-		}
-
-		return number;
+		return num_rows;
 		mysql_free_result(result);
 	}
 
@@ -720,9 +716,12 @@ float mysql_total_encaisse_aujourdhui(const gchar *num_utilisateur){ // ID ou "0
 
 		MYSQL_ROW row;
 		float somme;
+		somme = 0;
 
-		while( (row = mysql_fetch_row(result)) ){ 
-			somme = atof(row[0]);
+		while( (row = mysql_fetch_row(result)) ){
+			if( row[0] != NULL ){
+				somme = atof(row[0]);
+			}		
 		}
 
 		return somme;

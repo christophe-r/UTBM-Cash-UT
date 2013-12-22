@@ -36,29 +36,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="label21">
-                <property name="width_request">80</property>
-                <property name="height_request">30</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xalign">0</property>
-                <property name="label" translatable="yes">Utilisateur :</property>
-              </object>
-              <packing>
-                <property name="x">510</property>
-                <property name="y">570</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkLabel" id="ac_label_nom_utilisateur">
-                <property name="width_request">137</property>
+                <property name="width_request">284</property>
                 <property name="height_request">30</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
+                <property name="xalign">1</property>
               </object>
               <packing>
-                <property name="x">593</property>
+                <property name="x">445</property>
                 <property name="y">570</property>
               </packing>
             </child>
@@ -76,8 +62,8 @@
                 </attributes>
               </object>
               <packing>
-                <property name="x">80</property>
-                <property name="y">365</property>
+                <property name="x">60</property>
+                <property name="y">385</property>
               </packing>
             </child>
             <child>
@@ -87,11 +73,11 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">Total des ventes :</property>
+                <property name="label" translatable="yes">Nombre de ventes :</property>
               </object>
               <packing>
                 <property name="x">80</property>
-                <property name="y">405</property>
+                <property name="y">425</property>
               </packing>
             </child>
             <child>
@@ -100,11 +86,11 @@
                 <property name="height_request">30</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Somme total encaissé :</property>
+                <property name="label" translatable="yes">Somme totale encaissée :</property>
               </object>
               <packing>
                 <property name="x">80</property>
-                <property name="y">445</property>
+                <property name="y">465</property>
               </packing>
             </child>
             <child>
@@ -118,7 +104,7 @@
               </object>
               <packing>
                 <property name="x">80</property>
-                <property name="y">485</property>
+                <property name="y">505</property>
               </packing>
             </child>
             <child>
@@ -130,8 +116,8 @@
                 <property name="xalign">0</property>
               </object>
               <packing>
-                <property name="x">205</property>
-                <property name="y">405</property>
+                <property name="x">217</property>
+                <property name="y">425</property>
               </packing>
             </child>
             <child>
@@ -143,8 +129,8 @@
                 <property name="xalign">0</property>
               </object>
               <packing>
-                <property name="x">245</property>
-                <property name="y">445</property>
+                <property name="x">255</property>
+                <property name="y">465</property>
               </packing>
             </child>
             <child>
@@ -156,8 +142,8 @@
                 <property name="xalign">0</property>
               </object>
               <packing>
-                <property name="x">285</property>
-                <property name="y">485</property>
+                <property name="x">279</property>
+                <property name="y">505</property>
               </packing>
             </child>
           </object>
@@ -1472,66 +1458,6 @@ ce produit</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkLabel" id="label26">
-                <property name="width_request">100</property>
-                <property name="height_request">30</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xalign">0</property>
-                <property name="label" translatable="yes">Statistiques journalières de l'utilisateur</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                  <attribute name="underline" value="True"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="x">60</property>
-                <property name="y">48</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label27">
-                <property name="width_request">100</property>
-                <property name="height_request">30</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xalign">0</property>
-                <property name="label" translatable="yes">Total des ventes :</property>
-              </object>
-              <packing>
-                <property name="x">80</property>
-                <property name="y">100</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label28">
-                <property name="width_request">100</property>
-                <property name="height_request">30</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xalign">0</property>
-                <property name="label" translatable="yes">Somme total encaissé :</property>
-              </object>
-              <packing>
-                <property name="x">80</property>
-                <property name="y">145</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label29">
-                <property name="width_request">100</property>
-                <property name="height_request">30</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xalign">0</property>
-                <property name="label" translatable="yes">Montant moyen d'une vente :</property>
-              </object>
-              <packing>
-                <property name="x">80</property>
-                <property name="y">190</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkLabel" id="label30">
                 <property name="width_request">100</property>
                 <property name="height_request">30</property>
@@ -1539,7 +1465,7 @@ ce produit</property>
                 <property name="can_focus">False</property>
                 <property name="halign">center</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">Statistiques du magasin</property>
+                <property name="label" translatable="yes">Statistiques journalières du magasin</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                   <attribute name="underline" value="True"/>
@@ -1557,7 +1483,7 @@ ce produit</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">Total des ventes :</property>
+                <property name="label" translatable="yes">Nombre de ventes :</property>
               </object>
               <packing>
                 <property name="x">80</property>
@@ -1571,7 +1497,7 @@ ce produit</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">Somme total encaissé :</property>
+                <property name="label" translatable="yes">Somme totale encaissée :</property>
               </object>
               <packing>
                 <property name="x">80</property>
@@ -1599,11 +1525,11 @@ ce produit</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">Nombre de produit dans la base :</property>
+                <property name="label" translatable="yes">Nombre de produits dans la base :</property>
               </object>
               <packing>
                 <property name="x">80</property>
-                <property name="y">429</property>
+                <property name="y">100</property>
               </packing>
             </child>
             <child>
@@ -1613,50 +1539,11 @@ ce produit</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">Date dernier encaissement :</property>
+                <property name="label" translatable="yes">Date du dernier encaissement :</property>
               </object>
               <packing>
                 <property name="x">80</property>
-                <property name="y">474</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="st_label_utilisateur_total_vente">
-                <property name="width_request">100</property>
-                <property name="height_request">30</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="x">211</property>
-                <property name="y">100</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="st_label_utilisateur_somme_total">
-                <property name="width_request">100</property>
-                <property name="height_request">30</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="x">248</property>
                 <property name="y">145</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="st_label_utilisateur_montant_moyen">
-                <property name="width_request">100</property>
-                <property name="height_request">30</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="x">288</property>
-                <property name="y">190</property>
               </packing>
             </child>
             <child>
@@ -1668,7 +1555,7 @@ ce produit</property>
                 <property name="xalign">0</property>
               </object>
               <packing>
-                <property name="x">211</property>
+                <property name="x">214</property>
                 <property name="y">294</property>
               </packing>
             </child>
@@ -1681,7 +1568,7 @@ ce produit</property>
                 <property name="xalign">0</property>
               </object>
               <packing>
-                <property name="x">249</property>
+                <property name="x">254</property>
                 <property name="y">339</property>
               </packing>
             </child>
@@ -1694,7 +1581,7 @@ ce produit</property>
                 <property name="xalign">0</property>
               </object>
               <packing>
-                <property name="x">288</property>
+                <property name="x">278</property>
                 <property name="y">384</property>
               </packing>
             </child>
@@ -1708,7 +1595,7 @@ ce produit</property>
               </object>
               <packing>
                 <property name="x">317</property>
-                <property name="y">429</property>
+                <property name="y">100</property>
               </packing>
             </child>
             <child>
@@ -1720,8 +1607,26 @@ ce produit</property>
                 <property name="xalign">0</property>
               </object>
               <packing>
-                <property name="x">284</property>
-                <property name="y">474</property>
+                <property name="x">290</property>
+                <property name="y">145</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label26">
+                <property name="width_request">100</property>
+                <property name="height_request">30</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Informations gobales</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                  <attribute name="underline" value="True"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">60</property>
+                <property name="y">48</property>
               </packing>
             </child>
           </object>

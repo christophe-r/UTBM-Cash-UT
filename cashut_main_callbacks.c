@@ -9,6 +9,7 @@
 #include "cashut_gu_callbacks.h"
 #include "cashut_pe_callbacks.h"
 #include "cashut_ca_callbacks.h"
+#include "cashut_st_callbacks.h"
 
 #include "main_gestion_liste.h"
 
@@ -52,6 +53,9 @@ on_window_cashut_show (GtkWidget *widget, gpointer user_data)
 			gtk_notebook_remove_page(GTK_NOTEBOOK (gtk_builder_get_object (builder_cashut, "notebook")), 4); // Gestion utilisateurs
 	}
 
+	// Chargement des statistiques sur la page d'accueil
+	on_notebook_change_page0();
+
 	// Résolution bug: sans cette ligne, lorsqu'on appuie sur la fleche du bas, on a des Gtk-CRITACAL qui apparaissent. Sans doutes car aucun objet n'a le focus, et cette ligne le place sur le Notebook.
 	gtk_widget_grab_focus(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "notebook")));
 
@@ -67,6 +71,7 @@ on_notebook_change_page (GtkWidget *widget, gpointer user_data)
 	switch( current_page ){
 		case 0: // ACCUEIL
 			//g_print("Tab0\n");
+			on_notebook_change_page0();
 		break;
 
 		case 1: // ENCAISSEMENT
@@ -83,6 +88,7 @@ on_notebook_change_page (GtkWidget *widget, gpointer user_data)
 
 		case 4: // STATISTIQUES
 			//g_print("Tab4\n");
+			on_notebook_change_page4();
 		break;
 
 		case 5: // GESTION PRODUITS
