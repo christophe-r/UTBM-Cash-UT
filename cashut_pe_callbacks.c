@@ -195,7 +195,7 @@ void gen_facture(int with_fact)
 	g_print("debut de la génération de la facture\n");
 
 	FILE* fichier_fac = NULL; // création des variables nécéssaire
-	char nom_fichier_fac[50];
+	char nom_fichier_fac[100];
 	int nb_fac= 0 ;
 	char charnb[10];
     
@@ -227,27 +227,37 @@ void gen_facture(int with_fact)
     fprintf( fichier_fac,"%s\n",  align(g_key_file_get_string(key_file, "Facture", "ligned5", NULL),42));
     fprintf( fichier_fac,"%s\n",  align(g_key_file_get_string(key_file, "Facture", "ligned6", NULL),42));
     fputs( "------------------------------------------\n" , fichier_fac);
-    fputs( " Qte  Marque      Libellé         Prix    \n" , fichier_fac);
+    fputs( "Qte  Marque     Libellé          Prix    \n" , fichier_fac);
     fputs( "------------------------------------------\n" , fichier_fac);
       Element *actuel = liste_course->debut;
   	while (actuel != NULL ) 
   	{	
   		char tampon[20];
   		snprintf(tampon, 4, "%d", actuel->quantitee);
-  		fprintf( fichier_fac,"%s", align(tampon,4));
-  		snprintf(tampon, 12, "%s", actuel->p_produit->marque);
-  		fprintf( fichier_fac,"%s", align(tampon,12));
-  		snprintf(tampon, 16, "%s", actuel->p_produit->libelle);
-  		fprintf( fichier_fac,"%s", align(tampon,16));
-  		snprintf(tampon, 10, "%.2f", actuel->p_produit->prix);
-  		fprintf( fichier_fac,"%s\n", align(tampon,8));
+  		fprintf( fichier_fac,"%s ",paddingchar(tampon,4));
+
+  		snprintf(tampon, 11, "%s", actuel->p_produit->marque);
+  		fprintf( fichier_fac,"%s ", paddingchar(tampon,10));
+
+  		snprintf(tampon, 8, "%s", actuel->p_produit->libelle);
+  		fprintf(stdout, "%d\n", strlen(tampon));	
+  		fprintf( fichier_fac,"%s ", paddingchar(tampon,7));
+
+  		snprintf(tampon, 8, "%.2f", actuel->p_produit->prix);
+  		fprintf( fichier_fac,"%s\n",paddingchar(tampon,7));
+
   		actuel = actuel->suivant;
   	}
-
-
-
-
-
+    fputs( "------------------------------------------\n" , fichier_fac);
+    fputs( "Total :                            " , fichier_fac);
+	float total_prix=0.0; /* Déclaration  des variables*/
+	int i ;
+	for( i=0 ; i<nombre_taux_tva ; i++ ) // On cherche à avoir le total tva et le total ttc
+	{
+		   total_prix += tb_taux_tva[i].ttc;
+	}
+  	fprintf(fichier_fac, "%.2f  €\n",total_prix );
+    fputs( "------------------------------------------\n" , fichier_fac);
 
 
 
@@ -286,6 +296,24 @@ char *align(char *text, int taille)
 	strcat(ligne,text);
 	strcat(ligne,fin);
 
+	return ligne;
+}
+
+char *paddingchar(char *text, int taille)
+{
+	char ligne[50];
+	int fin_chainne;
+	int i;
+
+	ligne[0]='\0';
+	strcat(ligne,text);
+	fin_chainne = strlen(text);
+	int taille_padding =  taille - fin_chainne ;
+	for ( i = 0; i < taille_padding; i++)
+	{
+		strcat(ligne," ");
+	}
+	fprintf(stdout, "%d\n", taille_padding);
 	return ligne;
 }
 

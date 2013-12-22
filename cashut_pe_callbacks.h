@@ -13,6 +13,7 @@ void maj_footer_total();
 void maj_facture();
 void gen_facture(int with_fact);
 char *align(char *text, int taille);
+char *paddingchar(char *text, int taille);
 
 
 // action de l'UI
