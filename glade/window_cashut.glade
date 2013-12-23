@@ -108,7 +108,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="ac_label_total_vente">
+              <object class="GtkLabel" id="ac_label_total_ventes">
                 <property name="width_request">100</property>
                 <property name="height_request">30</property>
                 <property name="visible">True</property>
@@ -121,7 +121,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="ac_label_somme_total">
+              <object class="GtkLabel" id="ac_label_somme_totale">
                 <property name="width_request">100</property>
                 <property name="height_request">30</property>
                 <property name="visible">True</property>
@@ -1547,7 +1547,7 @@ ce produit</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="st_label_magasin_total_vente">
+              <object class="GtkLabel" id="st_label_magasin_total_ventes">
                 <property name="width_request">100</property>
                 <property name="height_request">30</property>
                 <property name="visible">True</property>
@@ -1560,7 +1560,7 @@ ce produit</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="st_label_magasin_somme_total">
+              <object class="GtkLabel" id="st_label_magasin_somme_totale">
                 <property name="width_request">100</property>
                 <property name="height_request">30</property>
                 <property name="visible">True</property>
@@ -1586,7 +1586,7 @@ ce produit</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="st_label_magasin_nb_produit">
+              <object class="GtkLabel" id="st_label_magasin_nb_produits">
                 <property name="width_request">100</property>
                 <property name="height_request">30</property>
                 <property name="visible">True</property>
