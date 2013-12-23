@@ -13,8 +13,7 @@ void maj_footer_total();
 void maj_facture();
 void gen_facture(int with_fact);
 char *align(char *text, int taille);
-char *paddingchar(char *text, int taille);
-
+char *padding_char(char *text, int taille, int type);
 
 // action de l'UI
 G_MODULE_EXPORT void pe_ajouter_produit(GtkWidget *widget, gpointer   data);

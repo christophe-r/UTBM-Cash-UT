@@ -198,8 +198,14 @@ void gen_facture(int with_fact)
 	char nom_fichier_fac[100];
 	int nb_fac= 0 ;
 	char charnb[10];
-    
+	float total_prix=0.0;
+	int total_article=0;
+	int i ;
+	char tampon[30]; // chaine tampon utilisé dans les snprinf
 	const gchar *chem_fac;
+    Element *actuel = liste_course->debut;
+
+    tampon[0]='\n';
 	chem_fac=g_key_file_get_string(key_file, "Facture", "chemin", NULL);
 
     do // boucle qui vérrifie que le fichier de la nouvelle facture ne sera pas écrit dans un fichier éxistant
@@ -229,38 +235,76 @@ void gen_facture(int with_fact)
     fputs( "------------------------------------------\n" , fichier_fac);
     fputs( "Qte  Marque     Libellé          Prix    \n" , fichier_fac);
     fputs( "------------------------------------------\n" , fichier_fac);
-      Element *actuel = liste_course->debut;
+      
   	while (actuel != NULL ) 
   	{	
-  		char tampon[20];
   		snprintf(tampon, 4, "%d", actuel->quantitee);
-  		fprintf( fichier_fac,"%s ",paddingchar(tampon,4));
+  		fprintf( fichier_fac,"%s ",padding_char(tampon,4,0));
 
   		snprintf(tampon, 11, "%s", actuel->p_produit->marque);
-  		fprintf( fichier_fac,"%s ", paddingchar(tampon,10));
+  		fprintf( fichier_fac,"%s ", padding_char(tampon,10,0));
 
-  		snprintf(tampon, 8, "%s", actuel->p_produit->libelle);
+  		snprintf(tampon, 16, "%s", actuel->p_produit->libelle);
   		fprintf(stdout, "%d\n", strlen(tampon));	
-  		fprintf( fichier_fac,"%s ", paddingchar(tampon,7));
+  		fprintf( fichier_fac,"%s ", padding_char(tampon,15,0));
 
   		snprintf(tampon, 8, "%.2f", actuel->p_produit->prix);
-  		fprintf( fichier_fac,"%s\n",paddingchar(tampon,7));
+  		fprintf( fichier_fac,"%s\n",padding_char(tampon,7,0));
 
   		actuel = actuel->suivant;
   	}
     fputs( "------------------------------------------\n" , fichier_fac);
     fputs( "Total :                            " , fichier_fac);
-	float total_prix=0.0; /* Déclaration  des variables*/
-	int i ;
-	for( i=0 ; i<nombre_taux_tva ; i++ ) // On cherche à avoir le total tva et le total ttc
+	for( i=0 ; i<nombre_taux_tva ; i++ ) // calcul du prix total
 	{
 		   total_prix += tb_taux_tva[i].ttc;
 	}
-  	fprintf(fichier_fac, "%.2f  €\n",total_prix );
+  	fprintf(fichier_fac, "%.2f€\n",total_prix );//affichage du prix total
     fputs( "------------------------------------------\n" , fichier_fac);
 
+    fputs( "TVA :\n" , fichier_fac);
+    for( i=0 ; i<nombre_taux_tva ; i++ ) 
+	{	
+		if (tb_taux_tva[i].tva != 0.0)
+		{
+  			snprintf(tampon, 15, "%.2f%%", tb_taux_tva[i].taux);
+			fprintf(fichier_fac, "%s ",padding_char(tampon,8,1) ); 
+			fprintf(fichier_fac, "%.2f€\n",tb_taux_tva[i].tva ); 
+		}
+		  
+	}
+    fputs( "\n" , fichier_fac);
 
+    fputs( "Paimement :\n" , fichier_fac);
+    if (paiement_encour.cheque != 0.0)
+    {
+    	fprintf(fichier_fac, "Chéque                            %.2f€\n",paiement_encour.cheque ); 	
+    }
+    if (paiement_encour.espece != 0.0)
+    {
+    	fprintf(fichier_fac, "Espèce                            %.2f€\n",paiement_encour.espece ); 	
+    }
+    if (paiement_encour.carte != 0.0)
+    {
+    	fprintf(fichier_fac, "Carte                             %.2f€\n",paiement_encour.carte ); 	
+    }
+    fputs( "\n" , fichier_fac);
 
+    actuel = liste_course->debut;
+  	while (actuel != NULL ) /* parcour de la liste chainnée en ajoutant les lignes dans le treeview */
+  	{
+  		total_article += actuel->quantitee;
+	  	actuel = actuel->suivant;
+  	}	
+  	if (total_article > 1)
+  	{
+  		fprintf(fichier_fac, "%d articles\n",total_article );
+
+  	}else{
+  		fprintf(fichier_fac, "%d article\n", total_article );
+  	}
+  	
+    fprintf( fichier_fac,"%s\n",  align(g_key_file_get_string(key_file, "Facture", "messagefin", NULL),42));
 
     fclose(fichier_fac);
 	fprintf(stdout, "%s\n", "fin gen facture");
@@ -268,8 +312,6 @@ void gen_facture(int with_fact)
 
 char *align(char *text, int taille)
 {	
-	// char *textrecup;
-	// textrecup = g_key_file_get_string(key_file, "Facture", text, NULL);
 	char ligne[50];
 	int i;
 	char debut[30];
@@ -299,23 +341,38 @@ char *align(char *text, int taille)
 	return ligne;
 }
 
-char *paddingchar(char *text, int taille)
+char *padding_char(char *text, int taille, int type)
 {
 	char ligne[50];
 	int fin_chainne;
 	int i;
+	int taille_padding;
 
 	ligne[0]='\0';
 	strcat(ligne,text);
-	fin_chainne = strlen(text);
-	int taille_padding =  taille - fin_chainne ;
-	for ( i = 0; i < taille_padding; i++)
+
+	if (type == 0 ) // Padding apres la chaine (text) -> text = chaine avant le padding ; taille = taille du padding sur la droite
 	{
-		strcat(ligne," ");
+		fin_chainne = strlen(text);
+		taille_padding =  taille - fin_chainne ;
+		for ( i = 0; i < taille_padding; i++)
+		{
+			strcat(ligne," ");
+		}
+
 	}
-	fprintf(stdout, "%d\n", taille_padding);
+	else{ // padding pour alligné la chaine à droite (text) -> text = Chainne avant le padding ; taille = taille de la chaine aprés le padding (avant la fin de la ligne)
+
+		taille_padding = 43 - (taille + strlen(text));
+		for ( i = 0; i < taille_padding; i++)
+		{
+			strcat(ligne," ");
+		}
+	}
+
 	return ligne;
 }
+
 
 /********************************************/
 /* Fonction d'action sur les bouttons de gtk*/
