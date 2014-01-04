@@ -52,10 +52,11 @@ enum /*tree view partie encaissement */
   MARQUE,
   LIBELLE,
   PRIX,
+  CACHE,
   N_COLUMNS
 };
 
-typedef struct paiement/* structure de la TVA */
+typedef struct paiement/* structure pour le paiment */
 {
   float espece;
   float carte;

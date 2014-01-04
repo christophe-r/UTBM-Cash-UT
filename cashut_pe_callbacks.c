@@ -65,14 +65,14 @@ void init_treeview_lists_chaine() /* fonction d'initialisation de la treeview*/
   gtk_tree_view_append_column(GTK_TREE_VIEW(treeview_liste_chaine), column);
 
   // Crée le modéle de donnée
-  store = gtk_list_store_new(N_COLUMNS,G_TYPE_UINT,G_TYPE_STRING , G_TYPE_STRING, G_TYPE_STRING);
+  store = gtk_list_store_new(N_COLUMNS,G_TYPE_INT,G_TYPE_STRING , G_TYPE_STRING, G_TYPE_STRING,G_TYPE_INT);
 
   // attache le modèle de donnée a notre treeview
   gtk_tree_view_set_model(GTK_TREE_VIEW(treeview_liste_chaine), GTK_TREE_MODEL(store));
 
-  // // permet de pouvoir selectionner plusieur item dans le treeview (fonctionnaliter à venir)
-  // selection=gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview_liste_chaine));
-  // gtk_tree_selection_set_mode(selection,GTK_SELECTION_MULTIPLE);
+  // permet de pouvoir selectionner plusieur item dans le treeview (fonctionnaliter à venir)
+  selection=gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview_liste_chaine));
+  gtk_tree_selection_set_mode(selection,GTK_SELECTION_MULTIPLE);
 
   g_object_unref(store);
 }
@@ -98,6 +98,7 @@ void maj_treeview_liste_chaine() /* fonction qui met à jour les lignes de la tr
 						MARQUE,actuel->p_produit->marque,
 						LIBELLE,actuel->p_produit->libelle,
 						PRIX,g_strconcat(prix, " €", NULL),
+						CACHE,actuel->p_produit->produitid,
 						-1);
 	  actuel = actuel->suivant;
 
@@ -128,7 +129,6 @@ void maj_tb_taux_tva()
 	}
   actuel = actuel->suivant;
   }
-	 printf("\n");
 
 }
 
@@ -153,6 +153,26 @@ void maj_footer_total()
 	g_strconcat(char_total_prix, " €", NULL);
 	gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_total_ttc")),char_total_prix);// met à jour les labels
 	gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_total_tva")),char_total_tva);
+}
+
+void maj_modif_liste_produit(short int only_maj_treeview){ // fonctionqui met a jour les différente partie de l'UI quand il y a eu une modification dans la liste de produit
+
+	if (only_maj_treeview == 1 || only_maj_treeview == 2 ) // met à jour le tree view ou pas
+	{
+		maj_treeview_liste_chaine(); /* Met à jour la treeview si le produit est valable */
+
+	}
+	if (only_maj_treeview == 0 || only_maj_treeview == 2 ){
+	maj_tb_taux_tva(); /* Met à jour le tb de taux de tva*/
+	maj_footer_total(); /* Met à jour les totals */
+	maj_facture(); /*met à jour la partie paiement */
+	char montantreste[10]="";
+	snprintf(montantreste, 10, "%.2f", paiement_encour.reste); // mise à jour de la text entry montant 
+	g_strconcat(montantreste, " €", NULL);
+	gtk_entry_set_text (GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_montant")),montantreste);
+	}
+	
+	
 }
 
 void maj_facture() // fonction qui met jour les bouttons et les  textentry en fonction du reste à payer
@@ -389,14 +409,9 @@ void pe_ajouter_produit (GtkWidget *widget, gpointer   data) /* fonction pour aj
 {   
 	if (Ajouter_produit_liste_chaine(gtk_entry_get_text ( GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_codebarres"))))) /* On essaye d'ajouté le produit à la liste chainnée */
 	 {
-		maj_treeview_liste_chaine(); /* Met à jour la treeview si le produit est valable*/
-		maj_tb_taux_tva(); /* Met à jour le tb de taux de tva*/
-		maj_footer_total(); /* Met à jour les totals */
-		maj_facture(); /*met ajour la partie paiement */
-		char montantreste[10]="";
-		snprintf(montantreste, 10, "%.2f", paiement_encour.reste); // mise à jour de la text entry montant 
-		g_strconcat(montantreste, " €", NULL);
-		gtk_entry_set_text (GTK_ENTRY (gtk_builder_get_object (builder_cashut, "pe_entry_montant")),montantreste);
+		maj_modif_liste_produit(2); // Met à jour les différente partie de l'UI (TVA , Paiement, ...)
+		gtk_entry_set_text(GTK_ENTRY(gtk_builder_get_object(builder_cashut, "pe_entry_codebarres")),"");
+		gtk_widget_grab_focus(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_entry_codebarres")));
 	 }else{
 		g_print("erreur\n"); /* sinon on affiche erreur*/
 	 }
@@ -423,19 +438,83 @@ void pe_annuler(GtkWidget *widget, gpointer   data)/* fonction pour annuler la c
 }
 
 void pe_supprimer_produit(GtkWidget *widget, gpointer   data)
-{
-	// GtkTreeSelection *selection;
-	// gchar *code_barres;
+{	
+  	GtkTreeIter iter; // Selecteur GTK des lignes
+  	GtkTreePath *path = gtk_tree_path_new_first(); // chemim d'un element dans le liststore
+ 	Element *actuel = liste_course->debut; // première élément de la liste chainé
+  	GtkTreeSelection *selection; // selection dans les listestore
+  	short int place = 1;
 
-	// selection=gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview_liste_chaine));
-	// gtk_tree_selection_get_selected(selection, &model, &iter);
-	// gtk_tree_model_get (model, &iter, 0, &code_barres,-1);
-
+   	selection=gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview_liste_chaine)); // prend la selection de notre listestore
+	while (actuel != NULL ) /* parcours de la liste chainnée */ 
+	{	
+		if (gtk_tree_selection_path_is_selected (selection,path) == TRUE) // verifie si le chemin de l'élément sélectionné et sélectionné
+	 	{
+	 		Supprimer_produit_liste_chaine( place, 1); // supprime le produit de la place en cour 
+	 	}
+	 	gtk_tree_path_next (path); // selectionne le chemin suivant dans le liststore
+	  	actuel = actuel->suivant; // selectionne l'element suivant dans la liste chainé
+	  	place ++; // icrémente la place
+  	}	
+	maj_modif_liste_produit(2); // Met à jour les différente partie de l'UI (TVA , Paiement, ...)
 }
+
+void pe_qte_produit_ajout(GtkWidget *widget, gpointer   data){
+
+  	GtkTreePath *path = gtk_tree_path_new_first(); // chemim d'un element dans le liststore
+ 	Element *actuel = liste_course->debut; // première élément de la liste chainé
+  	GtkTreeSelection *selection; // selection dans les listestore
+  	short int place = 1;
+
+   	selection=gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview_liste_chaine)); // prend la selection de notre listestore
+	while (actuel != NULL ) /* parcours de la liste chainnée */ 
+	{	
+		if (gtk_tree_selection_path_is_selected (selection,path) == TRUE) // verifie si le chemin de l'élément sélectionné et sélectionné
+	 	{
+	 		actuel->quantitee++; // Ajoute une quantitée au produit en cour
+	 		maj_modif_liste_produit(1); // Met à jour le tree view
+	 		gtk_tree_selection_select_path(selection,path); // re-sélectionne le champ précedent
+	 	}
+	 	gtk_tree_path_next (path); // selectionne le chemin suivant dans le liststore
+	  	actuel = actuel->suivant; // selectionne l'element suivant dans la liste chainé
+	  	place ++; // icrémente la place
+  	}	
+	maj_modif_liste_produit(0); // Met à jour tout sauf le tree view
+}
+
+void pe_qte_produit_retire(GtkWidget *widget, gpointer   data){
+
+  	GtkTreePath *path = gtk_tree_path_new_first(); // chemim d'un element dans le liststore
+ 	Element *actuel = liste_course->debut; // première élément de la liste chainé
+  	GtkTreeSelection *selection; // selection dans les listestore
+  	short int place = 1;
+
+   	selection=gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview_liste_chaine)); // prend la selection de notre listestore
+	while (actuel != NULL ) /* parcours de la liste chainnée */ 
+	{	
+		if (gtk_tree_selection_path_is_selected (selection,path) == TRUE) // verifie si le chemin de l'élément sélectionné et sélectionné
+	 	{
+	 		actuel->quantitee--; // Retire une quantitée au produit en cour
+	 		if (actuel->quantitee == 0) // si la quantiter vaux 0 
+	 		{
+	 			Supprimer_produit_liste_chaine( place, 1); // supprime le produit de la place en cour
+	 		}else{
+	 			gtk_tree_selection_select_path(selection,path); // on reselectionne le champ que si le produitn'a pas été supprimer
+	 		}
+	 		maj_modif_liste_produit(1); // Met à jour tout sauf le tree view
+	 		
+	 	}
+	 	gtk_tree_path_next (path); // selectionne le chemin suivant dans le liststore
+	  	actuel = actuel->suivant; // selectionne l'element suivant dans la liste chainé
+	  	place ++; // icrémente la place
+  	}
+	maj_modif_liste_produit(0); //Met à jour tout sauf le tree view
+}
+
 void pe_annuler_paiement(GtkWidget *widget, gpointer   data) // fonction pour annuler le paiement
 {
  
-	paiement_encour.carte = 0.0; // remet à zéro la structure des paiement
+	paiement_encour.carte = 0.0; // remet à zéro la structure des paiements
 	paiement_encour.espece = 0.0;
 	paiement_encour.cheque = 0.0; 
 	gtk_label_set_text (GTK_LABEL (gtk_builder_get_object (builder_cashut, "pe_lbl_deja_payer_cheque")),"0 €"); // met a jour les labels des paiement : carte, espece, cheque
@@ -533,62 +612,4 @@ for (int i = 0; i < nombre_taux_tva; i++)
 	fprintf(stdout, "tva : %f   \n",tb_taux_tva[i].tva );
 }
 	fprintf(stdout, "\n");
-
-
-/*
-float tva_code2taux(int code){ // fonction qui transforme le code en taux de tva
-  
-  int i;
-  for( i=0 ; i<=(nombre_taux_tva-1) ; i++ ){ // parcour le tableau de structure de taux_tva 
-	if( code == tb_taux_tva[i].code ){ // si sont code correspond à notre code on retourne sont taux
-	  return (float)tb_taux_tva[i].taux;
-	}
-  }
-
-  return 0.0;
 }
-*/
-
-
-
-//    GtkTreeSelection *selection;
-//    GtkTreeIter *iter;
-//     GtkListStore *store;
-//     store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(treeview_liste_chaine)));
-//     g_print("1");
-//    selection=gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview_liste_chaine));
-//    g_print("2");
-//    gtk_tree_selection_get_selected (selection,store,iter);
-//    g_print("3");
-//    gtk_list_store_remove (store,iter);
-// g_print("4");
-//   // GList *testlist;
-//   // testlist = gtk_tree_selection_get_selected_rows (selection,store);
-//   // g_print(gtk_tree_path_to_string (testlist->data ));
-
-
-//   // fprintf(stdout, "%d\n", gtk_tree_selection_count_selected_rows(selection) );
-//   // gtk_tree_selection_select_all(selection);
-}
-
-
-// static void fixed_toggled (GtkCellRendererToggle *cell, gchar *path_str,gpointer data)
-// {
-//   GtkTreeModel *model = (GtkTreeModel *)data;
-//   GtkTreeIter  iter;
-//   GtkTreePath *path = gtk_tree_path_new_from_string (path_str);
-//   gboolean fixed;
-// g_print(path_str);
-//   /* get toggled iter */
-//   gtk_tree_model_get_iter (model, &iter, path);
-//   gtk_tree_model_get (model, &iter, CHECKBOX, &fixed, -1);
-
-//   /* do something with the value */
-//   fixed ^= 1;
-
-//   /* set new value */
-//   gtk_list_store_set (GTK_LIST_STORE (model), &iter, CHECKBOX, fixed, -1);
-
-//   /* clean up */
-//   gtk_tree_path_free (path);
-// }

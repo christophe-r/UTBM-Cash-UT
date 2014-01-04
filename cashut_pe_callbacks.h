@@ -14,6 +14,7 @@ void maj_facture();
 void gen_facture(int with_fact);
 char *align(char *text, int taille);
 char *padding_char(char *text, int taille, int type);
+void maj_modif_liste_produit(short int maj_treeview);
 
 // action de l'UI
 G_MODULE_EXPORT void pe_ajouter_produit(GtkWidget *widget, gpointer   data);
@@ -27,6 +28,8 @@ G_MODULE_EXPORT void pe_annuler_paiement(GtkWidget *widget, gpointer   data);
 G_MODULE_EXPORT void testfonction (GtkWidget *widget, gpointer   data);
 G_MODULE_EXPORT void pe_facture_no_fact(GtkWidget *widget, gpointer   data);
 G_MODULE_EXPORT void pe_facture_fact(GtkWidget *widget, gpointer   data);
+G_MODULE_EXPORT void pe_qte_produit_retire(GtkWidget *widget, gpointer   data);
+G_MODULE_EXPORT void pe_qte_produit_ajout(GtkWidget *widget, gpointer   data);
 
 
 

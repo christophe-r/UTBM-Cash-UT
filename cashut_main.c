@@ -127,11 +127,11 @@ cashut_main_window()
 	);
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_quant_plus")),
-			"clicked", G_CALLBACK (testfonction), NULL
+			"clicked", G_CALLBACK (pe_qte_produit_ajout), NULL
 	);
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_quant_moins")),
-			"clicked", G_CALLBACK (testfonction), NULL
+			"clicked", G_CALLBACK (pe_qte_produit_retire), NULL
 	);
 	g_signal_connect ( 
 			GTK_WIDGET (gtk_builder_get_object (builder_cashut, "pe_btn_cheque")),
