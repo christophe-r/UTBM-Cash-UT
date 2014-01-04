@@ -75,7 +75,8 @@ on_notebook_change_page (GtkWidget *widget, gpointer user_data)
 		break;
 
 		case 1: // ENCAISSEMENT
-			//g_print("Tab1\n");
+			g_print("Tab1\n");
+		gtk_widget_grab_focus(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_entry_codebarres")));
 		break;
 
 		case 2: // CALCULATRICE
@@ -160,6 +161,16 @@ void cashut_key_event(GtkWidget *widget, GdkEventKey *event){
 			ca_percent(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_percent")), ca_label_screen);
 		}
 	}
+	// gestion clavier encaissement
+	if(gtk_notebook_get_current_page(GTK_NOTEBOOK(gtk_builder_get_object(builder_cashut, "notebook"))) == 1 ){
+
+		const gchar *keyvalue;
+		keyvalue = gdk_keyval_name(event->keyval);
+		if( g_strcmp0(keyvalue, "Return") == 0 || g_strcmp0(keyvalue, "KP_Enter") == 0  ){
+			pe_ajouter_produit(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_entry_codebarres")), NULL);
+		}
+	}
+
 
 		//g_print("%s %d\n", gdk_keyval_name (event->keyval), (int)event->keyval);
 }
