@@ -1,7 +1,8 @@
 CC=gcc -g
 CFLAGS=`pkg-config --cflags gtk+-3.0`
 #CFLAGS_DEBUG=`pkg-config --cflags gtk+-3.0` -g -DDEBUG
-LIBS=`pkg-config --libs gtk+-3.0` `mysql_config --cflags --libs` -std=c99 -DAUTOCONNECT
+LIBS=`pkg-config --libs gtk+-3.0` `mysql_config --cflags --libs` -std=c99
+# -DAUTOCONNECT
 EXEC_NAME=cashut
 #EXEC_NAME_DEBUG=${EXEC_NAME}_debug
 
