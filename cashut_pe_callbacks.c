@@ -253,7 +253,7 @@ void gen_facture(int with_fact)
     fprintf( fichier_fac,"%s\n",  align(g_key_file_get_string(key_file, "Facture", "ligned5", NULL),42));
     fprintf( fichier_fac,"%s\n",  align(g_key_file_get_string(key_file, "Facture", "ligned6", NULL),42));
     fputs( "------------------------------------------\n" , fichier_fac);
-    fputs( "Qte  Marque     Libellé          Prix    \n" , fichier_fac);
+    fputs( "Qté  Marque     Produits          Prix    \n" , fichier_fac);
     fputs( "------------------------------------------\n" , fichier_fac);
       
   	while (actuel != NULL ) 
@@ -295,23 +295,23 @@ void gen_facture(int with_fact)
 	}
     fputs( "\n" , fichier_fac);
 
-    fputs( "Paimement :\n" , fichier_fac);
+    fputs( "Paiement :\n" , fichier_fac);
     if (paiement_encour.cheque != 0.0)
     {
-    	fprintf(fichier_fac, "Chéque                            %.2f€\n",paiement_encour.cheque ); 	
+    	fprintf(fichier_fac, "Chèque                            %.2f€\n",paiement_encour.cheque ); 	
     }
     if (paiement_encour.espece != 0.0)
     {
-    	fprintf(fichier_fac, "Espèce                            %.2f€\n",paiement_encour.espece ); 	
+    	fprintf(fichier_fac, "Espèces                           %.2f€\n",paiement_encour.espece ); 	
     }
     if (paiement_encour.carte != 0.0)
     {
-    	fprintf(fichier_fac, "Carte                             %.2f€\n",paiement_encour.carte ); 	
+    	fprintf(fichier_fac, "Carte bancaire                    %.2f€\n",paiement_encour.carte ); 	
     }
     fputs( "\n" , fichier_fac);
 
     actuel = liste_course->debut;
-  	while (actuel != NULL ) /* parcour de la liste chainnée en ajoutant les lignes dans le treeview */
+  	while (actuel != NULL ) /* parcours de la liste chainnée en ajoutant les lignes dans le treeview */
   	{
   		total_article += actuel->quantitee;
 	  	actuel = actuel->suivant;
@@ -412,6 +412,7 @@ void pe_ajouter_produit (GtkWidget *widget, gpointer   data) /* fonction pour aj
 		maj_modif_liste_produit(2); // Met à jour les différente partie de l'UI (TVA , Paiement, ...)
 		gtk_entry_set_text(GTK_ENTRY(gtk_builder_get_object(builder_cashut, "pe_entry_codebarres")),"");
 		gtk_widget_grab_focus(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_entry_codebarres")));
+		
 	 }else{
 		g_print("erreur\n"); /* sinon on affiche erreur*/
 	 }
@@ -498,11 +499,11 @@ void pe_qte_produit_retire(GtkWidget *widget, gpointer   data){
 	 		if (actuel->quantitee == 0) // si la quantiter vaux 0 
 	 		{
 	 			Supprimer_produit_liste_chaine( place, 1); // supprime le produit de la place en cour
+	 			maj_modif_liste_produit(1); // Met à jour le tree view
 	 		}else{
+	 			maj_modif_liste_produit(1); // Met à jour le tree view
 	 			gtk_tree_selection_select_path(selection,path); // on reselectionne le champ que si le produitn'a pas été supprimer
 	 		}
-	 		maj_modif_liste_produit(1); // Met à jour tout sauf le tree view
-	 		
 	 	}
 	 	gtk_tree_path_next (path); // selectionne le chemin suivant dans le liststore
 	  	actuel = actuel->suivant; // selectionne l'element suivant dans la liste chainé

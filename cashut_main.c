@@ -213,7 +213,6 @@ cashut_main_window()
 		"changed", G_CALLBACK (gp_verif_floats), NULL
 	);
 
-
 	// Signaux Calculatrice
 	GtkWidget *ca_label_screen;
 	ca_label_screen = GTK_WIDGET(gtk_builder_get_object (builder_cashut, "ca_screen"));

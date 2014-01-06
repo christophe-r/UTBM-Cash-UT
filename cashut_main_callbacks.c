@@ -75,7 +75,7 @@ on_notebook_change_page (GtkWidget *widget, gpointer user_data)
 		break;
 
 		case 1: // ENCAISSEMENT
-			g_print("Tab1\n");
+			//g_print("Tab1\n");
 		gtk_widget_grab_focus(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_entry_codebarres")));
 		break;
 

@@ -268,7 +268,7 @@
             </child>
             <child>
               <object class="GtkButton" id="pe_btn_terminer_fac">
-                <property name="label" translatable="yes">Terminer\n
+                <property name="label" translatable="yes">    Terminer\n
 avec facture</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">70</property>
@@ -286,7 +286,7 @@ avec facture</property>
             </child>
             <child>
               <object class="GtkButton" id="pe_btn_terminer_nofac">
-                <property name="label" translatable="yes">Terminer\n
+                <property name="label" translatable="yes">   Terminer\n
 sans facture</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">70</property>
@@ -354,7 +354,7 @@ sans facture</property>
             </child>
             <child>
               <object class="GtkButton" id="pe_btn_espece">
-                <property name="label" translatable="yes">Espèce</property>
+                <property name="label" translatable="yes">Espèces</property>
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">70</property>
                 <property name="height_request">40</property>
@@ -1547,7 +1547,7 @@ ce produit</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="st_label_magasin_total_ventes">
+              <object class="GtkLabel" id="st_label_magasin_total_vente">
                 <property name="width_request">100</property>
                 <property name="height_request">30</property>
                 <property name="visible">True</property>
@@ -1560,7 +1560,7 @@ ce produit</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="st_label_magasin_somme_totale">
+              <object class="GtkLabel" id="st_label_magasin_somme_total">
                 <property name="width_request">100</property>
                 <property name="height_request">30</property>
                 <property name="visible">True</property>
@@ -1586,7 +1586,7 @@ ce produit</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="st_label_magasin_nb_produits">
+              <object class="GtkLabel" id="st_label_magasin_nb_produit">
                 <property name="width_request">100</property>
                 <property name="height_request">30</property>
                 <property name="visible">True</property>
