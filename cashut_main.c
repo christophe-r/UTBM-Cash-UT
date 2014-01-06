@@ -259,6 +259,12 @@ cashut_main_window()
 
 	mysql_nombre_ventes_aujourdhui("0");
 
+
+	paiement_encour.espece= 0;
+	paiement_encour.cheque= 0;
+	paiement_encour.carte= 0;
+	paiement_encour.reste= 0;
+	
 	/*Produit *le_produit;
 	le_produit = mysql_recuperer_produit("3147690051107");
 

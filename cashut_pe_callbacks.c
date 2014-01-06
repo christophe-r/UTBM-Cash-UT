@@ -328,6 +328,12 @@ void gen_facture(int with_fact)
 
     fclose(fichier_fac);
 	fprintf(stdout, "%s\n", "fin gen facture");
+
+	if ( with_fact == 0 )
+	{
+		remove(nom_fichier_fac); // suprimme le fichier
+	}
+	//mysql_encaissement_facturer(g_key_file_get_string(key_file, "Caisse", "num_caisse", NULL),"","", total_prix);
 }
 
 char *align(char *text, int taille)
@@ -412,7 +418,7 @@ void pe_ajouter_produit (GtkWidget *widget, gpointer   data) /* fonction pour aj
 		maj_modif_liste_produit(2); // Met à jour les différente partie de l'UI (TVA , Paiement, ...)
 		gtk_entry_set_text(GTK_ENTRY(gtk_builder_get_object(builder_cashut, "pe_entry_codebarres")),"");
 		gtk_widget_grab_focus(GTK_WIDGET(gtk_builder_get_object (builder_cashut, "pe_entry_codebarres")));
-		
+
 	 }else{
 		g_print("erreur\n"); /* sinon on affiche erreur*/
 	 }
